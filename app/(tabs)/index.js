@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./homeScreen";
-import CarouselScreen from "./carousel/carouselScreen ";
+import CarouselScreen from "./Startup/Carousel/carouselScreen ";
 const Stack = createNativeStackNavigator();
 
 const App = () => {

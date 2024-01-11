@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import Swiper from "react-native-swiper";
 import { useNavigation } from "@react-navigation/native";
-import background from "../../../constants/background";
+import background from "../../../../constants/background";
 
 const Slide1 = () => {
   const navigation = useNavigation();
