@@ -1,7 +1,7 @@
 // Slide3.js
 import React from "react";
 import { View, Text, ImageBackground, StyleSheet } from "react-native";
-import background from "../../../constants/background";
+import background from "../../../../constants/background";
 
 const Slide3 = () => (
   <ImageBackground
