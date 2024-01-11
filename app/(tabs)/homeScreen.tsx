@@ -2,6 +2,7 @@ import React from "react";
 // import { StyleSheet, Image } from "react-native";
 import logo from "../../constants/images";
 import background from "../../constants/background";
+import { SIZES, COLORS } from "../../constants/themes";
 import icon from "../../constants/icons";
 import { View } from "react-native";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
@@ -16,7 +17,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <View style={styles.subContainer}>
         <Image
-          source={background.backgroundHomePage}
+          source={background.backgroundThirdSlide}
           style={styles.backgroundImage}
         ></Image>
         <Image source={logo.titleHomePage} style={styles.titleHomePage}></Image>
@@ -33,7 +34,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    backgroundColor: "white",
+    // backgroundColor: "white",
+    backgroundColor: COLORS.lightWhite,
     position: "relative",
   },
   subContainer: {
@@ -44,7 +46,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     position: "absolute",
-    top: "-30%",
   },
   iconBoxArrow: {
     position: "absolute",
