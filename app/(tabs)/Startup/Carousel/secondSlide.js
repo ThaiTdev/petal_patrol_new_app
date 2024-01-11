@@ -9,7 +9,7 @@ const Slide2 = () => (
     style={styles.background}
   >
     <View style={styles.slide}>
-      <Text style={styles.text}>Plant ‘sitting entre passionnés</Text>
+      <Text style={styles.text}>Plant Sitting entre passionnés</Text>
     </View>
   </ImageBackground>
 );
