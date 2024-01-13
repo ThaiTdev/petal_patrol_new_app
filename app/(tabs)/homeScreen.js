@@ -1,5 +1,4 @@
 import React from "react";
-// import { StyleSheet, Image } from "react-native";
 import logo from "../../constants/images";
 import background from "../../constants/background";
 import { SIZES, COLORS } from "../../constants/themes";
@@ -11,13 +10,13 @@ import { useNavigation } from "@react-navigation/native"; // Assurez-vous d'impo
 export default function HomeScreen() {
   const navigation = useNavigation();
   const goToFirstSlide = () => {
-    navigation.navigate("Carousel"); // Assurez-vous de remplacer "firstSlide" par le nom de votre écran de destination
+    navigation.navigate("Welcome", { screen: "Carousel" }); // Assurez-vous de remplacer "Carousel" par le nom de votre écran de destination
   };
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
         <Image
-          source={background.backgroundThirdSlide}
+          source={background.backgroundHomePage}
           style={styles.backgroundImage}
         ></Image>
         <Image source={logo.titleHomePage} style={styles.titleHomePage}></Image>

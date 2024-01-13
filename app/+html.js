@@ -1,4 +1,4 @@
-import { ScrollViewStyleReset } from 'expo-router/html';
+import { ScrollViewStyleReset } from "expo-router/html";
 
 export default function Root({ children }) {
   return (
@@ -11,7 +11,7 @@ export default function Root({ children }) {
           name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1.00001,viewport-fit=cover"
         />
-        
+
         <ScrollViewStyleReset />
 
         <style dangerouslySetInnerHTML={{ __html: responsiveBackground }} />
@@ -30,4 +30,3 @@ body {
     background-color: #000;
   }
 }`;
-
