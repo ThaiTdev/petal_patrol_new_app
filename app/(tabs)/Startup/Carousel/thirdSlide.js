@@ -6,9 +6,11 @@ import background from "../../../../constants/background";
 // import icon from "../../../../constants/icons";
 import { useNavigation } from "@react-navigation/native";
 import FormSubmitButton from "../../Authentification/formulaire/formSubmitButton";
+import { COLORS } from "../../../../constants/themes";
 
 export default function Slide3() {
   const navigation = useNavigation();
+  const marginBottom = "20%";
   const goToNextScreen = () => {
     navigation.navigate("Authentification", { screen: "FirstCo" });
     console.log("Navigating to FirstConnexion");
@@ -28,7 +30,12 @@ export default function Slide3() {
       {/* <TouchableOpacity style={styles.iconBoxArrow} onPress={goToNextScreen}>
         <Image source={icon.arrow} style={styles.iconArrow}></Image>r
       </TouchableOpacity> */}
-      <FormSubmitButton onPress={goToNextScreen} title="let's go!" />
+      <FormSubmitButton
+        onPress={goToNextScreen}
+        title="let's go!"
+        marginBottom={marginBottom}
+        color={COLORS.primary}
+      />
     </ImageBackground>
   );
 }

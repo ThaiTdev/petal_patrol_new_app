@@ -12,6 +12,7 @@ import FormContainer from "./formulaire/formContainer";
 
 const FirstConnexion = () => {
   const navigation = useNavigation();
+  const NewMarginTop = "60%";
   const goToLogin = () => {
     navigation.navigate("Authentification", { screen: "Login" });
     console.log("Navigating to Login");
@@ -25,9 +26,13 @@ const FirstConnexion = () => {
       <View style={styles.subContainer}>
         <Image source={logo.titleHomePage} style={styles.titleHomePage}></Image>
         <Image source={logo.logo} style={styles.logo2}></Image>
-        <FormContainer style={styles.containerButton}>
-          <FormSubmitButton onPress={goToSignup} title="Signup" />
-          <SocialButton title="Continuer avec GOOGLE" images={images.google} />
+        <FormContainer NewMarginTop={NewMarginTop}>
+          <FormSubmitButton
+            onPress={goToSignup}
+            title="Signup"
+            color={COLORS.primary}
+          />
+          <SocialButton title="Continuer avec Google" images={images.google} />
           <SocialButton title="Continuer avec Apple" images={images.apple} />
           <View
             style={{

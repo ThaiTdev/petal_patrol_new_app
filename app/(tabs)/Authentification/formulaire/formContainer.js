@@ -7,12 +7,12 @@ import {
   Platform,
 } from "react-native";
 
-const FormContainer = ({ children }) => {
+const FormContainer = ({ NewMarginTop, children }) => {
   return (
     <KeyboardAvoidingView
       enabled
       behavior={Platform.OS === "ios" ? "padding" : null}
-      style={styles.container}
+      style={[styles.container, { marginTop: NewMarginTop }]}
     >
       {children}
     </KeyboardAvoidingView>
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get("window").width,
     paddingHorizontal: 20,
-    marginTop: "60%",
   },
 });
 
