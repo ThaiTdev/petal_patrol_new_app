@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FAFAFA',
     marginBottom: 10,
     height: 140,
+    paddingTop: 12,
+    paddingLeft: 12,
   },
   cardContent: {
     flexDirection: 'row',
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   textContainer: {
-    marginLeft: 10, 
+    marginLeft: 15, 
     flex: 1,
     alignSelf: 'flex-start',
   },
