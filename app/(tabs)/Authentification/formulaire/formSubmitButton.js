@@ -7,6 +7,7 @@ const FormSubmitButton = ({
   submitting,
   onPress,
   marginBottom,
+  marginTop,
   color,
 }) => {
   const backgroundColor = submitting ? COLORS.secondary : color;
@@ -16,7 +17,11 @@ const FormSubmitButton = ({
       onPress={!submitting ? onPress : null}
       style={[
         styles.container,
-        { backgroundColor, marginBottom: marginBottom || 10 },
+        {
+          backgroundColor,
+          marginBottom: marginBottom || 10,
+          marginTop: marginTop,
+        },
       ]}
     >
       <Text style={{ fontSize: 18, color: "#fff" }}>{title}</Text>

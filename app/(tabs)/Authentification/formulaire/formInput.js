@@ -4,6 +4,7 @@ import { COLORS } from "../../../../constants/themes";
 
 const FormInput = (props) => {
   const { placeholder, label, color, error } = props;
+
   return (
     <View style={{ alignItems: "center" }}>
       <View
@@ -11,7 +12,6 @@ const FormInput = (props) => {
           flexDirection: "row",
           justifyContent: "space-between",
           marginBottom: 5,
-          justifyContent: "flex-start",
           width: "90%",
         }}
       >
@@ -20,7 +20,16 @@ const FormInput = (props) => {
           <Text style={{ color: "red", fontSize: 16 }}>{error}</Text>
         ) : null}
       </View>
-      <TextInput {...props} placeholder={placeholder} style={styles.input} />
+      <TextInput
+        {...props}
+        placeholder={placeholder}
+        style={[
+          styles.input,
+          {
+            color: "black",
+          },
+        ]}
+      />
     </View>
   );
 };
