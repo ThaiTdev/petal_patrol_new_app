@@ -17,7 +17,9 @@ const Menu = ({ menuItems, onPress, onItemSelect, selectedItem}) => {
                         onPress={() => {
                             onItemSelect(item);
                             onPress(item);
-                        }}>
+                        }}
+                        style={styles.pressableContainer}>
+                        {item.id === selectedItem && <View style={styles.beforeCircle}></View>}
                         <Image 
                         style={[
                         styles.iconStyle, 
@@ -37,16 +39,17 @@ const Menu = ({ menuItems, onPress, onItemSelect, selectedItem}) => {
 const styles = StyleSheet.create({
     menuContainer: {
         position: "absolute",
-        bottom: -20, // position from the top of the container
+        bottom: 0, // position from the top of the container
         right: 0, // position from the right of the container
-        zIndex: 2,
+        zIndex: 1,
         backgroundColor: '#214F3E',
         marginBottom: 10,
         paddingTop: 12,
         paddingLeft: 12,
-        height: 120,
+        height: 100,
         alignItems: 'center',
-    justifyContent: 'center'
+        justifyContent: 'center',
+        overflow: 'visible',
     },
     itemsContainer: {
         height:70,
@@ -56,9 +59,19 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignSelf: 'stretch',
         alignItems: 'center',
+        overflow: 'visible',
+    },
+    pressableContainer: {
+        position: 'relative',
+        overflow: 'visible',
     },
     selectedItemStyle: {
-        backgroundColor: 'red',
+        left: 0,
+        padding:32,
+        width: 46,
+        height: 46,
+        overflow: 'visible',
+        zIndex:3,
     },
 });
 
