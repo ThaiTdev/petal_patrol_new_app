@@ -2,26 +2,28 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Image, Text } from 'react-native-elements';
 
-const MaCard = ({ title, subtitle, imageSource, textDates, textToPublish }) => {
-  return (
-    <Card containerStyle={styles.cardContainer}>
-      <View style={styles.cardContent}>
-        <View style={styles.imageBlock}>
-          <Image 
-            source={require('../../assets/images/plants/fraisier.png')}
-            style={styles.cardImage}
-          />
-          <Text style={styles.seeToCart}>voir sur la carte</Text>
-        </View>   
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subtitle}>{subtitle}</Text>
-          <Text style={styles.textDates}>{textDates}</Text>
-          <Text style={styles.textToPublish}>{textToPublish}</Text>
+const DisplayNeedSitting = ({ PlantNeedSitting  }) => {
+    if(PlantNeedSitting ) {
+    return (
+        <Card containerStyle={styles.cardContainer}>
+        <View style={styles.cardContent}>
+            <View style={styles.imageBlock}>
+            <Image 
+                source={require('../../../assets/images/plants/fraisier.png')}
+                style={styles.cardImage}
+            />
+            <Text style={styles.seeToCart}>voir sur la carte</Text>
+            </View>   
+            <View style={styles.textContainer}>
+            <Text style={styles.title}>{PlantNeedSitting.title}</Text>
+            <Text style={styles.subtitle}>{PlantNeedSitting.subtitle}</Text>
+            <Text style={styles.textDates}>{PlantNeedSitting.textDates}</Text>
+            <Text style={styles.textToPublish}>{PlantNeedSitting.textToPublish}</Text>
+            </View>
         </View>
-      </View>
-    </Card>
-  );
+        </Card>
+    );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -87,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MaCard;
+export default DisplayNeedSitting;
