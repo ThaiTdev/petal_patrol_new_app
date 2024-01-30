@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions, Pressable, Image } from "react-native";
 
-const Menu = ({ menuItems, onPress }) => {
+const Menu = ({ menuItems, onPress, onItemSelect, selectedItem}) => {
     const screenWidth = Dimensions.get('window').width;
-    console.log(menuItems);
+
+    console.log("SELECTED ITEM",selectedItem);
 
     return (
         <View style={[styles.menuContainer, { width: screenWidth }]}>
@@ -12,12 +13,22 @@ const Menu = ({ menuItems, onPress }) => {
                 data={menuItems}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <Pressable onPress={() => onPress(item)}>
-                        <Image source={item.imageUrl} style={{ width: 45, height: 45 }} />
-                        {/* <Text>{item.label}</Text> */}
+                    <Pressable
+                        onPress={() => {
+                            onItemSelect(item);
+                            onPress(item);
+                        }}>
+                        <Image 
+                        style={[
+                        styles.iconStyle, 
+                        { width: 45, height: 45 },
+                        item.id === selectedItem ? styles.selectedItemStyle : {}
+                        ]}
+                        source={item.imageUrl}/>
                     </Pressable>
                 )}
                 horizontal={true}
+                extraData={selectedItem} 
             />
         </View>
     );
@@ -45,7 +56,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignSelf: 'stretch',
         alignItems: 'center',
-    }
+    },
+    selectedItemStyle: {
+        backgroundColor: 'red',
+    },
 });
 
 export default Menu;

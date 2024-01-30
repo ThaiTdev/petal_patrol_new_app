@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Menu from './Menu';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
 const MenuContainer = () => {
     const navigation = useNavigation();
+    const [selectedItem, setSelectedItem] = useState(3);
+
+    const handleSelectedItem = (item) => {
+      setSelectedItem(item.id);
+    };
 
     const handleMenuItemPress = (item) => {
         console.log(`L'utilisateur a cliqué sur l'élément avec l'ID ${item.id}`);
@@ -41,7 +46,7 @@ const MenuContainer = () => {
 
     return (
         <View style={styles.menuContainer}>
-            <Menu menuItems={MenuItems} onPress={handleMenuItemPress}/>
+            <Menu menuItems={MenuItems} onPress={handleMenuItemPress}  onItemSelect={handleSelectedItem} selectedItem={selectedItem}/>
         </View>
     );
 };

@@ -21,7 +21,6 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-          <MenuContainer onMenuItemPress={handleMenuItemPress} />
       <View style={styles.subContainer}>
         <Image
           source={background.backgroundHomePage}

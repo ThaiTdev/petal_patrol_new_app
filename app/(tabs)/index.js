@@ -5,14 +5,17 @@ import LoginProvider from "../../context/LoginProvider";
 import WelcomeNavigator from "./navigators/WelcomeNavigators"; // Importer depuis le bon chemin
 import AuthNavigator from "./navigators/AuthNavigator";
 import MenuNavigator from "./navigators/MenuNavigator";
+import MenuContainer from "../../components/Menu/MenuContainer";
 // import UserNavigators from "./navigators/UserNavigators";
 
 const Stack = createNativeStackNavigator();
+
 
 const App = () => {
   return (
     <LoginProvider>
       <NavigationContainer independent={true}>
+      <MenuContainer />
         <Stack.Navigator headerMode="none">
           <Stack.Screen
             name="Welcome"
