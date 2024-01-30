@@ -12,7 +12,6 @@ const MenuContainer = () => {
     };
 
     const handleMenuItemPress = (item) => {
-        console.log(`L'utilisateur a cliqué sur l'élément avec l'ID ${item.id}`);
         navigation.navigate("Menu", { screen: item.label });
     };
 
@@ -63,8 +62,8 @@ const MenuContainer = () => {
 const styles = StyleSheet.create({
         menuContainer: {
             position: "absolute",
-            bottom: -20, // position from the top of the container
-            right: 0, // position from the right of the container
+            bottom: -20,
+            right: 0,
             zIndex:1,
             backgroundColor: '#214F3E',
             marginBottom: 10,

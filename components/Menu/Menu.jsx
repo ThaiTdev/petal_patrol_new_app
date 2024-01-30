@@ -4,8 +4,6 @@ import { View, Text, FlatList, StyleSheet, Dimensions, Pressable, Image } from "
 const Menu = ({ menuItems, onPress, onItemSelect, selectedItem}) => {
     const screenWidth = Dimensions.get('window').width;
 
-    console.log("SELECTED ITEM",selectedItem);
-
     return (
         <View style={[styles.menuContainer, { width: screenWidth }]}>
             <FlatList
@@ -39,8 +37,8 @@ const Menu = ({ menuItems, onPress, onItemSelect, selectedItem}) => {
 const styles = StyleSheet.create({
     menuContainer: {
         position: "absolute",
-        bottom: 0, // position from the top of the container
-        right: 0, // position from the right of the container
+        bottom: 0,
+        right: 0,
         zIndex: 1,
         backgroundColor: '#214F3E',
         marginBottom: 10,
