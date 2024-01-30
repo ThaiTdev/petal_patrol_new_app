@@ -8,13 +8,13 @@ const Menu = ({ menuItems, onPress }) => {
     return (
         <View style={[styles.menuContainer, { width: screenWidth }]}>
             <FlatList
-                style={styles.itemsContainer}
+                contentContainerStyle={styles.itemsContainer}
                 data={menuItems}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                     <Pressable onPress={() => onPress(item)}>
-                        <Image source={item.imageUrl} style={{ width: 24, height: 24 }} />
-                        <Text>{item.label}</Text>
+                        <Image source={item.imageUrl} style={{ width: 45, height: 45 }} />
+                        {/* <Text>{item.label}</Text> */}
                     </Pressable>
                 )}
                 horizontal={true}
@@ -28,16 +28,23 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: -20, // position from the top of the container
         right: 0, // position from the right of the container
-        zIndex: 1,
+        zIndex: 2,
         backgroundColor: '#214F3E',
         marginBottom: 10,
         paddingTop: 12,
         paddingLeft: 12,
-        height: 100,
+        height: 120,
+        alignItems: 'center',
+    justifyContent: 'center'
     },
     itemsContainer: {
+        height:70,
         display: 'flex',
         flexDirection: 'row',
+        flexGrow:0.8,
+        justifyContent: 'space-between',
+        alignSelf: 'stretch',
+        alignItems: 'center',
     }
 });
 
