@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native-web';
+import { View, Text } from 'react-native';  // Utilisez l'importation de 'react-native'
 
 const Research = () => {
     return (
