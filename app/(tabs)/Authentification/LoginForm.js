@@ -26,6 +26,7 @@ const LoginForm = () => {
     password: "",
   });
   const [isSelected, setSelection] = useState(false);
+  const [message, setMessage] = useState("");
 
   const { email, password } = userInfo;
   const [error, setError] = useState("");
@@ -67,6 +68,7 @@ const LoginForm = () => {
               setUserInfo({ email: "", password: "" });
               setIsLoggedIn(true);
             }
+            navigation.navigate("Users", { screen: "Edit_Profile" });
           })
           .catch((error) => {
             // Gestion des erreurs

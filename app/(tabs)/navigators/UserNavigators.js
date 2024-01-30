@@ -1,21 +1,19 @@
-// UsersNavigator.tsx
-// import React from "react";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import HomeScreen2 from "../homeScreen2";
-// import CarouselScreen from "../Startup/Carousel/carouselScreen";
+import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import EditProfil from "../Profile/Edit_Profile";
 
-// const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
-// const UserNavigators = ({ navigation }) => {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="Home2"
-//         component={HomeScreen2}
-//         options={{ headerShown: false }}
-//       />
-//     </Stack.Navigator>
-//   );
-// };
+const UserNavigators = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="EditProfil"
+        component={EditProfil}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
 
-// export default UserNavigators;
+export default UserNavigators;
