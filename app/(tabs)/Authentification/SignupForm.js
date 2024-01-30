@@ -17,31 +17,28 @@ import FormContainer from "./formulaire/formContainer";
 import FormInput from "./formulaire/formInput";
 import { COLORS } from "../../../constants/themes";
 import FormSubmitButton from "./formulaire/formSubmitButton";
-import {
-  isValidEmail,
-  isValidObjField,
-  updateError,
-} from "../../../utils/methods";
+
+import { updateError } from "../../../utils/methods";
 
 const validationSchema = Yup.object({
-  name: Yup.string().trim().min(3, "Invalid name!").required("Is required!"),
-  email: Yup.string().email("Invalid email!").required("Is required!"),
+  name: Yup.string()
+    .trim()
+    .min(3, "Invalid name!")
+    .required("Name is required!"),
+  email: Yup.string().email("Invalid email!").required("Email is required!"),
   password: Yup.string()
     .trim()
     .min(8, "Password is too short!")
-    .required("Password Is required!"),
+    .required("Password is required!"),
   confirmPassword: Yup.string().oneOf(
     [Yup.ref("password"), null],
-    "Password not match!"
+    "Password does not match!"
   ),
-  phone: Yup.string()
-    .matches(/^\d{10}$/, "Invalid phone number")
-    .required("Is required"),
 });
 
 const SignupForm = ({ navigation }) => {
   const [error, setError] = useState("");
-
+  const [valideMessage, setValideMessage] = useState("");
   const handleOnChangeText = (value, fieldName, setFieldValue) => {
     setFieldValue(fieldName, value);
   };
@@ -50,56 +47,14 @@ const SignupForm = ({ navigation }) => {
     navigation.navigate("Authentification", { screen: "Login" });
   };
 
-  const isValidForm = (userInfo) => {
-    if (!isValidObjField(userInfo))
-      return updateError("Required all fields!", setError);
-    if (!userInfo.fullname.trim() || userInfo.name.length < 3)
-      return updateError("Invalid name!", setError);
-    if (!isValidEmail(userInfo.email))
-      return updateError("Invalid email!", setError);
-    if (!userInfo.password.trim() || userInfo.password.length < 8)
-      return updateError("Password is less than 8 characters!", setError);
-    if (userInfo.password !== userInfo.confirmPassword)
-      return updateError("Password not match!", setError);
-    if (userInfo.phone || userInfo.phone.length < 10)
-      return updateError("Invalid phone!", setError);
-
-    return true;
-  };
-
-  const submitForm = (userInfo) => {
-    if (isValidForm(userInfo)) {
-      // submit form
-      console.log(userInfo);
-    }
-  };
-
   const signUp = async (values, formikActions) => {
+    console.log("signUp function called");
     try {
       const res = await accountService.signup(values);
-      console.log(res);
-
-      if (res.data.success) {
-        // const signInRes = await client.post("/sign-in", {
-        const signInRes = accountService
-          .signin({ email: values.email, password: values.password })
-          .then((res) => {
-            {
-            }
-          });
-
-        if (signInRes.data.success) {
-          navigation.dispatch(
-            StackActions.replace("ImageUpload", {
-              token: signInRes.data.token,
-            })
-          );
-        }
-      }
-
+      setValideMessage(res.data.message);
       formikActions.resetForm();
     } catch (error) {
-      // Gérer les erreurs ici
+      updateError("Une erreur s'est produite lors de l'inscription", setError);
     } finally {
       formikActions.setSubmitting(false);
     }
@@ -118,6 +73,12 @@ const SignupForm = ({ navigation }) => {
                 >
                   {error}
                 </Text>
+              ) : valideMessage ? (
+                <Text
+                  style={{ color: "green", fontSize: 18, textAlign: "center" }}
+                >
+                  {valideMessage}
+                </Text>
               ) : null}
               <Formik
                 initialValues={{
@@ -125,7 +86,6 @@ const SignupForm = ({ navigation }) => {
                   email: "",
                   password: "",
                   confirmPassword: "",
-                  phone: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={signUp}
@@ -148,22 +108,9 @@ const SignupForm = ({ navigation }) => {
                         handleOnChangeText(value, "name", setFieldValue)
                       }
                       onBlur={handleBlur("name")}
-                      label="Pseudo"
+                      label="*Pseudo"
                       placeholder="John Smith"
                       color={COLORS.white}
-                    />
-                    <FormInput
-                      value={values.phone}
-                      error={touched.phone && errors.phone}
-                      onChangeText={(value) =>
-                        handleOnChangeText(value, "phone", setFieldValue)
-                      }
-                      onBlur={handleBlur("phone")}
-                      autoCapitalize="none"
-                      label="Numéro de téléphone"
-                      placeholder="07 ** ** ** **"
-                      color={COLORS.white}
-                      keyboardType="phone-pad"
                     />
                     <FormInput
                       value={values.email}
@@ -173,7 +120,7 @@ const SignupForm = ({ navigation }) => {
                       }
                       onBlur={handleBlur("email")}
                       autoCapitalize="none"
-                      label="Email"
+                      label="*Email"
                       placeholder="example@email.com"
                       color={COLORS.white}
                     />
@@ -186,7 +133,7 @@ const SignupForm = ({ navigation }) => {
                       onBlur={handleBlur("password")}
                       autoCapitalize="none"
                       secureTextEntry
-                      label="Mot de passe"
+                      label="*Mot de passe"
                       placeholder="********"
                       color={COLORS.white}
                     />
@@ -203,13 +150,13 @@ const SignupForm = ({ navigation }) => {
                       onBlur={handleBlur("confirmPassword")}
                       autoCapitalize="none"
                       secureTextEntry
-                      label="confirme mot de passe"
+                      label="*Confirme mot de passe"
                       placeholder="********"
                       color={COLORS.white}
                     />
-
                     <FormSubmitButton
-                      onPress={submitForm}
+                      submitting={isSubmitting}
+                      onPress={handleSubmit}
                       title="C'est parti !"
                       color={COLORS.secondary}
                       marginTop={10}
@@ -222,15 +169,10 @@ const SignupForm = ({ navigation }) => {
                   justifyContent: "center",
                   flexDirection: "row",
                   alignItems: "center",
-                  textAlignVertical: "center", // Utilisez cette propriété pour aligner le texte verticalement
+                  textAlignVertical: "center",
                 }}
               >
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: COLORS.gray,
-                  }}
-                >
+                <Text style={{ fontSize: 15, color: COLORS.gray }}>
                   Déjà un compte ?
                 </Text>
                 <TouchableOpacity onPress={goToLogin}>
@@ -241,7 +183,7 @@ const SignupForm = ({ navigation }) => {
                       marginLeft: 10,
                     }}
                   >
-                    Cnnectez-vous
+                    Connectez-vous
                   </Text>
                 </TouchableOpacity>
               </View>

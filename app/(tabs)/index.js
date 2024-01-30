@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginProvider from "../../context/LoginProvider";
 import WelcomeNavigator from "./navigators/WelcomeNavigators"; // Importer depuis le bon chemin
 import AuthNavigator from "./navigators/AuthNavigator";
-// import UserNavigators from "./navigators/UserNavigators";
+import UserNavigators from "./navigators/UserNavigators";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,11 +23,11 @@ const App = () => {
             component={AuthNavigator}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Users"
             component={UserNavigators}
             options={{ headerShown: false }}
-          /> */}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </LoginProvider>
