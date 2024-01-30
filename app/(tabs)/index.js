@@ -6,7 +6,7 @@ import WelcomeNavigator from "./navigators/WelcomeNavigators"; // Importer depui
 import AuthNavigator from "./navigators/AuthNavigator";
 import MenuNavigator from "./navigators/MenuNavigator";
 import MenuContainer from "../../components/Menu/MenuContainer";
-// import UserNavigators from "./navigators/UserNavigators";
+import UserNavigators from "./navigators/UserNavigators";
 
 const Stack = createNativeStackNavigator();
 
