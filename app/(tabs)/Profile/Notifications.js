@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native-web';
 
-const Ads_List = () => {
+const Notifications = () => {
     return (
         <View>
-            <Text>Coucou c'est la liste des Annonces</Text>
+            <Text>Coucou c'est la liste des Notifications</Text>
         </View>
     );
 };
 
-export default Ads_List;
+export default Notifications;

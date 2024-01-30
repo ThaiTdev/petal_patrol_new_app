@@ -47,9 +47,21 @@ const MenuContainer = () => {
 };
 
 const styles = StyleSheet.create({
-    menuContainer: {
-        // Styles pour le conteneur du menu
-    },
-});
+        menuContainer: {
+            position: "absolute",
+            bottom: -20, // position from the top of the container
+            right: 0, // position from the right of the container
+            zIndex:1,
+            backgroundColor: '#214F3E',
+            marginBottom: 10,
+            paddingTop: 12,
+            paddingLeft: 12,
+            height:100,
+          },
+          ItemsContainer: {
+            display: 'flex',
+            flexDirection: 'row',
+          },
+        });
 
 export default MenuContainer;
