@@ -8,7 +8,7 @@ const MenuContainer = () => {
 
     const handleMenuItemPress = (item) => {
         console.log(`L'utilisateur a cliqué sur l'élément avec l'ID ${item.id}`);
-        navigation.navigate(item.label, { screen: item.label });
+        navigation.navigate("Menu", { screen: item.label });
     };
 
     const MenuItems = [
