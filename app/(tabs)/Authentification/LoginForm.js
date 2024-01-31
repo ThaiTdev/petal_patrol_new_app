@@ -49,11 +49,7 @@ const LoginForm = () => {
   const isValidForm = () => {
     if (!isValidObjField(userInfo))
       return updateError("Required all fields!", setError);
-
     if (!isValidEmail(email)) return updateError("Invalid email!", setError);
-
-    if (!password.trim() || password.length < 8)
-      return updateError("Password is too short!", setError);
 
     return true;
   };
