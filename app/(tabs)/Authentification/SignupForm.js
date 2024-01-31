@@ -11,6 +11,7 @@ import { accountService } from "../../_services/accountService";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Header from "../componants/Header";
+import ModalSendMail from "../componants/modalMailSend";
 import images from "../../../constants/images";
 import FormContainer from "./formulaire/formContainer";
 import FormInput from "./formulaire/formInput";
@@ -37,6 +38,7 @@ const validationSchema = Yup.object({
 const SignupForm = ({ navigation }) => {
   const [error, setError] = useState("");
   const [valideMessage, setValideMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const handleOnChangeText = (value, fieldName, setFieldValue) => {
     setFieldValue(fieldName, value);
   };
@@ -49,6 +51,7 @@ const SignupForm = ({ navigation }) => {
     try {
       const res = await accountService.signup(values);
       setValideMessage(res.data.message);
+      setShowModal(true);
       formikActions.resetForm();
     } catch (error) {
       updateError("Une erreur s'est produite lors de l'inscription", setError);
@@ -59,6 +62,14 @@ const SignupForm = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      {showModal && (
+        <ModalSendMail
+          Title={"Enregistré avec succès !"}
+          Comment={
+            "Veuillez vérifier vos mails afin de valider votre compte avant de vous connecter"
+          }
+        />
+      )}
       <View style={styles.page}>
         <Header Title={"M'inscrire"} logo={images.feuilleMarron} />
         <ScrollView style={styles.subPage}>
@@ -193,6 +204,7 @@ const SignupForm = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   page: {
+    position: "relative",
     backgroundColor: COLORS.tertiary,
     height: "100%",
   },
