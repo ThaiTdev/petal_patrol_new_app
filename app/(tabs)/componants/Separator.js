@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
-import { COLORS, SIZES, FONT } from "../../../../constants/themes";
+import { COLORS, SIZES, FONT } from "../../../constants/themes";
 
 const Separator = ({ Title, color }) => {
   return (

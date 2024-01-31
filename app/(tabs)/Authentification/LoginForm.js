@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "../Ads/componants/Header";
-import Separator from "../Ads/componants/Separator";
+import Header from "../componants/Header";
+import Separator from "../componants/Separator";
 import SocialButton from "./formulaire/socialButton";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { CheckBox } from "react-native-elements";
@@ -16,7 +16,7 @@ import FormContainer from "./formulaire/formContainer";
 import FormInput from "./formulaire/formInput";
 import FormSubmitButton from "./formulaire/formSubmitButton";
 import images from "../../../constants/images";
-import { COLORS, SIZES, FONT } from "../../../constants/themes";
+import { COLORS } from "../../../constants/themes";
 
 const LoginForm = () => {
   const { setIsLoggedIn, setProfile } = useLogin();
@@ -25,20 +25,27 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [isSelected, setSelection] = useState(false);
-  const [message, setMessage] = useState("");
-
   const { email, password } = userInfo;
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+
+  //checkbox
+  const [checked, setChecked] = useState(false);
+  const toggleCheckbox = () => setChecked(!checked);
 
   const handleOnChangeText = (value, fieldName) => {
     setUserInfo({ ...userInfo, [fieldName]: value });
   };
+
+  //methode pour la navigation
   const goToSignup = () => {
     navigation.navigate("Authentification", { screen: "Signup" });
-    console.log("Navigating to Signup");
   };
-  ///////gestion des erreurs dans mon formulaire
+  const goToLostPassword = () => {
+    navigation.navigate("Authentification", { screen: "LostPassword" });
+  };
+
+  //gestion des erreurs pour formulaire
   const isValidForm = () => {
     if (!isValidObjField(userInfo))
       return updateError("Required all fields!", setError);
@@ -50,29 +57,17 @@ const LoginForm = () => {
 
     return true;
   };
-  ///////////////////////////////////////////////
 
   const submitForm = async () => {
     if (isValidForm()) {
-      console.log(isValidForm());
       try {
         accountService
           .signin({ ...userInfo })
           .then((res) => {
-            console.log(res);
-            if (
-              res.data.user.validate_account === true &&
-              res.data.user.roles.includes("ADMIN")
-            ) {
-              console.log(res.data.message);
-              setUserInfo({ email: "", password: "" });
-              setIsLoggedIn(true);
-            }
+            setIsLoggedIn(true);
             navigation.navigate("Users", { screen: "Edit_Profile" });
           })
           .catch((error) => {
-            // Gestion des erreurs
-            console.error("Status Code:", error.response.status);
             setMessage(error.response.data.message);
           });
       } catch (error) {}
@@ -92,9 +87,8 @@ const LoginForm = () => {
             ) : null}
             <FormInput
               value={email}
-              // value={"email"}
               onChangeText={(value) => handleOnChangeText(value, "email")}
-              label="Adresse mail"
+              label="*Adresse mail"
               placeholder="exemple@email.com"
               autoCapitalize="none"
               color={COLORS.white}
@@ -102,7 +96,7 @@ const LoginForm = () => {
             <FormInput
               value={password}
               onChangeText={(value) => handleOnChangeText(value, "password")}
-              label="Mot de passe"
+              label="*Mot de passe"
               placeholder="********"
               autoCapitalize="none"
               secureTextEntry
@@ -113,7 +107,7 @@ const LoginForm = () => {
                 justifyContent: "center",
                 flexDirection: "row",
                 alignItems: "center",
-                textAlignVertical: "center", // Utilisez cette propriété pour aligner le texte verticalement
+                textAlignVertical: "center",
               }}
             >
               <View
@@ -133,10 +127,12 @@ const LoginForm = () => {
                     marginLeft: -18,
                   }}
                 >
-                  <CheckBox value={isSelected} onValueChange={setSelection} />
+                  <CheckBox checked={checked} onPress={toggleCheckbox} />
                   <Text style={styles.text1}>Se souvenir de moi</Text>
                 </View>
-                <Text style={styles.text2}>Mot de pass oublié?</Text>
+                <TouchableOpacity onPress={goToLostPassword}>
+                  <Text style={styles.text2}>Mot de pass oublié?</Text>
+                </TouchableOpacity>
               </View>
             </View>
             <FormSubmitButton
@@ -160,7 +156,7 @@ const LoginForm = () => {
                 justifyContent: "center",
                 flexDirection: "row",
                 alignItems: "center",
-                textAlignVertical: "center", // Utilisez cette propriété pour aligner le texte verticalement
+                textAlignVertical: "center",
               }}
             >
               <Text
