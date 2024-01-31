@@ -37,6 +37,7 @@ const LostPassword = () => {
   };
 
   const submitForm = async () => {
+    console.log(...userInfo);
     if (isValidForm()) {
       try {
         accountService
