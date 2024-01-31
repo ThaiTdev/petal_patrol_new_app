@@ -10,14 +10,12 @@ import {
 import { accountService } from "../../_services/accountService";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { StackActions } from "@react-navigation/native";
-import Header from "../Ads/componants/Header";
+import Header from "../componants/Header";
 import images from "../../../constants/images";
 import FormContainer from "./formulaire/formContainer";
 import FormInput from "./formulaire/formInput";
 import { COLORS } from "../../../constants/themes";
 import FormSubmitButton from "./formulaire/formSubmitButton";
-
 import { updateError } from "../../../utils/methods";
 
 const validationSchema = Yup.object({
@@ -48,7 +46,6 @@ const SignupForm = ({ navigation }) => {
   };
 
   const signUp = async (values, formikActions) => {
-    console.log("signUp function called");
     try {
       const res = await accountService.signup(values);
       setValideMessage(res.data.message);
@@ -95,7 +92,6 @@ const SignupForm = ({ navigation }) => {
                   errors,
                   touched,
                   isSubmitting,
-                  handleChange,
                   handleBlur,
                   handleSubmit,
                   setFieldValue,
