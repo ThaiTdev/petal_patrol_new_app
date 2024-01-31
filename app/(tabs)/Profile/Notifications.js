@@ -3,11 +3,11 @@ import { View, Text } from 'react-native';
 import { SIZES, COLORS } from "../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
 
-const Ads_List = () => {
+const Notifications = () => {
 
     return (
         <View style={styles.container}>
-            <Text>Coucou c'est la liste des Annonces</Text>
+            <Text>Coucou c'est la liste des Notifications</Text>
         </View>
     );
 };
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
       position: "relative",
     },
   });
-export default Ads_List;
+export default Notifications;
