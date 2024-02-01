@@ -7,6 +7,10 @@ import AuthNavigator from "./navigators/AuthNavigator";
 import MenuNavigator from "./navigators/MenuNavigator";
 import MenuContainer from "../../components/Menu/MenuContainer";
 import UserNavigators from "./navigators/UserNavigators";
+import AdsNavigator from "./navigators/AdsNavigator";
+import ChatNavigators from "./navigators/ChatNavigators";
+import PhotosNavigator from "./navigators/PhotosNavigator";
+import ContactSupportNavigation from "./navigators/ContactSupportNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +38,26 @@ const App = () => {
           <Stack.Screen
             name="Menu"
             component={MenuNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Ads"
+            component={AdsNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Chat"
+            component={ChatNavigators}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Photos"
+            component={PhotosNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ContactSupport"
+            component={ContactSupportNavigation}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
