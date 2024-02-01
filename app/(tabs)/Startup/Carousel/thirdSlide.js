@@ -12,8 +12,8 @@ export default function Slide3() {
   const navigation = useNavigation();
   const marginBottom = "20%";
   const goToNextScreen = () => {
-    // navigation.navigate("Authentification", { screen: "FirstCo" });
-    navigation.navigate("Users", { screen: "ProfilMenu" }); // route pour tester mes devs à supprimer
+    navigation.navigate("Authentification", { screen: "FirstCo" });
+
     console.log("Navigating to FirstConnexion");
   };
 

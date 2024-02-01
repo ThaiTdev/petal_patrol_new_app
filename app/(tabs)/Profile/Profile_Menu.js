@@ -18,24 +18,24 @@ const ProfilMenu = () => {
           <View>
             <Text style={styles.title}>Body</Text>
             <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
+              {/* <Image source={logo.titleHomePage} style={styles.titleHomePage} /> */}
               <Text>Paramètre du compte</Text>
             </View>
             <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
+              {/* <Image source={logo.titleHomePage} style={styles.titleHomePage} /> */}
               <Text></Text>
             </View>
             <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
+              {/* <Image source={logo.titleHomePage} style={styles.titleHomePage} /> */}
               <Text>Paramètre du compte</Text>
             </View>
             <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
+              {/* <Image source={logo.titleHomePage} style={styles.titleHomePage} /> */}
               <Text>Paramètre du compte</Text>
             </View>
             <Text style={styles.title}>Support</Text>
             <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
+              {/* <Image source={logo.titleHomePage} style={styles.titleHomePage} /> */}
               <Text>Paramètre du compte</Text>
             </View>
           </View>
