@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../componants/Header";
+import ModalSendMail from "../componants/modalMailSend";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { accountService } from "../../_services/accountService";
 import { useNavigation } from "@react-navigation/native";
@@ -12,119 +13,107 @@ import { COLORS } from "../../../constants/themes";
 
 const LostPassword = () => {
   const navigation = useNavigation();
-  const [userInfo, setUserInfo] = useState({
-    email: "",
-  });
-  const [message, setMessage] = useState("");
 
-  const { email } = userInfo;
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleOnChangeText = (value, fieldName) => {
-    setUserInfo({ ...userInfo, [fieldName]: value });
+    setEmail(value);
   };
 
-  //methode de navigation
   const goToLogin = () => {
     navigation.navigate("Authentification", { screen: "Login" });
-    console.log("Navigating to Signup");
+    console.log("Navigating to Login");
   };
 
-  //gestion des erreurs dans mon formulaire
   const isValidForm = () => {
-    if (!isValidEmail(email)) return updateError("Invalid email!", setError);
+    if (!isValidEmail(email)) {
+      updateError("Invalid email!", setError);
+      return false;
+    }
     return true;
   };
 
   const submitForm = async () => {
-    console.log(...userInfo);
     if (isValidForm()) {
       try {
-        accountService
-          .forgotPassword({ ...userInfo })
-          .then((res) => {
-            setMessage(res.data.message);
-          })
-          .catch((error) => {
-            setMessage(error.response.data.message);
-          });
-      } catch (error) {}
+        const res = await accountService.forgotPassword({ email });
+        setShowModal(true);
+        setMessage(res.data.message);
+      } catch (error) {
+        setMessage(error.response.data.message);
+      }
     }
   };
 
   return (
-    <View style={styles.page}>
-      <Header Title={"Mot de passe oublié"} logo={images.feuilleMarron} />
-      <View style={styles.subPage}>
-        <View style={styles.containerForm}>
-          <FormContainer>
-            {error ? (
-              <Text style={{ color: "red", fontSize: 18, textAlign: "center" }}>
-                {error}
-              </Text>
-            ) : message ? (
-              <Text
-                style={{ color: "green", fontSize: 18, textAlign: "center" }}
-              >
-                {message}
-              </Text>
-            ) : null}
-            <FormInput
-              value={email}
-              onChangeText={(value) => handleOnChangeText(value, "email")}
-              label="*Adresse mail"
-              placeholder="exemple@email.com"
-              autoCapitalize="none"
-              color={COLORS.white}
-            />
-            <View
-              style={{
-                justifyContent: "center",
-                flexDirection: "row",
-                alignItems: "center",
-                textAlignVertical: "center",
-              }}
-            >
+    <>
+      {showModal && (
+        <ModalSendMail
+          Title={"Envoie avec succès !"}
+          Comment={
+            "Veuillez vérifier vos mails afin de modifier votre mot de passe pour vous connecter"
+          }
+        />
+      )}
+      <View style={styles.page}>
+        <Header Title={"Mot de passe oublié"} logo={images.feuilleMarron} />
+        <View style={styles.subPage}>
+          <View style={styles.containerForm}>
+            <FormContainer>
+              {error ? (
+                <Text
+                  style={{ color: "red", fontSize: 18, textAlign: "center" }}
+                >
+                  {error}
+                </Text>
+              ) : message ? (
+                <Text
+                  style={{ color: "green", fontSize: 18, textAlign: "center" }}
+                >
+                  {message}
+                </Text>
+              ) : null}
+              <FormInput
+                value={email}
+                onChangeText={(value) => handleOnChangeText(value, "email")}
+                label="*Adresse mail"
+                placeholder="exemple@email.com"
+                autoCapitalize="none"
+                color={COLORS.white}
+              />
+              <FormSubmitButton
+                onPress={submitForm}
+                title="Me connecter"
+                color={COLORS.secondary}
+              />
               <View
                 style={{
-                  justifyContent: "space-between",
+                  justifyContent: "center",
                   flexDirection: "row",
                   alignItems: "center",
-                  marginBottom: "8%",
-                  width: "90%",
-                  marginTop: "-6%",
+                  textAlignVertical: "center",
                 }}
-              ></View>
-            </View>
-            <FormSubmitButton
-              onPress={submitForm}
-              title="Me connecter"
-              color={COLORS.secondary}
-            />
-            <View
-              style={{
-                justifyContent: "center",
-                flexDirection: "row",
-                alignItems: "center",
-                textAlignVertical: "center",
-              }}
-            >
-              <TouchableOpacity onPress={goToLogin}>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: COLORS.lightWhite,
-                    marginLeft: 10,
-                  }}
-                >
-                  Revenir à la page de connexion ?
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </FormContainer>
+              >
+                <TouchableOpacity onPress={goToLogin}>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: COLORS.lightWhite,
+                      marginLeft: 10,
+                    }}
+                  >
+                    Revenir à la page de connexion ?
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </FormContainer>
+          </View>
         </View>
       </View>
-    </View>
+    </>
   );
 };
 
