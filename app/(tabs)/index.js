@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginProvider from "../../context/LoginProvider";
-import WelcomeNavigator from "./navigators/WelcomeNavigators"; // Importer depuis le bon chemin
+import WelcomeNavigator from "./navigators/WelcomeNavigators";
 import AuthNavigator from "./navigators/AuthNavigator";
 import MenuNavigator from "./navigators/MenuNavigator";
 import MenuContainer from "../../components/Menu/MenuContainer";
@@ -11,25 +11,33 @@ import AdsNavigator from "./navigators/AdsNavigator";
 import ChatNavigators from "./navigators/ChatNavigators";
 import PhotosNavigator from "./navigators/PhotosNavigator";
 import ContactSupportNavigation from "./navigators/ContactSupportNavigator";
+import PlantSittingTrackingNavigator from "./navigators/PlantSittingTrackingNavigator";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+    const [currentRoute, setCurrentRoute] = useState(null);
+
+  const updateCurrentRoute = (route) => {
+    setCurrentRoute(route);
+  };
+  console.log("CURRENT ROUTE",currentRoute);
+
+  const shouldDisplayMenuContainer = () => {
+    const excludedComponents = ["Welcome", "Authentification", "PlantSittingTracking"];
+    return currentRoute && !excludedComponents.includes(currentRoute);
+  };
   return (
     <LoginProvider>
       <NavigationContainer independent={true}>
-        <MenuContainer />
+        {shouldDisplayMenuContainer() && <MenuContainer />}
         <Stack.Navigator headerMode="none">
-          <Stack.Screen
-            name="Welcome"
-            component={WelcomeNavigator}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Authentification"
-            component={AuthNavigator}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="Welcome" options={{ headerShown: false }}>
+            {(props) => <WelcomeNavigator {...props} updateRoute={updateCurrentRoute} />}
+          </Stack.Screen>
+          <Stack.Screen name="Authentification" options={{ headerShown: false }}>
+            {(props) => <AuthNavigator {...props} updateRoute={updateCurrentRoute} />}
+          </Stack.Screen>
           <Stack.Screen
             name="Users"
             component={UserNavigators}
@@ -40,11 +48,12 @@ const App = () => {
             component={MenuNavigator}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="Ads"
-            component={AdsNavigator}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="Ads" options={{ headerShown: false }}>
+            {(props) => <AdsNavigator {...props} updateRoute={updateCurrentRoute} />}
+          </Stack.Screen>
+          <Stack.Screen name="PlantSittingTracking" options={{ headerShown: false }}>
+            {(props) => <PlantSittingTrackingNavigator {...props} updateRoute={updateCurrentRoute} />}
+          </Stack.Screen>
           <Stack.Screen
             name="Chat"
             component={ChatNavigators}
