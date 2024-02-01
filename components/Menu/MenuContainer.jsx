@@ -28,7 +28,7 @@ const MenuContainer = () => {
         },
         {
             id: 3,
-            label: 'Ads',
+            label: 'Choose',
             imageUrl: require('../../assets/images/icons/plante.png'),
         },
         {
