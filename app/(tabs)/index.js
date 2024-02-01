@@ -10,12 +10,11 @@ import UserNavigators from "./navigators/UserNavigators";
 
 const Stack = createNativeStackNavigator();
 
-
 const App = () => {
   return (
     <LoginProvider>
       <NavigationContainer independent={true}>
-      <MenuContainer />
+        <MenuContainer />
         <Stack.Navigator headerMode="none">
           <Stack.Screen
             name="Welcome"
@@ -27,11 +26,11 @@ const App = () => {
             component={AuthNavigator}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Users"
             component={UserNavigators}
             options={{ headerShown: false }}
-          /> */}
+          />
           <Stack.Screen
             name="Menu"
             component={MenuNavigator}
