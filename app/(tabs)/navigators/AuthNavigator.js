@@ -5,6 +5,7 @@ import FirstConnexion from "../Authentification/FirstConnexion";
 import LoginForm from "../Authentification/LoginForm";
 import SignupForm from "../Authentification/SignupForm";
 import LostPassword from "../Authentification/Lost_Password";
+import Ads_List from "../Ads/Ads_List";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,11 @@ const AuthNavigators = ({ navigation }) => {
       <Stack.Screen
         name="Login"
         component={LoginForm}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Ads"
+        component={Ads_List}
         options={{ headerShown: false }}
       />
       <Stack.Screen
