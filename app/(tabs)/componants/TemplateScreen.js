@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS, SIZES, FONT } from "../../../constants/themes";
 
-const ProfilMenu = () => {
+const TemplateScreen = () => {
   const navigation = useNavigation();
-
   return (
     <View style={styles.page}>
       <View style={styles.headerContainer}>
@@ -15,30 +14,7 @@ const ProfilMenu = () => {
       </View>
       <View style={styles.BodyContainer}>
         <View style={styles.subPage}>
-          <View>
-            <Text style={styles.title}>Body</Text>
-            <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
-              <Text>Paramètre du compte</Text>
-            </View>
-            <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
-              <Text></Text>
-            </View>
-            <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
-              <Text>Paramètre du compte</Text>
-            </View>
-            <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
-              <Text>Paramètre du compte</Text>
-            </View>
-            <Text style={styles.title}>Support</Text>
-            <View>
-              <Image source={logo.titleHomePage} style={styles.titleHomePage} />
-              <Text>Paramètre du compte</Text>
-            </View>
-          </View>
+          <Text style={styles.title}>Body</Text>
         </View>
       </View>
     </View>
@@ -88,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfilMenu;
+export default TemplateScreen;

@@ -50,6 +50,8 @@ const LoginForm = () => {
     if (!isValidObjField(userInfo))
       return updateError("Required all fields!", setError);
     if (!isValidEmail(email)) return updateError("Invalid email!", setError);
+    if (!userInfo.password.trim() || userInfo.password.length < 8)
+      return updateError("Password is less than 8 characters!", setError);
 
     return true;
   };
