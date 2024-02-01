@@ -23,7 +23,7 @@ const MenuNavigator = ({ navigation }) => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Choose"
+        name="Choose_Ad_Type"
         component={Choose_Ad_Type}
         options={{ headerShown: false }}
       />
