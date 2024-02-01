@@ -17,6 +17,7 @@ export default function Slide3() {
   // };
   const goToNextScreen = () => {
     navigation.navigate("Authentification", { screen: "FirstCo" });
+> develop
     console.log("Navigating to FirstConnexion");
   };
   return (
