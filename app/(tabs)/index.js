@@ -7,15 +7,15 @@ import AuthNavigator from "./navigators/AuthNavigator";
 import MenuNavigator from "./navigators/MenuNavigator";
 import MenuContainer from "../../components/Menu/MenuContainer";
 import UserNavigators from "./navigators/UserNavigators";
+import AdNavigator from "./navigators/AdNavigator";
 
 const Stack = createNativeStackNavigator();
-
 
 const App = () => {
   return (
     <LoginProvider>
       <NavigationContainer independent={true}>
-      <MenuContainer />
+        <MenuContainer />
         <Stack.Navigator headerMode="none">
           <Stack.Screen
             name="Welcome"
@@ -27,6 +27,12 @@ const App = () => {
             component={AuthNavigator}
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="ad"
+            component={AdNavigator}
+            options={{ headerShown: false }}
+          />
+
           {/* <Stack.Screen
             name="Users"
             component={UserNavigators}

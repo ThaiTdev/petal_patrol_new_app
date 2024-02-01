@@ -60,6 +60,7 @@ const LoginForm = () => {
         accountService
           .signin({ ...userInfo })
           .then((res) => {
+            console.log(res.headers["set-cookie"]);
             setIsLoggedIn(true);
             navigation.navigate("Authentification", { screen: "Ads" });
           })

@@ -71,6 +71,10 @@ let UpdateDetailsPlant = (data, id) => {
   return Axios.put(`/plant/${id}`, data);
 };
 
+let showAllAds = () => {
+  return Axios.get("/offer");
+};
+
 export const accountService = {
   //Authentification//
   signup,
@@ -91,4 +95,5 @@ export const accountService = {
   showAllPlants,
   showDetailsPlant,
   UpdateDetailsPlant,
+  showAllAds,
 };
