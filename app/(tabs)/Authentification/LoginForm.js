@@ -61,7 +61,7 @@ const LoginForm = () => {
           .signin({ ...userInfo })
           .then((res) => {
             setIsLoggedIn(true);
-            navigation.navigate("Users", { screen: "Edit_Profile" });
+            navigation.navigate("Authentification", { screen: "Ads" });
           })
           .catch((error) => {
             setMessage(error.response.data.message);
