@@ -6,7 +6,6 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { useLogin } from "../../../context/LoginProvider";
 import { accountService } from "../../_services/accountService";
-import { useNavigation } from "@react-navigation/native";
 import {
   isValidEmail,
   isValidObjField,
@@ -18,9 +17,8 @@ import FormSubmitButton from "./formulaire/formSubmitButton";
 import images from "../../../constants/images";
 import { COLORS } from "../../../constants/themes";
 
-const LoginForm = () => {
+const LoginForm = ({ navigation }) => {
   const { setIsLoggedIn, setProfile } = useLogin();
-  const navigation = useNavigation();
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -63,7 +61,11 @@ const LoginForm = () => {
           .signin({ ...userInfo })
           .then((res) => {
             setIsLoggedIn(true);
-            navigation.navigate("Users", { screen: "Edit_Profile" });
+            const userId = res.data.user.id;
+            navigation.navigate("Users", {
+              screen: "ProfilMenu",
+              params: { userId },
+            });
           })
           .catch((error) => {
             setMessage(error.response.data.message);

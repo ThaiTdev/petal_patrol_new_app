@@ -2,8 +2,6 @@
 import React from "react";
 import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import background from "../../../../constants/background";
-// import { Image, TouchableOpacity } from "react-native";
-// import icon from "../../../../constants/icons";
 import { useNavigation } from "@react-navigation/native";
 import FormSubmitButton from "../../Authentification/formulaire/formSubmitButton";
 import { COLORS } from "../../../../constants/themes";
@@ -12,9 +10,9 @@ export default function Slide3() {
   const navigation = useNavigation();
   const marginBottom = "20%";
   const goToNextScreen = () => {
-    // navigation.navigate("Authentification", { screen: "FirstCo" });
-    navigation.navigate("Users", { screen: "ProfilMenu" }); // route pour tester mes devs à supprimer
-    console.log("Navigating to FirstConnexion");
+    navigation.navigate("Authentification", { screen: "FirstCo" });
+    // navigation.navigate("Users", { screen: "ProfilMenu" }); // route pour tester mes devs à supprimer
+    console.log("Navigating to ?");
   };
 
   return (
