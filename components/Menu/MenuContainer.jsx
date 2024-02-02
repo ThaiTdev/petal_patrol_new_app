@@ -90,5 +90,28 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
 });
+  menuContainer: {
+    position: "absolute",
+    bottom: -20,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: "#214F3E",
+    marginBottom: 10,
+    paddingTop: 12,
+    paddingLeft: 12,
+    height: 100,
+    overflow: "visible",
+  },
+  beforeCircle: {
+    position: "absolute",
+    top: -30,
+    width: 80,
+    height: 80,
+    backgroundColor: "#214F3E",
+    borderRadius: 50,
+    overflow: "visible",
+    zIndex: 0,
+  },
+});
 
 export default MenuContainer;

@@ -17,7 +17,7 @@ import FormSubmitButton from "./formulaire/formSubmitButton";
 import images from "../../../constants/images";
 import { COLORS } from "../../../constants/themes";
 
-const LoginForm = ({ navigation }) => {
+const LoginForm = ({ navigation }{ navigation }) => {
   const { setIsLoggedIn, setProfile } = useLogin();
   const [userInfo, setUserInfo] = useState({
     email: "",
