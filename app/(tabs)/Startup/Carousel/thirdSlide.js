@@ -2,8 +2,6 @@
 import React from "react";
 import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import background from "../../../../constants/background";
-// import { Image, TouchableOpacity } from "react-native";
-// import icon from "../../../../constants/icons";
 import { useNavigation } from "@react-navigation/native";
 import FormSubmitButton from "../../Authentification/formulaire/formSubmitButton";
 import { COLORS } from "../../../../constants/themes";

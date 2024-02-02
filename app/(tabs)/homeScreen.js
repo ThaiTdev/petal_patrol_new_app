@@ -1,23 +1,15 @@
-import React, {useCallback} from "react";
+import React, { useCallback } from "react";
 import logo from "../../constants/images";
 import background from "../../constants/background";
 import { SIZES, COLORS } from "../../constants/themes";
 import icon from "../../constants/icons";
 import { View } from "react-native";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native"; // Assurez-vous d'importer ceci depuis votre bibliothèque de navigation
-import MenuContainer from "../../components/Menu/MenuContainer";
 
-export default function HomeScreen() {
-  const navigation = useNavigation();
+export default function HomeScreen({ navigation }) {
   const goToFirstSlide = () => {
     navigation.navigate("Welcome", { screen: "Carousel" }); // Assurez-vous de remplacer "Carousel" par le nom de votre écran de destination
   };
-
-  const handleMenuItemPress = useCallback((itemId) => {
-    // Mettez ici le code que vous souhaitez exécuter lorsque l'élément du menu est pressé
-    console.log(`L'élément du menu avec l'ID ${itemId} a été pressé.`);
-  }, []);
 
   return (
     <View style={styles.container}>
