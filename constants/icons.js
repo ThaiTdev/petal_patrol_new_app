@@ -12,9 +12,11 @@ const CloseButtonGreen = require("../assets/images/icons/CloseButtonGreen.png");
 const plantLogo = require("../assets/images/icons/Plante1.png");
 const arrowBack = require("../assets/images/icons/Retour.png");
 const arrowBackGreen = require("../assets/images/icons/RetourVert.png");
+const arrowBackGreen = require("../assets/images/icons/RetourVert.png");
 const settings = require("../assets/images/icons/settings.png");
 const contact = require("../assets/images/icons/contact.png");
 const ads = require("../assets/images/icons/ads.png");
+const camera = require("../assets/images/icons/Camera.png");
 const camera = require("../assets/images/icons/Camera.png");
 
 export default {
@@ -29,11 +31,14 @@ export default {
   thirdSlideIcon,
   arrowBack,
   arrowBackGreen,
+  arrowBackGreen,
   closeButton,
+  CloseButtonGreen,
   CloseButtonGreen,
   plantLogo,
   settings,
   contact,
   ads,
+  camera,
   camera,
 };
