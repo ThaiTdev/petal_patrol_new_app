@@ -4,6 +4,7 @@ import { COLORS, SIZES, FONT } from "../../../constants/themes";
 import Icons from "../../../constants/icons";
 import logo from "../../../constants/images";
 import { accountService } from "../../_services/accountService";
+import UserAvatar from "react-native-user-avatar";
 
 const ProfilMenu = ({ navigation, route }) => {
   const { userId } = route.params || {};
@@ -14,13 +15,28 @@ const ProfilMenu = ({ navigation, route }) => {
   const [userAvatar, setUserAvatar] = useState("");
 
   const goToParamSettings = () => {
-    navigation.navigate("Authentification", { screen: "Login" });
+    navigation.navigate("Users", {
+      screen: "EditProfil",
+      params: { userId },
+    });
   };
   const goToMyAds = () => {
-    navigation.navigate("Authentification", { screen: "Login" });
+    navigation.navigate("Users", {
+      screen: "MyAds",
+      params: { userId },
+    });
   };
   const goToMyPlants = () => {
-    navigation.navigate("Authentification", { screen: "Login" });
+    navigation.navigate("Users", {
+      screen: "EditProfil",
+      params: { userId },
+    });
+  };
+  const goToSupport = () => {
+    navigation.navigate("Users", {
+      screen: "EditProfil",
+      params: { userId },
+    });
   };
   const handleGoBack = () => {
     navigation.goBack();
@@ -59,7 +75,9 @@ const ProfilMenu = ({ navigation, route }) => {
         </View>
       </View>
       <View style={styles.boxAvatar}>
-        <Image
+        <UserAvatar
+          size={100}
+          name={allName}
           source={userAvatar ? userAvatar : logo.logo2}
           style={styles.Avatar}
         />
@@ -88,7 +106,7 @@ const ProfilMenu = ({ navigation, route }) => {
               </View>
             </TouchableOpacity>
             <Text style={styles.title2}>Support</Text>
-            <TouchableOpacity onPress={goToMyPlants}>
+            <TouchableOpacity onPress={goToSupport}>
               <View style={styles.boxLink}>
                 <Image source={Icons.contact} style={styles.icons} />
                 <Text style={styles.text}>Nous contacter</Text>
