@@ -1,5 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+ ma-sauvegarde-feature
 import Profil_Menu from "../Profil/Profil_Menu";
 import Ads_List from "../Ads/Ads_List";
 import Research from "../Ads/Research";
@@ -22,8 +23,8 @@ const MenuNavigator = ({ navigation }) => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Ads"
-        component={Ads_List}
+        name="Choose"
+        component={Choose_Ad_Type}
         options={{ headerShown: false }}
       />
       <Stack.Screen

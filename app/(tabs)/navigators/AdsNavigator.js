@@ -1,16 +1,13 @@
-// UsersNavigator.tsx
 import React, {useEffect} from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigationState } from "@react-navigation/native";
-import FirstConnexion from "../Authentification/FirstConnexion";
-import LoginForm from "../Authentification/LoginForm";
-import SignupForm from "../Authentification/SignupForm";
-import LostPassword from "../Authentification/Lost_Password";
 import Ads_List from "../Ads/Ads_List";
+import AdsDetails from "../Ads/Ad_Details"
+import Research from "../Ads/Research"
 
 const Stack = createNativeStackNavigator();
 
-const AuthNavigators = ({ navigation, updateRoute }) => {
+const AdsNavigator = ({ navigation, updateRoute }) => {
   const state = useNavigationState((state) => state);
   const currentScreen = state?.routes[state.index]?.name;
 
@@ -20,27 +17,22 @@ const AuthNavigators = ({ navigation, updateRoute }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="FirstCo"
-        component={FirstConnexion}
+        name="Ads_List"
+        component={Ads_List}
+        options={{ headerShown: false }}
+      />
+      {/* <Stack.Screen
+        name="AdsDetails"
+        component={AdsDetails}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Signup"
-        component={SignupForm}
+        name="Research"
+        component={Research}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={LoginForm}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="LostPassword"
-        component={LostPassword}
-        options={{ headerShown: false }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };
 
-export default AuthNavigators;
+export default AdsNavigator;
