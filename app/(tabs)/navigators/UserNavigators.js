@@ -1,10 +1,10 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import EditProfil from "../Profile/Edit_Profile";
-import MyAds from "../Profile/My_Ads";
-import Notifications from "../Profile/Notifications";
-import ProfilMenu from "../Profile/Profile_Menu";
-import ProfilPublic from "../Profile/Public_Profile";
+import EditProfil from "../Profil/Edit_Profil";
+import MyAds from "../Profil/My_Ads";
+import Notifications from "../Profil/Notifications";
+import ProfilMenu from "../Profil/Profil_Menu";
+import ProfilPublic from "../Profil/Public_Profil";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +16,7 @@ const UserNavigators = ({ navigation }) => {
         component={ProfilMenu}
         options={{ headerShown: false }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="EditProfil"
         component={EditProfil}
         options={{ headerShown: false }}
@@ -33,9 +33,9 @@ const UserNavigators = ({ navigation }) => {
       />
       <Stack.Screen
         name="ProfilPublic"
-        component={EditProfil}
+        component={ProfilPublic}
         options={{ headerShown: false }}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };
