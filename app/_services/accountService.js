@@ -40,7 +40,10 @@ let UpdateProfilUser = (data, id) => {
 };
 
 let uploadAvatarUser = (data, id) => {
-  return Axios.post(`/uploadAvatarUser/${id}`, data);
+  return Axios.put(`/user/avatar/${id}`, data);
+};
+let userUpdateEmail = (data, id) => {
+  return Axios.post(`/user/email/${id}`, data);
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,6 +86,7 @@ export const accountService = {
   showProfileUser,
   UpdateProfilUser,
   uploadAvatarUser,
+  userUpdateEmail,
   //Botanist//
   showAllBotanists,
   showProfileBotanist,

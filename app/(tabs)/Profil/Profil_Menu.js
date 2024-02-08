@@ -12,12 +12,13 @@ const ProfilMenu = ({ navigation, route }) => {
   console.log(route);
   console.log(navigation);
   const [allName, setAllName] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
+  const [Avatar, setAvatar] = useState("");
+  const [email, setEmail] = useState("");
 
   const goToParamSettings = () => {
     navigation.navigate("Users", {
       screen: "EditProfil",
-      params: { userId },
+      params: { userId, allName, Avatar, email },
     });
   };
   const goToMyAds = () => {
@@ -45,8 +46,10 @@ const ProfilMenu = ({ navigation, route }) => {
     const fetchUserProfile = async () => {
       try {
         const res = await accountService.showProfileUser(userId);
+        console.log(res.data);
         setAllName(res.data.user.name);
-        setUserAvatar(res.data.user.avatar);
+        setAvatar(res.data.user.avatar);
+        setEmail(res.data.user.mail);
         setIsLoggedIn(true);
       } catch (error) {
         setMessage(error.response.data.message);
@@ -78,7 +81,7 @@ const ProfilMenu = ({ navigation, route }) => {
         <UserAvatar
           size={100}
           name={allName}
-          source={userAvatar ? userAvatar : logo.logo2}
+          source={Avatar ? Avatar : logo.logo2}
           style={styles.Avatar}
         />
         <Text style={styles.Name}>{allName ? allName : "Grainou"}</Text>
