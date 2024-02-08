@@ -81,12 +81,6 @@ const SignupForm = ({ navigation }) => {
                 >
                   {error}
                 </Text>
-              ) : valideMessage ? (
-                <Text
-                  style={{ color: "green", fontSize: 18, textAlign: "center" }}
-                >
-                  {valideMessage}
-                </Text>
               ) : null}
               <Formik
                 initialValues={{

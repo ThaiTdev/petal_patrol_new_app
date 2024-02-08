@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, FONT } from "../../../constants/themes";
+import ModalSendMail from "../componants/modalMailSend";
 import Icons from "../../../constants/icons";
-import logo from "../../../constants/images";
+import Separator from "../componants/Separator";
 import { accountService } from "../../_services/accountService";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -10,42 +11,32 @@ import FormContainer from "../Authentification/formulaire/formContainer";
 import FormInput from "../Authentification/formulaire/formInput";
 import FormSubmitButton from "../Authentification/formulaire/formSubmitButton";
 import UserAvatar from "react-native-user-avatar";
-// import ImagePicker from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
 
 const validationSchema = Yup.object({
-  name: Yup.string()
+  allName: Yup.string()
     .trim()
     .min(3, "Invalid name!")
     .required("Name is required!"),
   email: Yup.string().email("Invalid email!").required("Email is required!"),
-  password: Yup.string()
-    .trim()
-    .min(8, "Password is too short!")
-    .required("Password is required!"),
-  confirmPassword: Yup.string().oneOf(
-    [Yup.ref("password"), null],
-    "Password does not match!"
-  ),
 });
 
 const EditProfil = ({ navigation, route }) => {
-  const { userId } = route.params || {};
-  console.log(userId);
-  console.log(route);
-  console.log(navigation);
-  const [allName, setAllName] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
-  const [email, setEmail] = useState("");
+  const { userId, Avatar, allName, email } = route.params || {};
+  const [showModal, setShowModal] = useState(false);
+  const [userAvatar, setUserAvatar] = useState(Avatar);
 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
-  const goToUpdate = () => {
-    navigation.navigate("Authentification", { screen: "Login" });
+  const goToResetPassword = () => {
+    navigation.navigate("Users", {
+      screen: "UpdatePassword",
+      params: { userId },
+    });
   };
-  //methode pour uploder une image de son iphone
+
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -53,109 +44,125 @@ const EditProfil = ({ navigation, route }) => {
     });
 
     if (!result.canceled) {
-      const selectedAsset = result.assets[0]; // Accédez au premier actif sélectionné
+      const selectedAsset = result.assets[0];
       setUserAvatar(selectedAsset.uri);
       console.log(selectedAsset.uri);
     }
   };
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const res = await accountService.showProfileUser(userId);
-        console.log(res);
-        setAllName(res.data.user.name);
-        setUserAvatar(res.data.user.avatar);
-        setEmail(res.data.user.mail);
-        setIsLoggedIn(true);
-      } catch (error) {
-        setMessage(error.response.data.message);
-      }
-    };
-
-    fetchUserProfile();
-  }, []);
+  const modifUser = async (values, formikActions) => {
+    try {
+      const res = await accountService.UpdateProfilUser(values, userId);
+      setShowModal(true);
+      formikActions.resetForm();
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de la modification du profil:",
+        error
+      );
+    } finally {
+      formikActions.setSubmitting(false);
+    }
+  };
 
   return (
-    <View style={styles.page}>
-      <View style={styles.headerContainer}>
-        <View style={styles.titleContainer}>
-          <View style={styles.LinksContainer}>
-            <TouchableOpacity onPress={handleGoBack}>
+    <>
+      {showModal && (
+        <ModalSendMail Title={"Vos Modification on réussit !"} Comment={""} />
+      )}
+      <View style={styles.page}>
+        <View style={styles.headerContainer}>
+          <View style={styles.titleContainer}>
+            <View style={styles.LinksContainer}>
+              <TouchableOpacity onPress={handleGoBack}>
+                <Image
+                  source={Icons.arrowBackGreen}
+                  style={{ ...styles.icons, marginLeft: 10 }}
+                />
+              </TouchableOpacity>
               <Image
-                source={Icons.arrowBackGreen}
-                style={{ ...styles.icons, marginLeft: 10 }}
+                source={Icons.CloseButtonGreen}
+                style={{ ...styles.icons, marginRight: 10 }}
               />
-            </TouchableOpacity>
-            <Image
-              source={Icons.CloseButtonGreen}
-              style={{ ...styles.icons, marginRight: 10 }}
-            />
+            </View>
+          </View>
+        </View>
+        <View style={styles.boxAvatar}>
+          <Text style={styles.title1}>Profile</Text>
+          <UserAvatar
+            size={100}
+            name={allName}
+            src={userAvatar}
+            style={styles.Avatar}
+          />
+        </View>
+        <View style={styles.cameraBox}>
+          <TouchableOpacity onPress={pickImage}>
+            <Image source={Icons.camera} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.BodyContainer}>
+          <View style={styles.subPage}>
+            <FormContainer>
+              <Formik
+                initialValues={{
+                  allName: allName,
+                  email: email,
+                  avatar: userAvatar,
+                }}
+                validationSchema={validationSchema}
+                onSubmit={modifUser}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  isSubmitting,
+                  handleBlur,
+                  handleSubmit,
+                  setFieldValue,
+                }) => (
+                  <>
+                    <FormInput
+                      value={values.allName}
+                      error={touched.allName && errors.allName}
+                      onChangeText={(value) => setFieldValue("allName", value)}
+                      onBlur={handleBlur("allName")}
+                      label="*Pseudo"
+                      placeholder="John Smith"
+                      color={COLORS.white}
+                    />
+                    <FormInput
+                      value={values.email}
+                      error={touched.email && errors.email}
+                      onChangeText={(value) => setFieldValue("email", value)}
+                      onBlur={handleBlur("email")}
+                      autoCapitalize="none"
+                      label="*Email"
+                      placeholder="example@email.com"
+                      color={COLORS.white}
+                    />
+                    <FormSubmitButton
+                      onPress={handleSubmit}
+                      title="Modifier mon profil"
+                      color={COLORS.secondary}
+                      marginTop={10}
+                    />
+                  </>
+                )}
+              </Formik>
+              <Separator Title={"Sécurité"} />
+              <FormSubmitButton
+                onPress={goToResetPassword}
+                title="Modifier mon mot de passe"
+                color={COLORS.secondary}
+                marginTop={0}
+              />
+            </FormContainer>
           </View>
         </View>
       </View>
-      <View style={styles.boxAvatar}>
-        <Text style={styles.title1}>Profile</Text>
-        <UserAvatar
-          size={100}
-          name={allName}
-          src={userAvatar}
-          style={styles.Avatar}
-        />
-      </View>
-      <View style={styles.cameraBox}>
-        <TouchableOpacity onPress={pickImage}>
-          <Image source={Icons.camera} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.BodyContainer}>
-        <View style={styles.subPage}>
-          <FormContainer>
-            <Formik
-              initialValues={{
-                name: "",
-                email: "",
-              }}
-              validationSchema={validationSchema}
-              // onSubmit={signUp}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                isSubmitting,
-                handleBlur,
-                handleSubmit,
-                setFieldValue,
-              }) => (
-                <>
-                  <FormInput
-                    value={allName}
-                    label="Pseudo"
-                    color={COLORS.white}
-                  />
-                  <FormInput value={email} label="Email" color={COLORS.white} />
-                  <FormSubmitButton
-                    onPress={goToUpdate}
-                    title="Modifier mon profil"
-                    color={COLORS.secondary}
-                    marginTop={10}
-                  />
-                </>
-              )}
-            </Formik>
-            <View
-              style={{
-                justifyContent: "center",
-                flexDirection: "row",
-                alignItems: "center",
-                textAlignVertical: "center",
-              }}
-            ></View>
-          </FormContainer>
-        </View>
-      </View>
-    </View>
+    </>
   );
 };
 const styles = StyleSheet.create({
@@ -169,7 +176,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: COLORS.primary,
     width: "100%",
-    height: "25%",
+    height: "22%",
     alignItems: "center",
   },
   titleContainer: {
@@ -212,7 +219,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    top: 40,
+    top: 28,
     left: "50%",
     transform: [{ translateX: -50 }],
     zIndex: 1000,
@@ -241,7 +248,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     width: 40,
     height: 40,
-    top: 100,
+    top: 90,
     left: "55%",
     zIndex: 2000,
   },
@@ -260,6 +267,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: "50%",
     alignItems: "center",
   },
+
   containerLinks: {
     display: "flex",
     flexDirection: "column",

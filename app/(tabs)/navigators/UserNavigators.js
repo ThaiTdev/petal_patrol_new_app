@@ -5,6 +5,7 @@ import MyAds from "../Profil/My_Ads";
 import Notifications from "../Profil/Notifications";
 import ProfilMenu from "../Profil/Profil_Menu";
 import ProfilPublic from "../Profil/Public_Profil";
+import UpdatePassword from "../Profil/update_Password";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,11 @@ const UserNavigators = ({ navigation }) => {
       <Stack.Screen
         name="ProfilPublic"
         component={ProfilPublic}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="UpdatePassword"
+        component={UpdatePassword}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
