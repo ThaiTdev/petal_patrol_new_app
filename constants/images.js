@@ -10,6 +10,7 @@ const iconFleur = require("../assets/images/logo/icone_fleur.png");
 const logo2 = require("../assets/images/logo/Logo.png");
 const titleHomePage = require("../assets/images/logo/titre_home_page.png");
 const titleLoginPage = require("../assets/images/logo/titre_login_page.png");
+const plantSitter = require("../assets/images/icons/plantsitter.png");
 
 export default {
   logo,
@@ -24,4 +25,5 @@ export default {
   logo2,
   titleHomePage,
   titleLoginPage,
+  plantSitter
 };

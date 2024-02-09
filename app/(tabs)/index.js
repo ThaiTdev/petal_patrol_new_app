@@ -12,11 +12,22 @@ import ChatNavigators from "./navigators/ChatNavigators";
 import PhotosNavigator from "./navigators/PhotosNavigator";
 import ContactSupportNavigation from "./navigators/ContactSupportNavigator";
 import PlantSittingTrackingNavigator from "./navigators/PlantSittingTrackingNavigator";
+import { StyleSheet } from "react-native-web";
+import { useFonts } from "expo-font";
+import SpaceMono from '../../assets/fonts/SpaceMono-Regular.ttf';
+import { Text } from "react-native-elements";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
     const [currentRoute, setCurrentRoute] = useState(null);
+
+    const [fontsLoaded] = useFonts({
+      SpaceMono,
+    });
+    if (!fontsLoaded) {
+      return null;
+    }
 
   const updateCurrentRoute = (route) => {
     setCurrentRoute(route);
@@ -29,6 +40,7 @@ const App = () => {
   };
   return (
     <LoginProvider>
+      <Text style={styles.spaceMono}>TEST</Text>
       <NavigationContainer independent={true}>
         {shouldDisplayMenuContainer() && <MenuContainer />}
         <Stack.Navigator headerMode="none">
@@ -76,3 +88,9 @@ const App = () => {
 };
 
 export default App;
+const styles = StyleSheet.create({
+  spaceMono: {
+    fontFamily: "SpaceMono",
+    fontSize: 20,
+  },
+});
