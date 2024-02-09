@@ -5,10 +5,11 @@ import themes from "../../../../constants/themes";
 import BaseButton from "../../../../components/Buttons/Base";
 import { StyleSheet, Image } from "react-native";
 import { MonoText } from "../../../../components/StyledText";
+import { ThemeContext } from "react-native-elements";
 
 const Choose_Ad_Type = () => {
-    const { COLORS } = themes();
-    const { FONT } = themes();
+    const theme = useContext(ThemeContext);
+    const { COLORS, FONT } = theme;
 
     const styles = StyleSheet.create({
         container: {

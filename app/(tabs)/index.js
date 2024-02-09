@@ -16,11 +16,15 @@ import { StyleSheet } from "react-native-web";
 import { useFonts } from "expo-font";
 import SpaceMono from '../../assets/fonts/SpaceMono-Regular.ttf';
 import { Text } from "react-native-elements";
+import { createContext } from 'react';
+import { ThemeContext } from "react-native-elements";
+import themes from "../../constants/themes";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
     const [currentRoute, setCurrentRoute] = useState(null);
+    const themeFile = themes();
 
     const [fontsLoaded] = useFonts({
       SpaceMono,
@@ -39,6 +43,7 @@ const App = () => {
     return currentRoute && !excludedComponents.includes(currentRoute);
   };
   return (
+    <ThemeContext.Provider value={themeFile}>
     <LoginProvider>
       <Text style={styles.spaceMono}>TEST</Text>
       <NavigationContainer independent={true}>
@@ -84,6 +89,7 @@ const App = () => {
         </Stack.Navigator>
       </NavigationContainer>
     </LoginProvider>
+    </ThemeContext.Provider>
   );
 };
 
