@@ -1,6 +1,5 @@
-import { FONT, COLORS } from '../constants/themes';
-import { Text } from 'react-native-elements';
+// import { Text, TextProps } from './Themed';
 
-export function MonoText(props) {
-  return <Text {...props} style={[props.style, { fontFamily: FONT.spaceMono, color: COLORS.tertiary}]} />;
-}
+// export function MonoText(props: TextProps) {
+//   return <Text {...props} style={[props.style, { fontFamily: 'SpaceMono' }]} />;
+// }

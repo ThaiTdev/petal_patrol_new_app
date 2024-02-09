@@ -1,13 +1,3 @@
-import { StyleSheet } from "react-native-web";
-import { useFonts } from "expo-font";
-import SpaceMono from '../assets/fonts/SpaceMono-Regular.ttf';
-
-const themes = () => {
-
-const fontsLoaded = useFonts({
-  SpaceMono,
-});
-
 const COLORS = {
   primary: "#214F3E",
   secondary: "#B55D45",
@@ -22,7 +12,6 @@ const FONT = {
   regular: "DMRegular",
   medium: "DMMedium",
   bold: "600",
-  spaceMono: "SpaceMono",
 };
 
 const SIZES = {
@@ -57,7 +46,4 @@ const SHADOWS = {
   },
 };
 
-return { COLORS, FONT, SIZES, SHADOWS };
-}
-
-export default themes;
+export { COLORS, FONT, SIZES, SHADOWS };
