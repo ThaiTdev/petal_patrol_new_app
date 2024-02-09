@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import logo from "../../../../constants/images";
+import images from "../../../../constants/images";
 import { View, Text } from 'react-native';
 import { SIZES, COLORS } from "../../../../constants/themes";
 import BaseButton from "../../../../components/Buttons/Base";
@@ -9,8 +9,13 @@ const Choose_Ad_Type = () => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.textStyle}>Déposer une annonce</Text>
             <View style={styles.subContainer}>
-             <Image source={logo.logo} style={styles.logo}></Image>
+             <Image source={images.logo} style={styles.logo}></Image>
+            <BaseButton title="Coucou c'est moi"></BaseButton>
+            </View>
+            <View style={styles.subContainer}>
+             <Image source={images.plantsitter} style={styles.logo}></Image>
             <BaseButton title="Coucou c'est moi"></BaseButton>
             </View>
         </View>
@@ -34,11 +39,16 @@ const styles = StyleSheet.create({
     logo: {
         position: "absolute",
         top: "3%",
-        width: 150, // La largeur fixe que vous souhaitez
-        height: undefined, // Laissez la hauteur comme undefined pour conserver le ratio d'aspect
-        aspectRatio: 1, // Ratio d'aspect (width / height)
+        width: 150,
+        height: undefined,
+        aspectRatio: 1,
         resizeMode: "contain",
         zIndex: 5,
+    },
+    textStyle: {
+        fontFamily: "Roboto-Bold",
+        color: COLORS.primary,
+        fontSize: 18
     }
   });
 export default Choose_Ad_Type;

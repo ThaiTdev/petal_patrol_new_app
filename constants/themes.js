@@ -9,8 +9,6 @@ const COLORS = {
 };
 
 const FONT = {
-  regular: "DMRegular",
-  medium: "DMMedium",
   bold: "600",
 };
 

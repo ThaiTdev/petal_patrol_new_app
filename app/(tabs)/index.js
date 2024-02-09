@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StyleSheet } from "react-native";
+import { useFonts } from "expo-font";
 import LoginProvider from "../../context/LoginProvider";
 import WelcomeNavigator from "./navigators/WelcomeNavigators";
 import AuthNavigator from "./navigators/AuthNavigator";
@@ -17,6 +19,15 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
     const [currentRoute, setCurrentRoute] = useState(null);
+    const [fontsLoaded] = useFonts({
+      "Roboto-Light": require("../../assets/fonts/Roboto-Light.ttf"),
+      "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+      "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
+      "Roboto-Bold": require("../../assets/fonts/Roboto-Bold.ttf"),
+      "Merriweather-Light": require("../../assets/fonts/Merriweather-Light.ttf"),
+      "Merriweather-Regular": require("../../assets/fonts/Merriweather-Regular.ttf"),
+      "Merriweather-Bold": require("../../assets/fonts/Merriweather-Bold.ttf"),
+    });
 
   const updateCurrentRoute = (route) => {
     setCurrentRoute(route);
