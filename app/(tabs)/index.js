@@ -14,6 +14,7 @@ import ChatNavigators from "./navigators/ChatNavigators";
 import PhotosNavigator from "./navigators/PhotosNavigator";
 import ContactSupportNavigation from "./navigators/ContactSupportNavigator";
 import PlantSittingTrackingNavigator from "./navigators/PlantSittingTrackingNavigator";
+import PostAdNavigator from "./navigators/PostAdNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +59,11 @@ const App = () => {
             name="Menu"
             component={MenuNavigator}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen 
+          name="PostAd"
+          component={PostAdNavigator} 
+          options={{ headerShown: false }}
           />
           <Stack.Screen name="Ads" options={{ headerShown: false }}>
             {(props) => <AdsNavigator {...props} updateRoute={updateCurrentRoute} />}
