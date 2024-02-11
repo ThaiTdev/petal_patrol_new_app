@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Text } from 'react-native';
 import { SIZES, COLORS } from "../../../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
+import { ProgressContext } from '../../../navigators/ProgressContext';
 
 const Validate_Photos = () => {
     const navigation = useNavigation();
@@ -10,6 +11,12 @@ const Validate_Photos = () => {
         console.log('go to location page')
         navigation.navigate("PostAd", { screen: "Location_Page" });
     };
+
+    const { handleNextStep } = useContext(ProgressContext);
+
+    useEffect(() => {
+      handleNextStep();
+    }, []);
 
     return (
         <View style={styles.container}>

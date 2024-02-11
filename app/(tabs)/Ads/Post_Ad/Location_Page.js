@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Text } from 'react-native';
 import { SIZES, COLORS } from "../../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
+import { ProgressContext } from '../../navigators/ProgressContext';
 
 const Location_Page = () => {
   const navigation = useNavigation();
@@ -10,6 +11,13 @@ const Location_Page = () => {
       console.log('go to dates page')
       navigation.navigate("PostAd", { screen: "Dates_Page" });
   };
+
+  const { handleNextStep } = useContext(ProgressContext);
+
+  useEffect(() => {
+    handleNextStep();
+  }, []);
+  
     return (
         <View style={styles.container}>
             <Text>Dates de disponibilité</Text>

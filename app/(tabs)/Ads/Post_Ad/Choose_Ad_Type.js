@@ -29,29 +29,30 @@ console.log(currentStep);
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.textStyle}>Déposer une annonce</Text>
-                <ButtonClose></ButtonClose>
+            <View style={styles.subContainer}>
+                <View style={styles.header}>
+                    <Text style={styles.textStyle}>Déposer une annonce</Text>
+                    <ButtonClose></ButtonClose>
+                </View>
+                <ProgressBar progress={(currentStep)} />
+                <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Regular"}}>De quoi avez-vous besoin ?</Text>
+                    <View style={styles.goToBtn}>
+                    <Image source={images.logo} style={styles.images}></Image>
+                    <BaseButton 
+                        title="J'ai besoin d'un conseil de soin"
+                        marginTop={70}
+                        handlePress={goToMainInformationsAdvice}
+                    ></BaseButton>
+                    </View>
+                    <View style={styles.goToBtn}>
+                    <Image source={images.plantsitter} style={styles.images}></Image>
+                    <BaseButton 
+                        title="J'ai besoin d'un plant-sitter"
+                        marginTop={70}
+                        handlePress={goToMainInformations}
+                    ></BaseButton>
+                </View>
             </View>
-            <ProgressBar progress={(currentStep)} />
-            <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Regular"}}>De quoi avez-vous besoin ?</Text>
-            <Text onPress={goToMainInformations}>BOUTON TEST</Text>
-                <View style={styles.subContainer}>
-                <Image source={images.logo} style={styles.images}></Image>
-                <BaseButton 
-                    title="J'ai besoin d'un conseil de soin"
-                    marginTop={70}
-                    onPress={goToMainInformationsAdvice}
-                ></BaseButton>
-                </View>
-                <View style={styles.subContainer}>
-                <Image source={images.plantsitter} style={styles.images}></Image>
-                <BaseButton 
-                    title="J'ai besoin d'un plant-sitter"
-                    marginTop={70}
-                    onPress={goToMainInformations}
-                ></BaseButton>
-                </View>
         </View>
     );
 };
@@ -73,6 +74,15 @@ const styles = StyleSheet.create({
         overflow: 'visible',
     },
     subContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        overflow: 'visible',
+        height: "80%",
+        width: "100%"
+    },
+    goToBtn: {
         maxHeight: 160,
         display: 'flex',
         flexDirection: 'column',

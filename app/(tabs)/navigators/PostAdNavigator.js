@@ -38,7 +38,7 @@ const PostAdNavigator = ({ navigation }) => {
             options={{ headerShown: false }}
           />
       <Stack.Screen
-        name="Main_informations_advice"
+        name="Main_informations_Advice"
         component={Main_informations_Advice}
         options={{ headerShown: false }}
       />

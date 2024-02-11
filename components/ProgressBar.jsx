@@ -5,9 +5,23 @@ const ProgressBar = ({
   progress
 }) => {
 
+    const progressStep = () => {
+        if (progress === 0){
+            return 0
+        } else if (progress === 1){
+            return 25
+        } else if (progress === 2 || progress === 3 ){
+            return 50
+        } else if ( progress === 4) {
+            return 75
+        } else {
+            return 100
+        }
+    }
+
   return (
     <View style={styles.progressBar}>
-        <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: "#8BED4F", width: `${progress * 100}%`}]} />
+        <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: "#8BED4F", width: `${progressStep()}%`}]} />
         <Text>{progress}</Text>
     </View>
   );
