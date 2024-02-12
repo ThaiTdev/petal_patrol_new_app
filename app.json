@@ -25,7 +25,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo/grainou_la_graine.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [

@@ -4,7 +4,7 @@ import Profile_Menu from "../Profile/Profile_Menu";
 import Choose_Ad_Type from "../Ads/Post_Ad/Choose_Ad_Type";
 import Research from "../Ads/Research";
 import Messages_List from "../Chat_Screens/Messages_List";
-import Notifications from "../Profile/Notifications";
+import Notifications from "../Profil/Notifications";
 import { ProgressContext } from '../navigators/ProgressContext';
 
 
