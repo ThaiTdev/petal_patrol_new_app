@@ -3,7 +3,6 @@ const botanist = require("../assets/images/icons/botanist.png");
 const discution = require("../assets/images/icons/discution.png");
 const notification = require("../assets/images/icons/notification.png");
 const plante = require("../assets/images/icons/Plante1.png");
-const plante = require("../assets/images/icons/Plante1.png");
 const recherche = require("../assets/images/icons/recherche.png");
 const firstSlideIcon = require("../assets/images/icons/slide1_icon.png");
 const secondSlideIcon = require("../assets/images/icons/slide2_icon.png");
