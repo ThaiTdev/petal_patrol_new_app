@@ -2,16 +2,13 @@ import React from "react";
 import logo from "../../../constants/images";
 import { SIZES, COLORS } from "../../../constants/themes";
 import images from "../../../constants/images";
-// import icon from "../../constants/icons";
 import { View, TouchableOpacity } from "react-native";
 import { StyleSheet, Image, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native"; // Assurez-vous d'importer ceci depuis votre bibliothèque de navigation
 import FormSubmitButton from "./formulaire/formSubmitButton";
 import SocialButton from "./formulaire/socialButton";
 import FormContainer from "./formulaire/formContainer";
 
-const FirstConnexion = () => {
-  const navigation = useNavigation();
+const FirstConnexion = ({ navigation }) => {
   const NewMarginTop = "60%";
   const goToLogin = () => {
     navigation.navigate("Authentification", { screen: "Login" });
