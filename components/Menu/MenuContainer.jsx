@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
     overflow: "visible",
     zIndex: 0,
   },
-});
   menuContainer: {
     position: "absolute",
     bottom: -20,
