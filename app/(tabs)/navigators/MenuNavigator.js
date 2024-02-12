@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Profile_Menu from "../Profile/Profile_Menu";
+import Profil_Menu from "../Profil/Profil_Menu";
 import Choose_Ad_Type from "../Ads/Post_Ad/Choose_Ad_Type";
 import Research from "../Ads/Research";
 import Messages_List from "../Chat_Screens/Messages_List";
