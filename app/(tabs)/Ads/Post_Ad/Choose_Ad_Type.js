@@ -30,12 +30,8 @@ console.log(currentStep);
     return (
         <View style={styles.container}>
             <View style={styles.subContainer}>
-                <View style={styles.header}>
-                    <Text style={styles.textStyle}>Déposer une annonce</Text>
-                    <ButtonClose></ButtonClose>
-                </View>
                 <ProgressBar progress={(currentStep)} />
-                <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Regular"}}>De quoi avez-vous besoin ?</Text>
+                <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Bold"}}>De quoi avez-vous besoin ?</Text>
                     <View style={styles.goToBtn}>
                     <Image source={images.logo} style={styles.images}></Image>
                     <BaseButton 
@@ -62,16 +58,8 @@ const styles = StyleSheet.create({
       flex: 1,
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-evenly",
+      justifyContent: "flex-start",
       alignItems: "center"
-    },
-    header: {
-        display: 'flex',
-        width: "100%",
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        overflow: 'visible',
     },
     subContainer: {
         display: 'flex',
@@ -83,25 +71,22 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     goToBtn: {
-        maxHeight: 160,
+        maxHeight: 120,
+        width: "100%",
         display: 'flex',
         flexDirection: 'column',
         flexGrow:0.3,
         justifyContent: 'space-around',
         alignItems: 'center',
         overflow: 'visible',
-        flex: 2
+        flex: 2,
+        margin: 30
     },
     images: {
-        width: 120,
+        width: 90,
         height: undefined,
         aspectRatio: 1,
         resizeMode: "contain",
-    },
-    textStyle: {
-        fontFamily: "Roboto-Bold",
-        color: COLORS.primary,
-        fontSize: 18
     },
   });
 
