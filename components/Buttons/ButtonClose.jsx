@@ -1,5 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Pressable, Text } from "react-native";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark'
 import { COLORS } from "../../constants/themes";
 
 const ButtonClose = ({
@@ -8,7 +10,7 @@ const ButtonClose = ({
   return (
     <View style={[styles.container]}>
         <Pressable>
-        <Text style={{ fontSize: 18, color: COLORS.white, fontWeight: 800}}>X</Text>
+        <FontAwesomeIcon icon={ faXmark } color={COLORS.tertiary}/>
         </Pressable>
     </View>
   );
