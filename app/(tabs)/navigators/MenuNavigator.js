@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profil_Menu from "../Profil/Profil_Menu";
 import Choose_Ad_Type from "../Ads/Post_Ad/Choose_Ad_Type";
+import Ads_List from "../Ads/Ads_List";
 import Research from "../Ads/Research";
 import Messages_List from "../Chat_Screens/Messages_List";
 import Notifications from "../Profil/Notifications";
