@@ -15,7 +15,8 @@ export default function Slide3() {
   // };
   const goToNextScreen = () => {
     navigation.navigate("Authentification", { screen: "FirstCo" });
-    console.log("Navigating to FirstConnexion");
+    // navigation.navigate("Users", { screen: "ProfilMenu" }); // route pour tester mes devs à supprimer
+    console.log("Navigating to ?");
   };
   return (
     <ImageBackground
