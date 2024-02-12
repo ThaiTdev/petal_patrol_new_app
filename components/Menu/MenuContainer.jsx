@@ -15,33 +15,33 @@ const MenuContainer = () => {
     navigation.navigate("Menu", { screen: item.label });
   };
 
-  const MenuItems = [
-    {
-      id: 1,
-      label: "Research",
-      imageUrl: require("../../assets/images/icons/recherche.png"),
-    },
-    {
-      id: 2,
-      label: "Notifications",
-      imageUrl: require("../../assets/images/icons/notification.png"),
-    },
-    {
-      id: 3,
-      label: "Choose",
-      imageUrl: require("../../assets/images/icons/Plante1.png"),
-    },
-    {
-      id: 4,
-      label: "Messages",
-      imageUrl: require("../../assets/images/icons/discution.png"),
-    },
-    {
-      id: 5,
-      label: "Profile",
-      imageUrl: require("../../assets/images/icons/botanist.png"),
-    },
-  ];
+    const MenuItems = [
+        {
+            id: 1,
+            label: 'Research',
+            imageUrl: require('../../assets/images/icons/recherche.png'),
+        },
+        {
+            id: 2,
+            label: 'Notifications',
+            imageUrl: require('../../assets/images/icons/notification.png'),
+        },
+        {
+            id: 3,
+            label: 'Choose_Ad_Type',
+            imageUrl: require('../../assets/images/icons/plante.png'),
+        },
+        {
+            id: 4,
+            label: 'Messages',
+            imageUrl: require('../../assets/images/icons/discution.png'),
+        },
+        {
+            id: 5,
+            label: 'Profile',
+            imageUrl: require('../../assets/images/icons/botanist.png'),
+        },
+    ];
 
   const rightValues = {
     1: 282,

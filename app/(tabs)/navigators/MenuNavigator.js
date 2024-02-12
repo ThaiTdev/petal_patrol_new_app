@@ -1,15 +1,27 @@
-import React from "react";
+import React, {useState} from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profil_Menu from "../Profil/Profil_Menu";
 import Ads_List from "../Ads/Ads_List";
 import Research from "../Ads/Research";
 import Messages_List from "../Chat_Screens/Messages_List";
-import Notifications from "../Profil/Notifications";
+import Notifications from "../Profile/Notifications";
+import { ProgressContext } from '../navigators/ProgressContext';
 
 const Stack = createNativeStackNavigator();
 
 const MenuNavigator = ({ navigation }) => {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+  const resetStep = () => {
+      setCurrentStep(0);
+    };
+
   return (
+    <ProgressContext.Provider value={{ currentStep, handleNextStep, resetStep }}>
+      <>
     <Stack.Navigator>
       <Stack.Screen
         name="Research"
@@ -22,7 +34,7 @@ const MenuNavigator = ({ navigation }) => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Choose"
+        name="Choose_Ad_Type"
         component={Choose_Ad_Type}
         options={{ headerShown: false }}
       />
@@ -30,13 +42,15 @@ const MenuNavigator = ({ navigation }) => {
         name="Messages"
         component={Messages_List}
         options={{ headerShown: false }}
-      />
+        />
       <Stack.Screen
         name="Profil"
         component={Profil_Menu}
         options={{ headerShown: false }}
-      />
+        />
     </Stack.Navigator>
+    </>
+  </ProgressContext.Provider>
   );
 };
 

@@ -5,23 +5,16 @@ import { SIZES, COLORS } from "../../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
 import { ProgressContext } from '../../navigators/ProgressContext';
 
-const Main_informations = () => {
-    const navigation = useNavigation();
-    const goToAddPhotos = () => {
-        console.log('go to add photos')
-        navigation.navigate("PostAd", { screen: "Add_Photos" });
-    };
+const Dates_Page = () => {
+  const { handleNextStep } = useContext(ProgressContext);
 
-    // const { handleNextStep } = useContext(ProgressContext);
-
-    // useEffect(() => {
-    //   handleNextStep();
-    // }, []);
+  useEffect(() => {
+    handleNextStep();
+  }, []);
 
     return (
         <View style={styles.container}>
-            <Text>Main_informations</Text>
-            <Text onPress={goToAddPhotos}>ADD PHOTOS</Text>
+            <Text>Dates de disponibilité</Text>
         </View>
     );
 };
@@ -33,4 +26,4 @@ const styles = StyleSheet.create({
       position: "relative",
     },
   });
-export default Main_informations;
+export default Dates_Page;

@@ -20,7 +20,7 @@ const Main_informations = () => {
 
     return (
         <View style={styles.container}>
-            <Text>Main_informations</Text>
+            <Text>Main_informations pour conseil</Text>
             <Text onPress={goToAddPhotos}>ADD PHOTOS</Text>
         </View>
     );
