@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profil_Menu from "../Profil/Profil_Menu";
+import Choose_Ad_Type from "../Ads/Post_Ad/Choose_Ad_Type";
 import Ads_List from "../Ads/Ads_List";
 import Research from "../Ads/Research";
 import Messages_List from "../Chat_Screens/Messages_List";
-import Notifications from "../Profile/Notifications";
+import Notifications from "../Profil/Notifications";
 import { ProgressContext } from '../navigators/ProgressContext';
 
 const Stack = createNativeStackNavigator();
@@ -44,6 +45,8 @@ const MenuNavigator = ({ navigation }) => {
         options={{ headerShown: false }}
         />
       <Stack.Screen
+        name="Profil"
+        component={Profil_Menu}
         name="Profil"
         component={Profil_Menu}
         options={{ headerShown: false }}

@@ -29,7 +29,7 @@ const MenuContainer = () => {
         {
             id: 3,
             label: 'Choose_Ad_Type',
-            imageUrl: require('../../assets/images/icons/plante.png'),
+            imageUrl: require('../../assets/images/icons/Plante1.png'),
         },
         {
             id: 4,
