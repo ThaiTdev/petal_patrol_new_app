@@ -8,6 +8,7 @@ import Messages_List from "../Chat_Screens/Messages_List";
 import Notifications from "../Profil/Notifications";
 import { ProgressContext } from '../navigators/ProgressContext';
 
+
 const Stack = createNativeStackNavigator();
 
 const MenuNavigator = ({ navigation }) => {
@@ -47,13 +48,12 @@ const MenuNavigator = ({ navigation }) => {
       <Stack.Screen
         name="Profil"
         component={Profil_Menu}
-        name="Profil"
-        component={Profil_Menu}
         options={{ headerShown: false }}
         />
     </Stack.Navigator>
     </>
   </ProgressContext.Provider>
+    
   );
 };
 
