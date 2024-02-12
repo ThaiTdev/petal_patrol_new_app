@@ -3,7 +3,6 @@ import Header from "../componants/Header";
 import ModalSendMail from "../componants/modalMailSend";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { accountService } from "../../_services/accountService";
-import { useNavigation } from "@react-navigation/native";
 import { isValidEmail, updateError } from "../../../utils/methods";
 import FormContainer from "./formulaire/formContainer";
 import FormInput from "./formulaire/formInput";
@@ -11,9 +10,7 @@ import FormSubmitButton from "./formulaire/formSubmitButton";
 import images from "../../../constants/images";
 import { COLORS } from "../../../constants/themes";
 
-const LostPassword = () => {
-  const navigation = useNavigation();
-
+const LostPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
