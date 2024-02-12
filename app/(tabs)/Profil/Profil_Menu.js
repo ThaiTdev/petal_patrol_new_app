@@ -34,8 +34,8 @@ const ProfilMenu = ({ navigation, route }) => {
     });
   };
   const goToSupport = () => {
-    navigation.navigate("Users", {
-      screen: "EditProfil",
+    navigation.navigate("ContactSupport", {
+      screen: "ContactSupport",
       params: { userId },
     });
   };
