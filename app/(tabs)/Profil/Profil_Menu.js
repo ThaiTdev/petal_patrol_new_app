@@ -14,6 +14,7 @@ const ProfilMenu = ({ navigation, route }) => {
   const [allName, setAllName] = useState("");
   const [Avatar, setAvatar] = useState("");
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const goToParamSettings = () => {
     navigation.navigate("Users", {
@@ -35,7 +36,7 @@ const ProfilMenu = ({ navigation, route }) => {
   };
   const goToSupport = () => {
     navigation.navigate("ContactSupport", {
-      screen: "ContactSupport",
+      screen: "ContactSupportForm",
       params: { userId },
     });
   };
