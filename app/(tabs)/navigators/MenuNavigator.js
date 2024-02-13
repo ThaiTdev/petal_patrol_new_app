@@ -46,7 +46,7 @@ const MenuNavigator = ({ navigation }) => {
         options={{ headerShown: false }}
         />
       <Stack.Screen
-        name="Profil"
+        name="Profile"
         component={Profil_Menu}
         options={{ headerShown: false }}
         />

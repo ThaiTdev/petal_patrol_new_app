@@ -8,7 +8,7 @@ const ContactSupportNavigation = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="ContactSupport"
+        name="ContactSupportForm"
         component={ContactSupport}
         options={{ headerShown: false }}
       />
