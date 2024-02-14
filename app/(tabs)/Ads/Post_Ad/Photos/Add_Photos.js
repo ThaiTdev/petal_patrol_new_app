@@ -4,13 +4,14 @@ import { View, Text, Pressable } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons/faCirclePlus';
+import Swiper from 'react-native-swiper';
 import * as ImagePicker from 'expo-image-picker';
 import { SIZES, COLORS } from "../../../../../constants/themes";
 import { StyleSheet, Image} from "react-native";
 import { ProgressContext } from '../../../navigators/ProgressContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BaseButton from "../../../../../components/Buttons/Base";
-import images from "../../../../../constants/images";
+import imagesApp from "../../../../../constants/images";
 
 const Add_Photos = () => {
     const navigation = useNavigation();
@@ -21,7 +22,7 @@ const Add_Photos = () => {
 
     const { handleNextStep } = useContext(ProgressContext);
     const [completed, setCompleted] = useState(false);
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         AsyncStorage.getItem('Add_Photos_Completed').then((value) => {
@@ -42,22 +43,36 @@ const Add_Photos = () => {
 
 
     const pickImage = async () => {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-  
-      if (!result.cancelled) {
-        setImage(result.uri);
+      console.log("pickImage function called");
+      try {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsMultipleSelection: true,
+          selectionLimit: 5,
+          aspect: [4, 3],
+          quality: 1,
+        });
+        console.log("ImagePicker result:", result);
+        if (!result.cancelled) {
+          setImages(oldImages => [...oldImages, ...result.assets.map(asset => asset.uri)]);
+          }
+      } catch (error) {
+        console.error("Error picking image:", error);
       }
     };
 
     return (
         <View style={styles.container}>
            <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Bold", marginTop: 20, width: "50%", lineHeight: 30}}>Montrez-nous sa petite frimousse !</Text>
-           <Image source={images.frimousse} style={styles.frimousse}></Image>
+           {images.length > 0 ?
+              <Swiper showsButtons={true}>
+              {images.map((image, index) => (
+                <Image key={index} source={{ uri: image }} style={{ width: 200, height: 200 }} />
+              ))}
+            </Swiper>
+            :
+              <Image source={imagesApp.frimousse} style={styles.frimousse}></Image>
+            }
            <View style={styles.addPhotoscontainer}>
             <View>
               <Text style={[{fontFamily: "Roboto-Bold", color: COLORS.primary, marginBottom: 10}]}>Ajouter des photos</Text>
@@ -72,7 +87,7 @@ const Add_Photos = () => {
               <Text style={styles.buttonText}>Ajouter une photo</Text>
               <FontAwesomeIcon icon={faCirclePlus} size={23} color={COLORS.primary} />
             </Pressable>
-            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            
           </View>
             <BaseButton
             title="Continuer"
