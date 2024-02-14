@@ -26,11 +26,22 @@ const Add_Photos = () => {
     );
 };
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      width: "100%",
-      backgroundColor: COLORS.lightWhite,
-      position: "relative",
-    },
+  container: {
+    backgroundColor: COLORS.tertiary,
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  subContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    overflow: 'visible',
+    height: 200,
+    width: "65%",
+},
   });
 export default Add_Photos;
