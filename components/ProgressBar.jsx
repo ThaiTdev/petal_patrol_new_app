@@ -1,11 +1,17 @@
 import React, {useState} from "react";
 import { View, StyleSheet, Animated, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { SIZES, COLORS } from "../constants/themes";
 import ButtonClose from "../components/Buttons/ButtonClose";
 
 const ProgressBar = ({
   progress
 }) => {
+
+    const navigation = useNavigation();
+    const goToAdsList = () => {
+        navigation.navigate("Ads", { screen: "Ads_List" });
+    };
 
     const progressStep = () => {
         if (progress === 0){
@@ -26,7 +32,8 @@ const ProgressBar = ({
     <View style={styles.container}>
         <View style={styles.header}>
             <Text style={styles.textStyle}>Déposer une annonce</Text>
-            <ButtonClose></ButtonClose>
+            <ButtonClose
+            handlePress={goToAdsList}></ButtonClose>
         </View>
         <View style={styles.progressBar}>
             <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: `${COLORS.secondary}`, width: `${progressStep()}%`}]} />
@@ -43,7 +50,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: COLORS.tertiary
     },
     header: {
         display: 'flex',
