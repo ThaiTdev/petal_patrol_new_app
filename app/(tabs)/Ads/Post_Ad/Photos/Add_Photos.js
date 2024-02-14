@@ -4,6 +4,7 @@ import { View, Text, Pressable } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons/faCirclePlus';
+import * as ImagePicker from 'expo-image-picker';
 import { SIZES, COLORS } from "../../../../../constants/themes";
 import { StyleSheet, Image} from "react-native";
 import { ProgressContext } from '../../../navigators/ProgressContext';
@@ -20,6 +21,7 @@ const Add_Photos = () => {
 
     const { handleNextStep } = useContext(ProgressContext);
     const [completed, setCompleted] = useState(false);
+    const [image, setImage] = useState(null);
 
     useEffect(() => {
         AsyncStorage.getItem('Add_Photos_Completed').then((value) => {
@@ -37,6 +39,21 @@ const Add_Photos = () => {
         }
     }, [completed]);
 
+
+
+    const pickImage = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      if (!result.cancelled) {
+        setImage(result.uri);
+      }
+    };
+
     return (
         <View style={styles.container}>
            <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Bold", marginTop: 20, width: "50%", lineHeight: 30}}>Montrez-nous sa petite frimousse !</Text>
@@ -51,13 +68,13 @@ const Add_Photos = () => {
               <FontAwesomeIcon icon={faFolder} size={23} color={COLORS.primary} />
             </Pressable>
 
-            <Pressable style={styles.buttonStyle} onPress={goToValidatePhotos}>
+            <Pressable style={styles.buttonStyle} onPress={pickImage}>
               <Text style={styles.buttonText}>Ajouter une photo</Text>
               <FontAwesomeIcon icon={faCirclePlus} size={23} color={COLORS.primary} />
             </Pressable>
+            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
           </View>
             <BaseButton
-            style={styles.buttonContinueStyle}
             title="Continuer"
             height={40}
             padding={10}
@@ -118,13 +135,6 @@ const styles = StyleSheet.create({
     paddingLeft: 22,
     paddingRight: 25
   },
-  buttonContinueStyle: {
-    width: "100%",
-    position: 'absolute',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    right: 20
-},
+
   });
 export default Add_Photos;
