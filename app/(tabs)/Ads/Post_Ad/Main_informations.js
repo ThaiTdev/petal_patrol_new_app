@@ -67,13 +67,15 @@ const Main_informations = () => {
                     <Text style={styles.charCount}>{charCount}/100</Text>
                 </View>
             </View>
-            <BaseButton
-            title="Continuer"
-            height={40}
-            padding={10}
-            marginBottom={20}
-            handlePress={goToAddPhotos}>
-            </BaseButton>
+            <View style={styles.buttonContinueStyle}>
+                <BaseButton
+                title="Continuer"
+                height={40}
+                padding={10}
+                marginBottom={20}
+                handlePress={goToAddPhotos}>
+                </BaseButton>
+            </View>
         </View>
     );
 };
@@ -169,6 +171,14 @@ const styles = StyleSheet.create({
         height: undefined,
         aspectRatio: 1,
         resizeMode: "contain",
+    },
+    buttonContinueStyle: {
+        width: "100%",
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        bottom: 20
     },
   });
 export default Main_informations;

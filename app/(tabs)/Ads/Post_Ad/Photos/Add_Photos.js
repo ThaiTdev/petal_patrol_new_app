@@ -1,10 +1,15 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons/faCirclePlus';
 import { SIZES, COLORS } from "../../../../../constants/themes";
 import { StyleSheet, Image} from "react-native";
 import { ProgressContext } from '../../../navigators/ProgressContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BaseButton from "../../../../../components/Buttons/Base";
+import images from "../../../../../constants/images";
 
 const Add_Photos = () => {
     const navigation = useNavigation();
@@ -34,8 +39,31 @@ const Add_Photos = () => {
 
     return (
         <View style={styles.container}>
-           <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Bold", marginTop: 20, width: "50%"}}>Montrez-nous sa petite frimousse !</Text>
-            <Text onPress={goToValidatePhotos}>VALIDATE PHOTOS</Text>
+           <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Bold", marginTop: 20, width: "50%", lineHeight: 30}}>Montrez-nous sa petite frimousse !</Text>
+           <Image source={images.frimousse} style={styles.frimousse}></Image>
+           <View style={styles.addPhotoscontainer}>
+            <View>
+              <Text style={[{fontFamily: "Roboto-Bold", color: COLORS.primary, marginBottom: 10}]}>Ajouter des photos</Text>
+              <Text  style={[{fontFamily: "Roboto-Regular", color: COLORS.secondary, marginBottom: 30}]}>Vous pouvez ajouter jusqu'à 5 photos</Text>
+            </View>
+            <Pressable style={styles.buttonStyle} onPress={goToValidatePhotos}>
+              <Text style={styles.buttonText}>Mes plantes</Text>
+              <FontAwesomeIcon icon={faFolder} size={23} color={COLORS.primary} />
+            </Pressable>
+
+            <Pressable style={styles.buttonStyle} onPress={goToValidatePhotos}>
+              <Text style={styles.buttonText}>Ajouter une photo</Text>
+              <FontAwesomeIcon icon={faCirclePlus} size={23} color={COLORS.primary} />
+            </Pressable>
+          </View>
+            <BaseButton
+            style={styles.buttonContinueStyle}
+            title="Continuer"
+            height={40}
+            padding={10}
+            marginBottom={95}
+            handlePress={goToValidatePhotos}>
+            </BaseButton>
         </View>
     );
 };
@@ -56,6 +84,47 @@ const styles = StyleSheet.create({
     overflow: 'visible',
     height: 200,
     width: "65%",
+  },
+  frimousse: {
+    width: 200,
+    height: undefined,
+    aspectRatio: 1,
+    resizeMode: "contain",
+    borderRadius: 14,
+    borderColor: COLORS.secondary,
+    borderWidth: 3
+
+  },
+  addPhotoscontainer: {
+    marginTop: 30,
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: "100%"
+  },
+  buttonStyle: {
+    width: "70%",
+    backgroundColor: "white",
+    borderRadius: 8,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 40,
+    marginBottom: 20,
+    fontFamily: "Roboto-Regular",
+    paddingLeft: 22,
+    paddingRight: 25
+  },
+  buttonContinueStyle: {
+    width: "100%",
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    right: 20
 },
   });
 export default Add_Photos;
