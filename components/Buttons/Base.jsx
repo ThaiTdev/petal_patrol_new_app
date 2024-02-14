@@ -3,12 +3,12 @@ import { View, StyleSheet, Pressable, Text } from "react-native";
 import { COLORS } from "../../constants/themes";
 
 const BaseButton = ({
-  title, marginTop, marginBottom, marginLeft, marginRight, handlePress,
+  title, marginTop, marginBottom, marginLeft, marginRight, handlePress, padding, height, fontSize
 }) => {
 
   return (
-    <View style={[styles.container, { marginTop: marginTop }]}>
-        <Pressable onPress={handlePress}>
+    <View style={[styles.container, { marginTop: marginTop , marginBottom: marginBottom}]}>
+        <Pressable onPress={handlePress}  style={{ height: 50, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ fontSize: 16, color: COLORS.white, fontFamily: "Roboto-Medium"}}>{title}</Text>
         </Pressable>
     </View>
