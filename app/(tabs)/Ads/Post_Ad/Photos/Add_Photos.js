@@ -54,6 +54,10 @@ const Add_Photos = () => {
         });
         console.log("ImagePicker result:", result);
         if (!result.cancelled) {
+          if (images.length >= 5) {
+            alert('You can only select up to 5 images');
+            return;
+          }
           setImages(oldImages => [...oldImages, ...result.assets.map(asset => asset.uri)]);
           }
       } catch (error) {
@@ -65,9 +69,16 @@ const Add_Photos = () => {
         <View style={styles.container}>
            <Text style={{ fontSize: 20, color: COLORS.primary, fontFamily: "Merriweather-Bold", marginTop: 20, width: "50%", lineHeight: 30}}>Montrez-nous sa petite frimousse !</Text>
            {images.length > 0 ?
-              <Swiper showsButtons={true}>
+              <Swiper
+              nextButton={<Text style={styles.buttonText}>›</Text>}
+              prevButton={<Text style={styles.buttonText}>‹</Text>}
+              activeDot={<View style={{backgroundColor: COLORS.secondary, width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
+              style={styles.wrapper}
+              showsButtons={true}>
               {images.map((image, index) => (
-                <Image key={index} source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Image key={index} source={{ uri: image }} style={{ width: 200, height: 200, borderRadius: 10}} />
+                </View>
               ))}
             </Swiper>
             :
@@ -79,12 +90,12 @@ const Add_Photos = () => {
               <Text  style={[{fontFamily: "Roboto-Regular", color: COLORS.secondary, marginBottom: 30}]}>Vous pouvez ajouter jusqu'à 5 photos</Text>
             </View>
             <Pressable style={styles.buttonStyle} onPress={goToValidatePhotos}>
-              <Text style={styles.buttonText}>Mes plantes</Text>
+              <Text style={styles.buttonTitle}>Mes plantes</Text>
               <FontAwesomeIcon icon={faFolder} size={23} color={COLORS.primary} />
             </Pressable>
 
             <Pressable style={styles.buttonStyle} onPress={pickImage}>
-              <Text style={styles.buttonText}>Ajouter une photo</Text>
+              <Text style={styles.buttonTitle}>Ajouter une photo</Text>
               <FontAwesomeIcon icon={faCirclePlus} size={23} color={COLORS.primary} />
             </Pressable>
             
@@ -127,6 +138,7 @@ const styles = StyleSheet.create({
     borderWidth: 3
 
   },
+  wrapper: {},
   addPhotoscontainer: {
     marginTop: 30,
     flex: 1,
@@ -150,6 +162,9 @@ const styles = StyleSheet.create({
     paddingLeft: 22,
     paddingRight: 25
   },
-
+  buttonText: {
+    color: COLORS.secondary,
+    fontSize: 60
+  }
   });
 export default Add_Photos;
