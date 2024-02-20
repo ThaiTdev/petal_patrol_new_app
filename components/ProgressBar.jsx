@@ -32,8 +32,10 @@ const ProgressBar = ({
     <View style={styles.container}>
         <View style={styles.header}>
             <Text style={styles.textStyle}>Déposer une annonce</Text>
-            <ButtonClose
-            handlePress={goToAdsList}></ButtonClose>
+            <View style={styles.buttonCloseStyle}>
+                <ButtonClose
+                handlePress={goToAdsList}></ButtonClose>
+            </View>
         </View>
         <View style={styles.progressBar}>
             <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: `${COLORS.secondary}`, width: `${progressStep()}%`}]} />
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         width: "100%",
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         overflow: 'visible',
     },
@@ -73,6 +75,14 @@ const styles = StyleSheet.create({
         color: COLORS.primary,
         fontSize: 18
     },
+    buttonCloseStyle: {
+        width: "100%",
+        position: 'absolute',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        right: 20
+    }
 
 });
 
