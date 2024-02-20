@@ -1,9 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, Pressable } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons/faCirclePlus';
 import Swiper from 'react-native-swiper';
 import * as ImagePicker from 'expo-image-picker';
 import { SIZES, COLORS } from "../../../../../constants/themes";
@@ -91,12 +88,10 @@ const Add_Photos = () => {
             </View>
             <Pressable style={styles.buttonStyle} onPress={goToValidatePhotos}>
               <Text style={styles.buttonTitle}>Mes plantes</Text>
-              <FontAwesomeIcon icon={faFolder} size={23} color={COLORS.primary} />
             </Pressable>
 
             <Pressable style={styles.buttonStyle} onPress={pickImage}>
               <Text style={styles.buttonTitle}>Ajouter une photo</Text>
-              <FontAwesomeIcon icon={faCirclePlus} size={23} color={COLORS.primary} />
             </Pressable>
             
           </View>
