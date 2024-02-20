@@ -6,6 +6,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { SIZES, COLORS } from "../../../../../constants/themes";
 import { StyleSheet, Image} from "react-native";
 import { ProgressContext } from '../../../navigators/ProgressContext';
+import { AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BaseButton from "../../../../../components/Buttons/Base";
 import imagesApp from "../../../../../constants/images";
@@ -88,10 +90,12 @@ const Add_Photos = () => {
             </View>
             <Pressable style={styles.buttonStyle} onPress={goToValidatePhotos}>
               <Text style={styles.buttonTitle}>Mes plantes</Text>
+              <MaterialCommunityIcons name="folder-image" size={24} color={COLORS.primary} />
             </Pressable>
 
             <Pressable style={styles.buttonStyle} onPress={pickImage}>
               <Text style={styles.buttonTitle}>Ajouter une photo</Text>
+              <AntDesign name="pluscircle" size={24} color={COLORS.primary} />
             </Pressable>
             
           </View>
