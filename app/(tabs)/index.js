@@ -36,7 +36,7 @@ const App = () => {
   console.log("CURRENT ROUTE",currentRoute);
 
   const shouldDisplayMenuContainer = () => {
-    const excludedComponents = ["Welcome", "Authentification", "PlantSittingTracking"];
+    const excludedComponents = ["Welcome", "Authentification", "PlantSittingTracking", "PostAd"];
     return currentRoute && !excludedComponents.includes(currentRoute);
   };
   return (
