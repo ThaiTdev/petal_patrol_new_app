@@ -12,7 +12,8 @@ const titleHomePage = require("../assets/images/logo/titre_home_page.png");
 const titleLoginPage = require("../assets/images/logo/titre_login_page.png");
 const plantsitter = require("../assets/images/icons/plantsitter.png");
 const pencil = require("../assets/images/icons/crayon.png");
-const frimousse = require("../assets/images/frimousse.jpg")
+const frimousse = require("../assets/images/frimousse.jpg");
+const calandar = require("../assets/images/icons/calandar.png");
 
 export default {
   logo,
@@ -29,5 +30,6 @@ export default {
   titleLoginPage,
   plantsitter,
   pencil,
-  frimousse
+  frimousse,
+  calandar,
 };

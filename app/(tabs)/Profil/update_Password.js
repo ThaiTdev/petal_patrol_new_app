@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS, SIZES, FONT } from "../../../constants/themes";
-import Icons from "../../../constants/icons";
 import { accountService } from "../../_services/accountService";
-import * as Yup from "yup";
 import { Formik } from "formik";
+import { userLogin } from "../../../context/LoginProvider";
+import * as Yup from "yup";
 import FormContainer from "../Authentification//formulaire/formContainer";
 import FormInput from "../Authentification/formulaire/formInput";
+import Icons from "../../../constants/icons";
 import FormSubmitButton from "../Authentification/formulaire/formSubmitButton";
 
 const validationSchema = Yup.object({
@@ -27,6 +28,8 @@ const validationSchema = Yup.object({
 
 const UpdatePassword = () => {
   const navigation = useNavigation();
+  const { profile } = userLogin();
+  const [userId, setUserId] = useState(profile.userId);
   const handleOnChangeText = (value, fieldName, setFieldValue) => {
     setFieldValue(fieldName, value);
   };
@@ -36,7 +39,7 @@ const UpdatePassword = () => {
 
   const signUp = async (values, formikActions) => {
     try {
-      const res = await accountService.signup(values);
+      const res = await accountService.signup(userId, values);
       setValideMessage(res.data.message);
       setShowModal(true);
       formikActions.resetForm();
