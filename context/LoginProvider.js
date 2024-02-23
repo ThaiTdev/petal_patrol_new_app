@@ -15,6 +15,6 @@ const LoginProvider = ({ children }) => {
   );
 };
 
-export const useLogin = () => useContext(LoginContext);
+export const userLogin = () => useContext(LoginContext);
 
 export default LoginProvider;

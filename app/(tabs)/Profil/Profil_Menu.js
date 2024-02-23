@@ -1,64 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, FONT } from "../../../constants/themes";
+import { userLogin } from "../../../context/LoginProvider";
 import Icons from "../../../constants/icons";
 import logo from "../../../constants/images";
-import { accountService } from "../../_services/accountService";
 import UserAvatar from "react-native-user-avatar";
 
-const ProfilMenu = ({ navigation, route }) => {
-  const { userId } = route.params || {};
-  console.log(userId);
-  console.log(route);
+const ProfilMenu = ({ navigation }) => {
+  const { profile } = userLogin();
   console.log(navigation);
-  const [allName, setAllName] = useState("");
-  const [Avatar, setAvatar] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
+  const [allName, setAllName] = useState(profile.name);
+  const [Avatar, setAvatar] = useState(profile.Avatar);
+  const [email, setEmail] = useState(profile.email);
   const goToParamSettings = () => {
     navigation.navigate("Users", {
       screen: "EditProfil",
-      params: { userId, allName, Avatar, email },
     });
   };
   const goToMyAds = () => {
     navigation.navigate("Users", {
       screen: "MyAds",
-      params: { userId },
     });
   };
   const goToMyPlants = () => {
     navigation.navigate("Users", {
       screen: "EditProfil",
-      params: { userId },
     });
   };
   const goToSupport = () => {
     navigation.navigate("ContactSupport", {
       screen: "ContactSupportForm",
-      params: { userId },
     });
   };
   const handleGoBack = () => {
     navigation.goBack();
   };
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const res = await accountService.showProfileUser(userId);
-        console.log(res.data);
-        setAllName(res.data.user.name);
-        setAvatar(res.data.user.avatar);
-        setEmail(res.data.user.mail);
-        setIsLoggedIn(true);
-      } catch (error) {
-        setMessage(error.response.data.message);
-      }
-    };
-
-    fetchUserProfile();
-  }, []);
 
   return (
     <View style={styles.page}>

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, FONT } from "../../../constants/themes";
+import { Formik } from "formik";
+import { accountService } from "../../_services/accountService";
+import { userLogin } from "../../../context/LoginProvider";
 import ModalSendMail from "../componants/modalMailSend";
 import Icons from "../../../constants/icons";
 import Separator from "../componants/Separator";
-import { accountService } from "../../_services/accountService";
 import * as Yup from "yup";
-import { Formik } from "formik";
 import FormContainer from "../Authentification/formulaire/formContainer";
 import FormInput from "../Authentification/formulaire/formInput";
 import FormSubmitButton from "../Authentification/formulaire/formSubmitButton";
@@ -21,8 +22,11 @@ const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email!").required("Email is required!"),
 });
 
-const EditProfil = ({ navigation, route }) => {
-  const { userId, Avatar, allName, email } = route.params || {};
+const EditProfil = ({ navigation }) => {
+  const { profile } = userLogin();
+  const [allName, setAllName] = useState(profile.name);
+  const [Avatar, setAvatar] = useState(profile.Avatar);
+  const [email, setEmail] = useState(profile.email);
   const [showModal, setShowModal] = useState(false);
   const [userAvatar, setUserAvatar] = useState(Avatar);
 
@@ -33,7 +37,6 @@ const EditProfil = ({ navigation, route }) => {
   const goToResetPassword = () => {
     navigation.navigate("Users", {
       screen: "UpdatePassword",
-      params: { userId },
     });
   };
 

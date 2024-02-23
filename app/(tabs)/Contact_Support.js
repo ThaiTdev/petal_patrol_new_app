@@ -143,6 +143,9 @@ const ContactSupport = () => {
                           onBlur={handleBlur("messageText")}
                           label="Dite nous tout !"
                           placeholder="Votre message..."
+                          width="90%"
+                          height={120}
+                          boxWidth="100%"
                           color={COLORS.white}
                         />
                         <FormSubmitButton

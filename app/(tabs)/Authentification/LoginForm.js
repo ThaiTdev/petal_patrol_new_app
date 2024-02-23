@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import Header from "../componants/Header";
-import Separator from "../componants/Separator";
-import SocialButton from "./formulaire/socialButton";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { CheckBox } from "react-native-elements";
-import { useLogin } from "../../../context/LoginProvider";
+import { userLogin } from "../../../context/LoginProvider";
 import { accountService } from "../../_services/accountService";
+import { COLORS } from "../../../constants/themes";
 import {
   isValidEmail,
   isValidObjField,
   updateError,
 } from "../../../utils/methods";
+import Header from "../componants/Header";
+import Separator from "../componants/Separator";
+import SocialButton from "./formulaire/socialButton";
 import FormContainer from "./formulaire/formContainer";
 import FormInput from "./formulaire/formInput";
 import FormSubmitButton from "./formulaire/formSubmitButton";
 import images from "../../../constants/images";
-import { COLORS } from "../../../constants/themes";
 
 const LoginForm = ({ navigation }) => {
-  const { setIsLoggedIn, setProfile } = useLogin();
+  const { setIsLoggedIn, setProfile } = userLogin();
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -57,9 +57,16 @@ const LoginForm = ({ navigation }) => {
   const submitForm = async () => {
     if (isValidForm()) {
       try {
-        accountService
+        await accountService
           .signin({ ...userInfo })
           .then((res) => {
+            console.log("premier " + res.data.user.name);
+            setProfile({
+              userId: res.data.user.id,
+              name: res.data.user.name,
+              email: res.data.user.email,
+              avatar: res.data.user.avatar,
+            });
             setIsLoggedIn(true);
             const userId = res.data.user.id;
             navigation.navigate("Users", {

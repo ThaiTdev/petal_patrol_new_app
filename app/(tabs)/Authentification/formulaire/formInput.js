@@ -6,7 +6,7 @@ const FormInput = (props) => {
   const { placeholder, label, color, error } = props;
 
   return (
-    <View style={{ alignItems: "center" }}>
+    <View style={{ alignItems: "center", width: "100%" }}>
       <View
         style={{
           flexDirection: "row",
