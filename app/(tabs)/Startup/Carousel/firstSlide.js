@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, ImageBackground, StyleSheet, Image } from "react-native";
 import Swiper from "react-native-swiper";
 import { useNavigation } from "@react-navigation/native";
 import background from "../../../../constants/background";
+import { COLORS, SIZES, FONT } from "../../../../constants/themes";
+import Icons from "../../.././../constants/icons";
 
 const Slide1 = () => {
   const navigation = useNavigation();
@@ -28,6 +30,7 @@ const Slide1 = () => {
         style={styles.background}
       >
         <View style={styles.slide}>
+          <Image source={Icons.firstSlideIcon}></Image>
           <Text style={styles.text}>Conseils Botaniques</Text>
         </View>
       </ImageBackground>
@@ -41,17 +44,19 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   slide: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
+    marginTop: 30,
   },
   text: {
     color: "#fff",
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: FONT.bold,
+    color: COLORS.primary,
   },
 });
 

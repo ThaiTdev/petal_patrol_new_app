@@ -11,9 +11,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BaseButton from "../../../../../components/Buttons/Base";
 import imagesApp from "../../../../../constants/images";
+import { userLogin } from "../../../../../context/LoginProvider";
 
 const Add_Photos = () => {
   const navigation = useNavigation();
+  const { data, setImagePlante } = userLogin();
+  console.log(data.description);
+  console.log(data.plantName);
+  console.log(data);
   const goToValidatePhotos = () => {
     console.log("go to validate photos");
     navigation.navigate("PostAd", { screen: "Validate_Photos" });
@@ -69,6 +74,11 @@ const Add_Photos = () => {
     }
   };
 
+  useEffect(() => {
+    setImagePlante(images);
+  }, [images]);
+  console.log(images);
+
   return (
     <View style={styles.container}>
       <Text
@@ -106,6 +116,9 @@ const Add_Photos = () => {
         >
           {images.map((image, index) => (
             <View
+              key={
+                index
+              } /*j'ai Ajoutez cette ligne pour définir la clé unique */
               style={{
                 flex: 1,
                 justifyContent: "center",

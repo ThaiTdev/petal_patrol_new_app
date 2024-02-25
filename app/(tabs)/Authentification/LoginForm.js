@@ -135,8 +135,8 @@ const LoginForm = ({ navigation }) => {
                     marginLeft: -18,
                   }}
                 >
-                  <CheckBox checked={checked} onPress={toggleCheckbox} />
-                  <Text style={styles.text1}>Se souvenir de moi</Text>
+                  {/* <CheckBox checked={checked} onPress={toggleCheckbox} />
+                  <Text style={styles.text1}>Se souvenir de moi</Text> */}
                 </View>
                 <TouchableOpacity onPress={goToLostPassword}>
                   <Text style={styles.text2}>Mot de pass oublié?</Text>
