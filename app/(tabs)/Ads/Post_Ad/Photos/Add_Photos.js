@@ -11,9 +11,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BaseButton from "../../../../../components/Buttons/Base";
 import imagesApp from "../../../../../constants/images";
+import { userLogin } from "../../../../../context/LoginProvider";
 
 const Add_Photos = () => {
   const navigation = useNavigation();
+  const { data } = userLogin();
+  console.log(data.description);
+  console.log(data.plantName);
+  console.log(data);
   const goToValidatePhotos = () => {
     console.log("go to validate photos");
     navigation.navigate("PostAd", { screen: "Validate_Photos" });
