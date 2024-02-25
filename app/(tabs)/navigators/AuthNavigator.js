@@ -1,12 +1,13 @@
 // UsersNavigator.tsx
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigationState } from "@react-navigation/native";
 import FirstConnexion from "../Authentification/FirstConnexion";
 import LoginForm from "../Authentification/LoginForm";
 import SignupForm from "../Authentification/SignupForm";
 import LostPassword from "../Authentification/Lost_Password";
-import Ads_List from "../Ads/Ads_List";
+import Confidentials from "../Authentification/confidentials";
+// import Ads_List from "../Ads/Ads_List";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,11 @@ const AuthNavigators = ({ navigation, updateRoute }) => {
       <Stack.Screen
         name="LostPassword"
         component={LostPassword}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Confidentials"
+        component={Confidentials}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

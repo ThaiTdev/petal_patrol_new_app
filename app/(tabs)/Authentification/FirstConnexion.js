@@ -18,6 +18,10 @@ const FirstConnexion = ({ navigation }) => {
     navigation.navigate("Authentification", { screen: "Signup" });
     console.log("Navigating to Signup");
   };
+  const goToConfidential = () => {
+    navigation.navigate("Authentification", { screen: "Confidentials" });
+    console.log("Navigating to Confidentials");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
@@ -56,6 +60,27 @@ const FirstConnexion = ({ navigation }) => {
                 }}
               >
                 Connectez-Vous
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              justifyContent: "center",
+              flexDirection: "row",
+              alignItems: "center",
+              textAlignVertical: "center",
+            }}
+          >
+            <TouchableOpacity onPress={goToConfidential}>
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: COLORS.secondary,
+                  marginLeft: 10,
+                  marginTop: 20,
+                }}
+              >
+                Nos politique de confidentialité
               </Text>
             </TouchableOpacity>
           </View>

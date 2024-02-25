@@ -1,18 +1,14 @@
-// Slide3.js
 import React from "react";
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View, Text, ImageBackground, StyleSheet, Image } from "react-native";
 import background from "../../../../constants/background";
 import { useNavigation } from "@react-navigation/native";
 import FormSubmitButton from "../../Authentification/formulaire/formSubmitButton";
-import { COLORS } from "../../../../constants/themes";
+import { COLORS, FONT } from "../../../../constants/themes";
+import Icons from "../../.././../constants/icons";
 
 export default function Slide3() {
   const navigation = useNavigation();
   const marginBottom = "20%";
-  // const goToNextScreen = () => {
-  //   navigation.navigate("Authentification", { screen: "FirstCo" });
-  //   console.log("Navigating to FirstConnexion");
-  // };
   const goToNextScreen = () => {
     navigation.navigate("Authentification", { screen: "FirstCo" });
     console.log("Navigating to FirstConnexion");
@@ -23,6 +19,7 @@ export default function Slide3() {
       style={styles.background}
     >
       <View style={styles.slide}>
+        <Image source={Icons.thirdSlideIcon}></Image>
         <Text style={styles.text}>Rejoignez notre communauté </Text>
       </View>
       <FormSubmitButton
@@ -43,12 +40,15 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
+    marginTop: 30,
   },
   text: {
     color: "#fff",
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: FONT.bold,
+    color: COLORS.secondary,
+    textAlign: "center",
   },
 });

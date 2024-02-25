@@ -15,7 +15,7 @@ import { userLogin } from "../../../../../context/LoginProvider";
 
 const Add_Photos = () => {
   const navigation = useNavigation();
-  const { data } = userLogin();
+  const { data, setImagePlante } = userLogin();
   console.log(data.description);
   console.log(data.plantName);
   console.log(data);
@@ -74,6 +74,11 @@ const Add_Photos = () => {
     }
   };
 
+  useEffect(() => {
+    setImagePlante(images);
+  }, [images]);
+  console.log(images);
+
   return (
     <View style={styles.container}>
       <Text
@@ -111,6 +116,9 @@ const Add_Photos = () => {
         >
           {images.map((image, index) => (
             <View
+              key={
+                index
+              } /*j'ai Ajoutez cette ligne pour définir la clé unique */
               style={{
                 flex: 1,
                 justifyContent: "center",

@@ -6,37 +6,40 @@ import { StyleSheet, Image } from "react-native";
 import { ProgressContext } from "../../navigators/ProgressContext";
 import FormContainer from "../../Authentification/formulaire/formContainer";
 import FormInput from "../../Authentification/formulaire/formInput";
+import { Formik } from "formik";
 import FormInput2 from "../../Authentification/formulaire/formInput2";
 import BaseButton from "../../../../components/Buttons/Base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { userLogin } from "../../../../context/LoginProvider";
+import * as Yup from "yup";
+
 const Location_Page = () => {
   const navigation = useNavigation();
-  const [completed, setCompleted] = useState(false);
-  const [locationInfo, setLocationInfo] = useState({
-    number: "",
-    street: "",
-    Postal: "",
-    Town: "",
+  const { data, setData, imagePlante } = userLogin();
+  const [error, setError] = useState("");
+  console.log("voici les photos: " + imagePlante);
+  console.log("mes données: " + data);
+
+  const validationSchema = Yup.object({
+    number: Yup.number()
+      .required("Number is required!")
+      .min(1, "Number must be at least 1.")
+      .max(9999, "Number must be at most 9999."),
+    street: Yup.string().required("Street is required!"),
+    postal: Yup.string()
+      .trim()
+      .min(5, "Postal code must be at least 8 characters long.")
+      .required("Postal code is required!"),
+    Town: Yup.string().required("Town is required!"),
   });
-  const { number, street, Postal, Town } = locationInfo;
+  const handleOnChangeText = (value, fieldName, setFieldValue) => {
+    setFieldValue(fieldName, value);
+  };
+
   const goToDatesPage = () => {
     console.log("go to dates page");
     navigation.navigate("PostAd", { screen: "Dates_Page" });
   };
-
-  const { handleNextStep } = useContext(ProgressContext);
-  useEffect(() => {
-    AsyncStorage.getItem("Add_Photos_Completed").then((locationInfo) => {
-      if (locationInfo !== null) {
-        setCompleted(true);
-      }
-    });
-  }, [completed]);
-
-  useEffect(() => {
-    handleNextStep();
-    setCompleted(true);
-  }, [completed]);
 
   return (
     <View style={styles.container}>
@@ -86,57 +89,97 @@ const Location_Page = () => {
           }}
         >
           <FormContainer>
-            <View
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                paddingLeft: 10,
-                paddingRight: 10,
+            {error ? (
+              <Text style={{ color: "red", fontSize: 18, textAlign: "center" }}>
+                {error}
+              </Text>
+            ) : null}
+            <Formik
+              initialValues={{
+                number: "",
+                street: "",
+                postal: "",
+                Town: "",
               }}
+              validationSchema={validationSchema}
+              // onSubmit={signUp}
             >
-              <FormInput2
-                value={number}
-                onChangeText={(value) => handleOnChangeText(value, "number")}
-                label="N°"
-                placeholder="25"
-                autoCapitalize="none"
-                color={COLORS.primary}
-                width="100%"
-                height={45}
-              />
-              <FormInput2
-                value={street}
-                onChangeText={(value) => handleOnChangeText(value, "street")}
-                label="Rue"
-                placeholder="Rue des Pins"
-                autoCapitalize="none"
-                color={COLORS.primary}
-                width="100%"
-                height={45}
-              />
-            </View>
-            <View>
-              <FormInput
-                value={Postal}
-                onChangeText={(value) => handleOnChangeText(value, "Postal")}
-                label="Code postal"
-                placeholder="25"
-                autoCapitalize="none"
-                color={COLORS.primary}
-              />
-            </View>
-            <View>
-              <FormInput
-                value={Town}
-                onChangeText={(value) => handleOnChangeText(value, "Town")}
-                label="Ville"
-                placeholder="25"
-                autoCapitalize="none"
-                color={COLORS.primary}
-              />
-            </View>
+              {({
+                values,
+                errors,
+                touched,
+                isSubmitting,
+                handleBlur,
+                handleSubmit,
+                setFieldValue,
+              }) => (
+                <>
+                  <View
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      paddingLeft: 10,
+                      paddingRight: 10,
+                    }}
+                  >
+                    <FormInput2
+                      value={values.number}
+                      onChangeText={(value) =>
+                        handleOnChangeText(value, "number")
+                      }
+                      label="N°"
+                      placeholder="25"
+                      autoCapitalize="none"
+                      color={COLORS.primary}
+                      width="100%"
+                      height={45}
+                      onBlur={handleBlur("number")}
+                    />
+                    <FormInput2
+                      value={values.street}
+                      onChangeText={(value) =>
+                        handleOnChangeText(value, "street", setFieldValue)
+                      }
+                      label="Rue"
+                      placeholder="Rue des Pins"
+                      autoCapitalize="none"
+                      color={COLORS.primary}
+                      width="100%"
+                      height={45}
+                      onBlur={handleBlur("street")}
+                    />
+                  </View>
+                  <View>
+                    <FormInput
+                      value={values.Postal}
+                      onChangeText={(value) =>
+                        handleOnChangeText(value, "Postal", setFieldValue)
+                      }
+                      label="Code postal"
+                      placeholder="25"
+                      autoCapitalize="none"
+                      color={COLORS.primary}
+                      onBlur={handleBlur("postal")}
+                    />
+                  </View>
+                  <View>
+                    <FormInput
+                      value={values.Town}
+                      onChangeText={(value) =>
+                        handleOnChangeText(value, "Town", setFieldValue)
+                      }
+                      label="Ville"
+                      placeholder="25"
+                      autoCapitalize="none"
+                      color={COLORS.primary}
+                      onBlur={handleBlur("Town")}
+                    />
+                  </View>
+                </>
+              )}
+            </Formik>
           </FormContainer>
           <BaseButton
             title="Continuer"
