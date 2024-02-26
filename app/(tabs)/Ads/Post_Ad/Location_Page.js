@@ -1,26 +1,20 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { View, Text } from "react-native";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
-import { StyleSheet, Image } from "react-native";
-import { ProgressContext } from "../../navigators/ProgressContext";
+import { StyleSheet } from "react-native";
 import FormContainer from "../../Authentification/formulaire/formContainer";
 import FormInput from "../../Authentification/formulaire/formInput";
+import FormSubmitButton from "../../Authentification/formulaire/formSubmitButton";
 import { Formik } from "formik";
 import FormInput2 from "../../Authentification/formulaire/formInput2";
-import BaseButton from "../../../../components/Buttons/Base";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userLogin } from "../../../../context/LoginProvider";
 import * as Yup from "yup";
 
-const Location_Page = () => {
-  const navigation = useNavigation();
-  const { data, setData, imagesPlant } = userLogin();
+const Location_Page = ({ navigation }) => {
+  const { data, setData } = userLogin();
   const [error, setError] = useState("");
-  // const imagePlantObject = JSON.parse(imagePlant);
-  console.log("voici les photos: " ,imagesPlant);
-  // console.log("IMAGE PLANT OBJECT",imagePlantObject);
-  console.log("mes données: " + data.plantName);
+  console.log(data + "popooopoo");
 
   const validationSchema = Yup.object({
     number: Yup.number()
@@ -35,16 +29,35 @@ const Location_Page = () => {
     Town: Yup.string().required("Town is required!"),
   });
   const handleOnChangeText = (value, fieldName, setFieldValue) => {
+    // const trimmedValue = value.replace(/^\s+|\s+$/g, "");
     setFieldValue(fieldName, value);
   };
+  const goToDatesPage = (values) => {
+    try {
+      // Enlever les espaces au début et à la fin de chaque valeur
+      const trimmedValues = Object.fromEntries(
+        Object.entries(values).map(([key, value]) => [key, value.trim()])
+      );
 
-  const goToDatesPage = () => {
-    console.log("go to dates page");
-    navigation.navigate("PostAd", { screen: "Dates_Page" });
+      // Mettre à jour le contexte avec les données du formulaire
+      setData({ ...data, ...trimmedValues });
+      console.log(data);
+      // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
+      navigation.navigate("PostAd", { screen: "Dates_Page" });
+    } catch (error) {
+      console.error("Error navigating to Dates_Page:", error);
+      // Gérez les erreurs si nécessaire
+    }
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAwareScrollView
+      style={{ flex: 1, backgroundColor: COLORS.tertiary }}
+      contentContainerStyle={styles.container}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={true}
+      extraScrollHeight={50}
+    >
       <View style={styles.subContainer}>
         <Text
           style={{
@@ -104,7 +117,7 @@ const Location_Page = () => {
                 Town: "",
               }}
               validationSchema={validationSchema}
-              // onSubmit={signUp}
+              onSubmit={(values) => goToDatesPage(values)}
             >
               {({
                 values,
@@ -128,8 +141,9 @@ const Location_Page = () => {
                   >
                     <FormInput2
                       value={values.number}
+                      error={touched.name && errors.name}
                       onChangeText={(value) =>
-                        handleOnChangeText(value, "number")
+                        handleOnChangeText(value, "number", setFieldValue)
                       }
                       label="N°"
                       placeholder="25"
@@ -140,7 +154,24 @@ const Location_Page = () => {
                       onBlur={handleBlur("number")}
                     />
                     <FormInput2
+                      value={values.postal}
+                      error={touched.name && errors.name}
+                      onChangeText={(value) =>
+                        handleOnChangeText(value, "postal", setFieldValue)
+                      }
+                      label="Code postal"
+                      placeholder="34430"
+                      autoCapitalize="none"
+                      color={COLORS.primary}
+                      width="100%"
+                      height={45}
+                      onBlur={handleBlur("postal")}
+                    />
+                  </View>
+                  <View>
+                    <FormInput
                       value={values.street}
+                      error={touched.name && errors.name}
                       onChangeText={(value) =>
                         handleOnChangeText(value, "street", setFieldValue)
                       }
@@ -148,27 +179,13 @@ const Location_Page = () => {
                       placeholder="Rue des Pins"
                       autoCapitalize="none"
                       color={COLORS.primary}
-                      width="100%"
-                      height={45}
                       onBlur={handleBlur("street")}
                     />
                   </View>
                   <View>
                     <FormInput
-                      value={values.Postal}
-                      onChangeText={(value) =>
-                        handleOnChangeText(value, "Postal", setFieldValue)
-                      }
-                      label="Code postal"
-                      placeholder="25"
-                      autoCapitalize="none"
-                      color={COLORS.primary}
-                      onBlur={handleBlur("postal")}
-                    />
-                  </View>
-                  <View>
-                    <FormInput
                       value={values.Town}
+                      error={touched.name && errors.name}
                       onChangeText={(value) =>
                         handleOnChangeText(value, "Town", setFieldValue)
                       }
@@ -179,30 +196,30 @@ const Location_Page = () => {
                       onBlur={handleBlur("Town")}
                     />
                   </View>
+                  <FormSubmitButton
+                    submitting={isSubmitting}
+                    onPress={handleSubmit}
+                    title="Continuer"
+                    color={COLORS.secondary}
+                    marginTop={25}
+                    height={40}
+                    padding={10}
+                  />
                 </>
               )}
             </Formik>
           </FormContainer>
-          <BaseButton
-            title="Continuer"
-            height={40}
-            padding={10}
-            marginTop={25}
-            handlePress={goToDatesPage}
-          ></BaseButton>
         </View>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
     backgroundColor: COLORS.tertiary,
-    position: "relative",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
   subContainer: {
     width: "90%",

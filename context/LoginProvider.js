@@ -7,6 +7,9 @@ const LoginProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [data, setData] = useState({});
   const [imagesPlant, setImagesPlant] = useState([]);
+  const updateFormData = (formData) => {
+    setData(formData);
+  };
 
   return (
     <LoginContext.Provider
@@ -16,7 +19,7 @@ const LoginProvider = ({ children }) => {
         profile,
         setProfile,
         data,
-        setData,
+        setData: updateFormData,
         imagesPlant,
         setImagesPlant,
       }}
