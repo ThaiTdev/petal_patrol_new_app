@@ -1,10 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 import images from "../../../../constants/images";
 import { View, Text, TextInput } from "react-native";
-import { SIZES, COLORS, FONT } from "../../../../constants/themes";
+import { SIZES, COLORS } from "../../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
-// import { ProgressContext } from "../../navigators/ProgressContext";
 import BaseButton from "../../../../components/Buttons/Base";
 import { userLogin } from "../../../../context/LoginProvider";
 
@@ -18,40 +18,56 @@ const Main_informations = () => {
   const [valueText2, setValueText2] = useState("");
 
   const handleTextChange = (text) => {
-    setCharCount(text.length);
-    setValueText(text);
+    const trimmedText = text.trim();
+    setCharCount(trimmedText.length);
+    setValueText(trimmedText);
   };
+
   const handleTextChange2 = (text) => {
-    setCharCount2(text.length);
-    setValueText2(text);
+    const trimmedText = text.trim();
+    setCharCount2(trimmedText.length);
+    setValueText2(trimmedText);
   };
 
   const navigation = useNavigation();
   const goToAddPhotos = () => {
     console.log("go to add photos");
-    if (charCount <= 3) {
+
+    // Vérifier si le texte contient uniquement des espaces
+    const isWhiteSpaceOnly =
+      valueText.trim() === "" || valueText2.trim() === "";
+
+    if (charCount <= 3 || isWhiteSpaceOnly) {
       setMessageError(
         "Désolé vous devez entrer un nom de plante de plus de trois lettres"
       );
-    } else if (charCount2 <= 5) {
+      setMessageError2(""); // Effacer le message d'erreur pour le deuxième TextInput
+    } else if (charCount2 <= 5 || isWhiteSpaceOnly) {
       setMessageError2(
         "Désolé vous devez entrer une petite description de plus de cinq lettres"
       );
-      setMessageError("");
+      setMessageError(""); // Effacer le message d'erreur pour le premier TextInput
     } else {
       setMessageError("");
       setMessageError2("");
       navigation.navigate("PostAd", { screen: "Add_Photos" });
     }
   };
+
   useEffect(() => {
-    setData({ plantName: valueText, description: valueText2 });
+    setData({ plantName: valueText.trim(), description: valueText2.trim() });
     console.log("hello" + valueText);
     console.log("hello" + valueText2);
   }, [valueText, valueText2]);
 
   return (
-    <View style={styles.container}>
+    <KeyboardAwareScrollView
+      style={{ flex: 1, backgroundColor: COLORS.tertiary }}
+      contentContainerStyle={styles.container}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={false}
+      extraScrollHeight={80}
+    >
       <Text
         style={{
           fontSize: 20,
@@ -129,18 +145,17 @@ const Main_informations = () => {
           handlePress={goToAddPhotos}
         ></BaseButton>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.tertiary,
     flex: 1,
-    display: "flex",
-    flexDirection: "column",
+    backgroundColor: COLORS.tertiary,
     justifyContent: "flex-start",
     alignItems: "center",
   },
+
   subContainer: {
     display: "flex",
     flexDirection: "column",

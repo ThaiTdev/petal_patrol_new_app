@@ -67,6 +67,7 @@ const LoginForm = ({ navigation }) => {
           .signin({ ...userInfo })
           .then((res) => {
             console.log("premier " + res.data.user.name);
+            setError(res.data.message);
             setProfile({
               userId: res.data.user.id,
               name: res.data.user.name,
@@ -82,7 +83,8 @@ const LoginForm = ({ navigation }) => {
             // navigation.navigate("Ads", { screen: "Ads_List" });
           })
           .catch((error) => {
-            setMessage(error.response.data.message);
+            setError(error.response.data.message);
+            console.log(error);
           });
       } catch (error) {}
     }

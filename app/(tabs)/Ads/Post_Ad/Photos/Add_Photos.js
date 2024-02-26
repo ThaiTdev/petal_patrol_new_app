@@ -15,7 +15,7 @@ import { userLogin } from "../../../../../context/LoginProvider";
 
 const Add_Photos = () => {
   const navigation = useNavigation();
-  const { data, setImagesPlant, imagesPlant} = userLogin();
+  const { data, setImagesPlant, imagesPlant } = userLogin();
   console.log(data.description);
   console.log(data.plantName);
   console.log(data);
@@ -69,15 +69,14 @@ const Add_Photos = () => {
           ...result.assets.map((asset) => asset.uri),
         ]);
       }
-      console.log("Pick Image Result",images);
+      console.log("Pick Image Result", images);
     } catch (error) {
       console.error("Error picking image:", error);
     }
   };
 
   useEffect(() => {
-    setImagesPlant(
-    [...images]);
+    setImagesPlant([...images]);
   }, [images]);
   console.log("Use Effect Result", imagesPlant);
 
