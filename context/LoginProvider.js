@@ -6,7 +6,7 @@ const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profile, setProfile] = useState({});
   const [data, setData] = useState({});
-  const [imageplant, setImagePlante] = useState([]);
+  const [imagesPlant, setImagesPlant] = useState([]);
 
   return (
     <LoginContext.Provider
@@ -17,8 +17,8 @@ const LoginProvider = ({ children }) => {
         setProfile,
         data,
         setData,
-        imageplant,
-        setImagePlante,
+        imagesPlant,
+        setImagesPlant,
       }}
     >
       {children}
