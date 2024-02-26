@@ -17,6 +17,8 @@ const contact = require("../assets/images/icons/contact.png");
 const ads = require("../assets/images/icons/ads.png");
 const camera = require("../assets/images/icons/Camera.png");
 const letter = require("../assets/images/icons/letter.png");
+const eye = require("../assets/images/icons/eye.png");
+const crossEye = require("../assets/images/icons/crossEye.png");
 
 export default {
   arrow,
@@ -38,4 +40,6 @@ export default {
   ads,
   camera,
   letter,
+  crossEye,
+  eye,
 };
