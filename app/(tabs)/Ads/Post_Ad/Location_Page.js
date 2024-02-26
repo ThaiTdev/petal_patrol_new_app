@@ -15,10 +15,12 @@ import * as Yup from "yup";
 
 const Location_Page = () => {
   const navigation = useNavigation();
-  const { data, setData, imagePlante } = userLogin();
+  const { data, setData, imagesPlant } = userLogin();
   const [error, setError] = useState("");
-  console.log("voici les photos: " + imagePlante);
-  console.log("mes données: " + data);
+  // const imagePlantObject = JSON.parse(imagePlant);
+  console.log("voici les photos: " ,imagesPlant);
+  // console.log("IMAGE PLANT OBJECT",imagePlantObject);
+  console.log("mes données: " + data.plantName);
 
   const validationSchema = Yup.object({
     number: Yup.number()
