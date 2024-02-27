@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 import { View, Text, Pressable } from "react-native";
 import Swiper from "react-native-swiper";
 import * as ImagePicker from "expo-image-picker";
@@ -13,8 +13,9 @@ import BaseButton from "../../../../../components/Buttons/Base";
 import imagesApp from "../../../../../constants/images";
 import { userLogin } from "../../../../../context/LoginProvider";
 
-const Add_Photos = () => {
-  const navigation = useNavigation();
+const Add_Photos = ({ navigation }) => {
+  // const navigation = useNavigation();
+  const [error, setError] = useState("");
   const { data, setImagesPlant, imagesPlant } = userLogin();
   console.log(data.description);
   console.log(data.plantName);
@@ -24,8 +25,13 @@ const Add_Photos = () => {
     navigation.navigate("PostAd", { screen: "Validate_Photos" });
   };
   const goToLocationPage = () => {
-    console.log("go to location page");
-    navigation.navigate("PostAd", { screen: "Location_Page" });
+    if (images.length < 1) {
+      setError("Ajouter une photo pour continuer!");
+    } else {
+      console.log("go to location page");
+      setError("");
+      navigation.navigate("PostAd", { screen: "Location_Page" });
+    }
   };
 
   const { handleNextStep } = useContext(ProgressContext);
@@ -68,6 +74,7 @@ const Add_Photos = () => {
           ...oldImages,
           ...result.assets.map((asset) => asset.uri),
         ]);
+        setError("");
       }
       console.log("Pick Image Result", images);
     } catch (error) {
@@ -137,6 +144,18 @@ const Add_Photos = () => {
       ) : (
         <Image source={imagesApp.frimousse} style={styles.frimousse}></Image>
       )}
+      {error ? (
+        <Text
+          style={{
+            color: "red",
+            fontSize: 16,
+            textAlign: "center",
+            marginTop: 10,
+          }}
+        >
+          {error}
+        </Text>
+      ) : null}
       <View style={styles.addPhotoscontainer}>
         <View>
           <Text

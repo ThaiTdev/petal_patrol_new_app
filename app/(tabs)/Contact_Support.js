@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     height: "100%",
     alignItems: "center",
-    borderBottomRightRadius: "50%",
+    borderBottomRightRadius: 50,
     position: "relative",
   },
   boxLogo: {
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   subPage: {
     backgroundColor: COLORS.primary,
     height: "100%",
-    borderTopLeftRadius: "50%",
+    borderTopLeftRadius: 50,
     alignItems: "center",
   },
   containerForm: {
