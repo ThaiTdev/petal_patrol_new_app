@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Header from "../componants/Header";
-import ModalSendMail from "../componants/modalMailSend";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { accountService } from "../../_services/accountService";
 import { isValidEmail, updateError } from "../../../utils/methods";
@@ -9,6 +8,7 @@ import FormInput from "./formulaire/formInput";
 import FormSubmitButton from "./formulaire/formSubmitButton";
 import images from "../../../constants/images";
 import { COLORS } from "../../../constants/themes";
+import ModalSendMail from "../../../components/modalMailSend";
 
 const LostPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -53,6 +53,8 @@ const LostPassword = ({ navigation }) => {
           Comment={
             "Veuillez vérifier vos mails afin de modifier votre mot de passe pour vous connecter"
           }
+          destination={"Authentification"}
+          destinationScreen={"Login"}
         />
       )}
       <View style={styles.page}>

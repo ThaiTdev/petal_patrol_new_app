@@ -1,48 +1,95 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, View, Text } from "react-native";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
 import { ProgressContext } from "../../navigators/ProgressContext";
-import FormContainer from "../../Authentification/formulaire/formContainer";
-import FormInput from "../../Authentification/formulaire/formInput";
-import FormInput2 from "../../Authentification/formulaire/formInput2";
+import { userLogin } from "../../../../context/LoginProvider";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import BaseButton from "../../../../components/Buttons/Base";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import images from "../../../../constants/images";
+import ModalSendMail from "../../../../components/modalMailSend";
 
-const Location_Page = () => {
+const Dates_Page = () => {
   const navigation = useNavigation();
+  const { startDate, setStartDate, endDate, setEndDate} = userLogin();
   const [completed, setCompleted] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const [locationInfo, setLocationInfo] = useState({
-    number: "",
-    street: "",
-    Postal: "",
-    Town: "",
-  });
-  const { number, street, Postal, Town } = locationInfo;
-  const goToDatesPage = () => {
-    console.log("go to dates page");
-    navigation.navigate("PostAd", { screen: "Dates_Page" });
-  };
+  const [selectedStartDate, setSelectedStartDate] = useState(new Date());
+  const [selectedEndDate, setSelectedEndDate] = useState(new Date());
+  const [showModal, setShowModal] = useState(false);
+
 
   const { handleNextStep } = useContext(ProgressContext);
-  useEffect(() => {
-    AsyncStorage.getItem("Add_Photos_Completed").then((locationInfo) => {
-      if (locationInfo !== null) {
-        setCompleted(true);
-      }
-    });
-  }, [completed]);
 
   useEffect(() => {
     handleNextStep();
     setCompleted(true);
   }, [completed]);
 
+  useEffect(() => {
+    setStartDate(selectedStartDate);
+  }, [selectedStartDate]);
+
+  useEffect(() => {
+    setEndDate(selectedEndDate);
+  }, [selectedEndDate]);
+
+const formattedStartDate = selectedStartDate.toLocaleString("fr-FR");
+const formattedEndDate = selectedEndDate.toLocaleString("fr-FR");
+
+console.log("startDate:", formattedStartDate);
+console.log("endDate:", formattedEndDate);
+
+  const handleStartDateChange = (event, selectedDate) => {
+    if (selectedDate !== undefined) {
+      const parsedDate = new Date(selectedDate);
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      const formattedDate = parsedDate.toLocaleDateString("fr-FR", options);
+      console.log(`Date de début sélectionnée: ${formattedDate}`);
+      setSelectedStartDate(parsedDate);
+    } else {
+      console.log("Sélection de la date de début annulée");
+    }
+  };
+
+  const handleEndDateChange = (event, selectedDate) => {
+    if (selectedDate !== undefined) {
+      const parsedDate = new Date(selectedDate);
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      const formattedDate = parsedDate.toLocaleDateString("fr-FR", options);
+      console.log(`Date de fin sélectionnée: ${formattedDate}`);
+      setSelectedEndDate(parsedDate);
+    } else {
+      console.log("Sélection de la date de fin annulée");
+    }
+  };
+
+  const handleValidation = () => {
+    const currentDate = new Date();
+    if (selectedStartDate.getTime() < currentDate.getTime()) {
+      console.log("La date de début ne peut pas être antérieure à la date du jour");
+      return;
+    }
+    if (selectedStartDate.getTime() < selectedEndDate.getTime()) {
+      setShowModal(true);
+      console.log("Form submitted!");
+    } else {
+      console.log("La date de début doit être antérieure à la date de fin");
+    }
+  };
+
+
   return (
     <View style={styles.container}>
+      {showModal && (
+        <ModalSendMail
+          Title={"Annonce enregistrée avec succès !"}
+          Comment={
+            "Après validation par nos équipes elle apparaîtra dans la liste des annonces"
+          }
+          destination={"Ads"}
+          destinationScreen={"Ads_List"}
+        />
+      )}
       <View style={styles.subContainer}>
         <Text
           style={{
@@ -56,12 +103,7 @@ const Location_Page = () => {
         >
           L’instant plaisant
         </Text>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
+        <View style={styles.title}>
           <Text
             style={{
               fontSize: SIZES.medium,
@@ -75,92 +117,46 @@ const Location_Page = () => {
           </Text>
           <Image source={images.calandar} style={styles.icons} />
         </View>
-        <Text
-          style={{
-            fontSize: SIZES.small,
-            color: COLORS.primary,
-            marginTop: 15,
-            width: "40%",
-            fontWeight: FONT.bold,
-            marginLeft: 20,
-          }}
-        >
-          Quand souhaitez-vous qu’on la bichonne ?
-        </Text>
-
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <FormContainer>
-            <View
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                paddingLeft: 10,
-                paddingRight: 10,
-              }}
-            >
-              <FormInput2
-                value={number}
-                onChangeText={(value) => handleOnChangeText(value, "number")}
-                label="N°"
-                placeholder="25"
-                autoCapitalize="none"
-                color={COLORS.primary}
-                width="100%"
-                height={45}
-              />
-              <FormInput2
-                value={street}
-                onChangeText={(value) => handleOnChangeText(value, "street")}
-                label="Rue"
-                placeholder="Rue des Pins"
-                autoCapitalize="none"
-                color={COLORS.primary}
-                width="100%"
-                height={45}
-              />
-            </View>
-            <View>
-              <FormInput
-                value={Postal}
-                onChangeText={(value) => handleOnChangeText(value, "Postal")}
-                label="Code postal"
-                placeholder="25"
-                autoCapitalize="none"
-                color={COLORS.primary}
-              />
-            </View>
-            <View>
-              <FormInput
-                value={Town}
-                onChangeText={(value) => handleOnChangeText(value, "Town")}
-                label="Ville"
-                placeholder="25"
-                autoCapitalize="none"
-                color={COLORS.primary}
-              />
-            </View>
-          </FormContainer>
-          <BaseButton
-            title="Valider"
-            height={40}
-            padding={10}
-            marginTop={25}
-            handlePress={goToDatesPage}
-          ></BaseButton>
+        <View style={styles.form}>
+        <Text style={styles.inputLabel}>Date de début</Text>
+          <View>
+          <DateTimePicker
+            value={selectedStartDate}
+            mode="date"
+            display="default"
+            onChange={handleStartDateChange}
+            locale="fr"
+            style={styles.datePicker}
+            accentColor={COLORS.white || undefined}
+          />
+          </View>
         </View>
+        <View style={styles.form}>
+          <Text style={styles.inputLabel}>Date de fin</Text>
+          <View>
+          <DateTimePicker
+            value={selectedEndDate}
+            mode="date"
+            display="default"
+            onChange={handleEndDateChange}
+            locale="fr"
+            style={styles.datePicker}
+            accentColor={COLORS.primary || undefined}
+          />
+          </View>
+        </View>
+        <BaseButton
+          title="Valider"
+          height={40}
+          padding={10}
+          marginTop={25}
+          handlePress={handleValidation}
+        />
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -171,10 +167,40 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   subContainer: {
+    position: "relative",
+    top: -40,
     width: "90%",
-    height: "100%",
-    justifyContent: "flex-start",
+    height: "65%",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  title: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    position: 'relative',
+    top: -20
+  },
+  form: {
+    width: "90%",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+    borderRadius: 5,
+  },
+  datePicker: {
+    width: '100%',
+  },
+  inputLabel: {
+    zIndex: 1,
+    fontSize: 16,
+    fontFamily: "Roboto-Medium",
+    color: COLORS.primary,
+    marginLeft: 30
   },
 });
 
-export default Location_Page;
+export default Dates_Page;

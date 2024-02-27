@@ -4,7 +4,6 @@ import { COLORS, SIZES, FONT } from "../../../constants/themes";
 import { Formik } from "formik";
 import { accountService } from "../../_services/accountService";
 import { userLogin } from "../../../context/LoginProvider";
-import ModalSendMail from "../componants/modalMailSend";
 import Icons from "../../../constants/icons";
 import Separator from "../componants/Separator";
 import * as Yup from "yup";
@@ -13,6 +12,7 @@ import FormInput from "../Authentification/formulaire/formInput";
 import FormSubmitButton from "../Authentification/formulaire/formSubmitButton";
 import UserAvatar from "react-native-user-avatar";
 import * as ImagePicker from "expo-image-picker";
+import ModalSendMail from "../../../components/modalMailSend";
 
 const validationSchema = Yup.object({
   allName: Yup.string()
@@ -71,7 +71,11 @@ const EditProfil = ({ navigation }) => {
   return (
     <>
       {showModal && (
-        <ModalSendMail Title={"Vos Modification on réussit !"} Comment={""} />
+        <ModalSendMail
+        Title={"Vos Modification ont réussi !"} 
+        Comment={""}
+        destination={"Authentification"}
+        destinationScreen={"Login"} />
       )}
       <View style={styles.page}>
         <View style={styles.headerContainer}>

@@ -7,6 +7,8 @@ const LoginProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [data, setData] = useState({});
   const [imagesPlant, setImagesPlant] = useState([]);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const updateFormData = (formData) => {
     setData(formData);
   };
@@ -22,6 +24,10 @@ const LoginProvider = ({ children }) => {
         setData: updateFormData,
         imagesPlant,
         setImagesPlant,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate
       }}
     >
       {children}
