@@ -9,14 +9,12 @@ import { COLORS } from "../../../../constants/themes";
 export default function Slide3() {
   const navigation = useNavigation();
   const marginBottom = "20%";
-  // const goToNextScreen = () => {
-  //   navigation.navigate("Authentification", { screen: "FirstCo" });
-  //   console.log("Navigating to FirstConnexion");
-  // };
   const goToNextScreen = () => {
-    navigation.navigate("Authentification", { screen: "FirstCo" });
+    // navigation.navigate("Authentification", { screen: "FirstCo" });
+    navigation.navigate("Ads", { screen: "AdsList" }); // route pour tester mes devs à supprimer
     console.log("Navigating to FirstConnexion");
   };
+
   return (
     <ImageBackground
       source={background.backgroundThirdSlide}

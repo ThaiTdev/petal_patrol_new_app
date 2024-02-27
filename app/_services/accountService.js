@@ -65,13 +65,21 @@ let UpdateProfilBotanist = (data, id) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let showAllPlants = () => {
-  return Axios.get(`/plant/`);
+  return Axios.get(`/plant/my`);
 };
 let showDetailsPlant = (id) => {
   return Axios.get(`/plant/${id}`);
 };
 let UpdateDetailsPlant = (data, id) => {
   return Axios.put(`/plant/${id}`, data);
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//offers//
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+let showAllOffers = () => {
+  return Axios.get(`/offer/`);
 };
 
 export const accountService = {
@@ -95,4 +103,6 @@ export const accountService = {
   showAllPlants,
   showDetailsPlant,
   UpdateDetailsPlant,
+  //offer//
+  showAllOffers,
 };
