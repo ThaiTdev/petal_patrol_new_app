@@ -7,6 +7,8 @@ const LoginProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [data, setData] = useState({});
   const [imagesPlant, setImagesPlant] = useState([]);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
 
   return (
     <LoginContext.Provider
@@ -19,6 +21,10 @@ const LoginProvider = ({ children }) => {
         setData,
         imagesPlant,
         setImagesPlant,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate
       }}
     >
       {children}
