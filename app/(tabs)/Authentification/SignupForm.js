@@ -11,13 +11,13 @@ import { accountService } from "../../_services/accountService";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Header from "../componants/Header";
-import ModalSendMail from "../componants/modalMailSend";
 import images from "../../../constants/images";
 import FormContainer from "./formulaire/formContainer";
 import FormInput from "./formulaire/formInput";
 import { COLORS } from "../../../constants/themes";
 import FormSubmitButton from "./formulaire/formSubmitButton";
 import { updateError } from "../../../utils/methods";
+import ModalSendMail from "../../../components/modalMailSend";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -68,6 +68,8 @@ const SignupForm = ({ navigation }) => {
           Comment={
             "Veuillez vérifier vos mails afin de valider votre compte avant de vous connecter"
           }
+          destination={"Authentification"}
+          destinationScreen={"Login"}
         />
       )}
       <View style={styles.page}>
