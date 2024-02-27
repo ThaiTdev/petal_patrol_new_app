@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Image, Text } from 'react-native-elements';
 
-const DisplayNeedSitting = ({ PlantNeedSitting  }) => {
+const DisplayNeedSitting = ({ PlantNeedSitting, imagePlant  }) => {
   if (PlantNeedSitting) {
     const textDates = `du ${formatDate(PlantNeedSitting.date_from)} au ${formatDate(PlantNeedSitting.date_to)}`
     console.log(PlantNeedSitting.plant.images[0])
@@ -11,7 +11,7 @@ const DisplayNeedSitting = ({ PlantNeedSitting  }) => {
           <View style={styles.cardContent}>
             <View style={styles.imageBlock}>
               <Image 
-                  source={{uri:`http://192.168.168.199:5000/images/plants/${PlantNeedSitting.plant.images[0]}`}}
+                  source={{uri:`${imagePlant}/${PlantNeedSitting.plant.images[0]}`}}
                   style={styles.cardImage}
               />
               <Text style={styles.seeToCart}>voir sur la carte</Text>
