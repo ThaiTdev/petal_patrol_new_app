@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { View, Text } from "react-native";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
 import { StyleSheet } from "react-native";
+import { ProgressContext } from "../../navigators/ProgressContext";
 import FormContainer from "../../Authentification/formulaire/formContainer";
 import FormInput from "../../Authentification/formulaire/formInput";
 import FormSubmitButton from "../../Authentification/formulaire/formSubmitButton";
@@ -14,7 +15,14 @@ import * as Yup from "yup";
 const Location_Page = ({ navigation }) => {
   const { data, setData } = userLogin();
   const [error, setError] = useState("");
+  const [completed, setCompleted] = useState(false);
+  const { handleNextStep } = useContext(ProgressContext);
   console.log(data + "popooopoo");
+
+  useEffect(() => {
+    handleNextStep();
+    setCompleted(true);
+  }, [completed]);
 
   const validationSchema = Yup.object({
     number: Yup.number()
