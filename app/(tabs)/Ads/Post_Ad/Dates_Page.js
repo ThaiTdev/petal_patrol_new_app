@@ -7,6 +7,7 @@ import { userLogin } from "../../../../context/LoginProvider";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import BaseButton from "../../../../components/Buttons/Base";
 import images from "../../../../constants/images";
+import ModalSendMail from "../../../../components/modalMailSend";
 
 const Dates_Page = () => {
   const navigation = useNavigation();
@@ -14,6 +15,7 @@ const Dates_Page = () => {
   const [completed, setCompleted] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
+  const [showModal, setShowModal] = useState(false);
 
 
   const { handleNextStep } = useContext(ProgressContext);
@@ -61,9 +63,33 @@ console.log("endDate:", formattedEndDate);
     }
   };
 
+  const handleValidation = () => {
+    const currentDate = new Date();
+    if (selectedStartDate.getTime() < currentDate.getTime()) {
+      console.log("La date de début ne peut pas être antérieure à la date du jour");
+      return;
+    }
+    if (selectedStartDate.getTime() < selectedEndDate.getTime()) {
+      setShowModal(true);
+      console.log("Form submitted!");
+    } else {
+      console.log("La date de début doit être antérieure à la date de fin");
+    }
+  };
+
 
   return (
     <View style={styles.container}>
+      {showModal && (
+        <ModalSendMail
+          Title={"Annonce enregistrée avec succès !"}
+          Comment={
+            "Après validation par nos équipes elle apparaîtra dans la liste des annonces"
+          }
+          destination={"Ads"}
+          destinationScreen={"Ads_List"}
+        />
+      )}
       <View style={styles.subContainer}>
         <Text
           style={{
@@ -124,10 +150,7 @@ console.log("endDate:", formattedEndDate);
           height={40}
           padding={10}
           marginTop={25}
-          handlePress={() => {
-            // Gestion de la soumission du formulaire ici
-            console.log("Form submitted!");
-          }}
+          handlePress={handleValidation}
         />
       </View>
     </View>
