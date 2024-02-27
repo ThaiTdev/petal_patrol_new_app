@@ -1,7 +1,8 @@
 import { View } from "react-native-web";
 import DisplayNeedSitting from "./DisplayNeedSitting";
 import { PlantNeedSitting } from "./CardNeedSitting";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { accountService } from "../../../app/_services/accountService";
 
 
 // Bouclage sur les données reçues pour affichage
@@ -9,8 +10,16 @@ import React, { useContext, useState } from "react";
 
 // map sur les données pour les afficher
 const PlantNeedSit = () => {
-    const needSitting = GetNeedSitting();
-
+    const [needSitting, setNeedSitting] = useState([])
+    useEffect(() => {
+        console.log('coucou')
+        async function getData() {
+            const datas = await GetNeedSitting()
+            setNeedSitting(datas)
+        }
+        getData()
+    }, [])
+    console.log(needSitting)
     return (
         needSitting.map((needSit, index) => (
             <DisplayNeedSitting key={index} PlantNeedSitting={needSit} />
@@ -18,13 +27,12 @@ const PlantNeedSit = () => {
     );
 }
 
+
 // fontion qui ira chercher en BDD les tables nécessaires à la boucle pour affiché les messages
-function GetNeedSitting(){
-    return [
-        new PlantNeedSitting("Tagada Fraisia", "J'ai besoin d'amour", "Du 04/09 au 10/10","Publié le 25/08/2024"),
-        new PlantNeedSitting("Tagada Fraisia", "J'ai besoin d'amour", "Du 12/07 au 10/05","Publié le 25/03/2024"),
-        
-    ];
+async function GetNeedSitting(){
+    const res = await accountService.showAllOffers()
+    return res.data.offers
+    
 }
 
 

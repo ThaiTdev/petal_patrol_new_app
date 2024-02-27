@@ -3,27 +3,33 @@ import { View, StyleSheet } from 'react-native';
 import { Card, Image, Text } from 'react-native-elements';
 
 const DisplayNeedSitting = ({ PlantNeedSitting  }) => {
-    if(PlantNeedSitting ) {
+  if (PlantNeedSitting) {
+    const textDates = `du ${formatDate(PlantNeedSitting.date_from)} au ${formatDate(PlantNeedSitting.date_to)}`
+    console.log(PlantNeedSitting.plant.images[0])
     return (
         <Card containerStyle={styles.cardContainer}>
-        <View style={styles.cardContent}>
+          <View style={styles.cardContent}>
             <View style={styles.imageBlock}>
-            <Image 
-                source={require('../../../assets/images/plants/fraisier.png')}
-                style={styles.cardImage}
-            />
-            <Text style={styles.seeToCart}>voir sur la carte</Text>
+              <Image 
+                  source={{uri:`http://192.168.168.199:5000/images/plants/${PlantNeedSitting.plant.images[0]}`}}
+                  style={styles.cardImage}
+              />
+              <Text style={styles.seeToCart}>voir sur la carte</Text>
             </View>   
             <View style={styles.textContainer}>
-            <Text style={styles.title}>{PlantNeedSitting.title}</Text>
-            <Text style={styles.subtitle}>{PlantNeedSitting.subtitle}</Text>
-            <Text style={styles.textDates}>{PlantNeedSitting.textDates}</Text>
-            <Text style={styles.textToPublish}>{PlantNeedSitting.textToPublish}</Text>
+              <Text style={styles.title}>{PlantNeedSitting.plant.name}</Text>
+              <Text style={styles.subtitle}>{PlantNeedSitting.description}</Text>
+              <Text style={styles.textDates}>{textDates}</Text>
+              <Text style={styles.textToPublish}>{PlantNeedSitting.textToPublish}</Text>
             </View>
-        </View>
+          </View>
         </Card>
     );
-    }
+  }
+  
+}
+function formatDate(date) {
+  return date.slice(6, 10).split('-').reverse().join('/')
 }
 
 const styles = StyleSheet.create({
