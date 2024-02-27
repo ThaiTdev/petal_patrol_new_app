@@ -72,10 +72,11 @@ const EditProfil = ({ navigation }) => {
     <>
       {showModal && (
         <ModalSendMail
-        Title={"Vos Modification ont réussi !"} 
-        Comment={""}
-        destination={"Authentification"}
-        destinationScreen={"Login"} />
+          Title={"Vos Modification ont réussi !"}
+          Comment={""}
+          destination={"Authentification"}
+          destinationScreen={"Login"}
+        />
       )}
       <View style={styles.page}>
         <View style={styles.headerContainer}>
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.tertiary,
     width: "100%",
     height: "100%",
-    borderBottomRightRadius: "50%",
+    borderBottomRightRadius: 50,
   },
   LinksContainer: {
     flexDirection: "row",

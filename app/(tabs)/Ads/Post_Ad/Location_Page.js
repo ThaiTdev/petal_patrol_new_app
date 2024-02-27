@@ -12,32 +12,31 @@ import FormInput2 from "../../Authentification/formulaire/formInput2";
 import { userLogin } from "../../../../context/LoginProvider";
 import * as Yup from "yup";
 
+const validationSchema = Yup.object({
+  number: Yup.number()
+    .min(1, "Number must be at least 1.")
+    .max(9999, "Number must be at most 9999.")
+    .required("Number is required!"),
+  street: Yup.string().required("Street is required!"),
+  postal: Yup.string()
+    .trim()
+    .min(5, "Postal code must be at least 5 characters long.")
+    .required("Postal code is required!"),
+  Town: Yup.string().required("Town is required!"),
+});
+
 const Location_Page = ({ navigation }) => {
   const { data, setData } = userLogin();
   const [error, setError] = useState("");
   const [completed, setCompleted] = useState(false);
   const { handleNextStep } = useContext(ProgressContext);
-  console.log(data + "popooopoo");
 
   useEffect(() => {
     handleNextStep();
     setCompleted(true);
   }, [completed]);
 
-  const validationSchema = Yup.object({
-    number: Yup.number()
-      .required("Number is required!")
-      .min(1, "Number must be at least 1.")
-      .max(9999, "Number must be at most 9999."),
-    street: Yup.string().required("Street is required!"),
-    postal: Yup.string()
-      .trim()
-      .min(5, "Postal code must be at least 8 characters long.")
-      .required("Postal code is required!"),
-    Town: Yup.string().required("Town is required!"),
-  });
   const handleOnChangeText = (value, fieldName, setFieldValue) => {
-    // const trimmedValue = value.replace(/^\s+|\s+$/g, "");
     setFieldValue(fieldName, value);
   };
   const goToDatesPage = (values) => {
@@ -53,7 +52,8 @@ const Location_Page = ({ navigation }) => {
       // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
       navigation.navigate("PostAd", { screen: "Dates_Page" });
     } catch (error) {
-      console.error("Error navigating to Dates_Page:", error);
+      console.log();
+      "Error navigating to Dates_Page:", error;
       // Gérez les erreurs si nécessaire
     }
   };
@@ -112,11 +112,6 @@ const Location_Page = ({ navigation }) => {
           }}
         >
           <FormContainer>
-            {error ? (
-              <Text style={{ color: "red", fontSize: 18, textAlign: "center" }}>
-                {error}
-              </Text>
-            ) : null}
             <Formik
               initialValues={{
                 number: "",
@@ -149,11 +144,17 @@ const Location_Page = ({ navigation }) => {
                   >
                     <FormInput2
                       value={values.number}
-                      error={touched.name && errors.name}
+                      error={
+                        touched.number && (
+                          <Text style={{ color: "red", fontSize: 10 }}>
+                            {errors.number}
+                          </Text>
+                        )
+                      }
                       onChangeText={(value) =>
                         handleOnChangeText(value, "number", setFieldValue)
                       }
-                      label="N°"
+                      label="*N°"
                       placeholder="25"
                       autoCapitalize="none"
                       color={COLORS.primary}
@@ -161,13 +162,20 @@ const Location_Page = ({ navigation }) => {
                       height={45}
                       onBlur={handleBlur("number")}
                     />
+
                     <FormInput2
                       value={values.postal}
-                      error={touched.name && errors.name}
+                      error={
+                        touched.postal && (
+                          <Text style={{ color: "red", fontSize: 10 }}>
+                            {errors.postal}
+                          </Text>
+                        )
+                      }
                       onChangeText={(value) =>
                         handleOnChangeText(value, "postal", setFieldValue)
                       }
-                      label="Code postal"
+                      label="*Code postal"
                       placeholder="34430"
                       autoCapitalize="none"
                       color={COLORS.primary}
@@ -179,11 +187,17 @@ const Location_Page = ({ navigation }) => {
                   <View>
                     <FormInput
                       value={values.street}
-                      error={touched.name && errors.name}
+                      error={
+                        touched.street && (
+                          <Text style={{ color: "red", fontSize: 10 }}>
+                            {errors.street}
+                          </Text>
+                        )
+                      }
                       onChangeText={(value) =>
                         handleOnChangeText(value, "street", setFieldValue)
                       }
-                      label="Rue"
+                      label="*Rue"
                       placeholder="Rue des Pins"
                       autoCapitalize="none"
                       color={COLORS.primary}
@@ -193,11 +207,17 @@ const Location_Page = ({ navigation }) => {
                   <View>
                     <FormInput
                       value={values.Town}
-                      error={touched.name && errors.name}
+                      error={
+                        touched.Town && (
+                          <Text style={{ color: "red", fontSize: 10 }}>
+                            {errors.Town}
+                          </Text>
+                        )
+                      }
                       onChangeText={(value) =>
                         handleOnChangeText(value, "Town", setFieldValue)
                       }
-                      label="Ville"
+                      label="*Ville"
                       placeholder="25"
                       autoCapitalize="none"
                       color={COLORS.primary}

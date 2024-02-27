@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     width: "100%",
     height: "100%",
-    borderBottomRightRadius: "50%",
+    borderBottomRightRadius: 50,
   },
   LinksContainer: {
     flexDirection: "row",
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: COLORS.tertiary,
     height: "100%",
-    borderTopLeftRadius: "50%",
+    borderTopLeftRadius: 50,
     alignItems: "center",
   },
   containerLinks: {

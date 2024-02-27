@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     borderBottomColor: "black",
-    borderBottomRightRadius: "50%",
+    borderBottomRightRadius: 50,
   },
   title: {
     alignItems: "baseline",
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   subPage: {
     backgroundColor: COLORS.primary,
     height: "100%",
-    borderTopLeftRadius: "50%",
+    borderTopLeftRadius: 50,
     alignItems: "center",
   },
 });

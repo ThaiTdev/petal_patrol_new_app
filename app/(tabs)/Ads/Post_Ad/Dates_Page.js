@@ -1,22 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, View, Text } from "react-native";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
 import { ProgressContext } from "../../navigators/ProgressContext";
 import { userLogin } from "../../../../context/LoginProvider";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from "@react-native-community/datetimepicker";
 import BaseButton from "../../../../components/Buttons/Base";
 import images from "../../../../constants/images";
 import ModalSendMail from "../../../../components/modalMailSend";
 
 const Dates_Page = () => {
-  const navigation = useNavigation();
-  const { startDate, setStartDate, endDate, setEndDate} = userLogin();
+  const { data, setData } = userLogin();
   const [completed, setCompleted] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
-
+  const [error, setError] = useState("");
 
   const { handleNextStep } = useContext(ProgressContext);
 
@@ -25,19 +23,15 @@ const Dates_Page = () => {
     setCompleted(true);
   }, [completed]);
 
-  useEffect(() => {
-    setStartDate(selectedStartDate);
-  }, [selectedStartDate]);
+  // useEffect(() => {
+  //   setEndDate(selectedEndDate);
+  // }, [selectedEndDate]);
 
-  useEffect(() => {
-    setEndDate(selectedEndDate);
-  }, [selectedEndDate]);
+  const formattedStartDate = selectedStartDate.toLocaleString("fr-FR");
+  const formattedEndDate = selectedEndDate.toLocaleString("fr-FR");
 
-const formattedStartDate = selectedStartDate.toLocaleString("fr-FR");
-const formattedEndDate = selectedEndDate.toLocaleString("fr-FR");
-
-console.log("startDate:", formattedStartDate);
-console.log("endDate:", formattedEndDate);
+  console.log("startDate:", formattedStartDate);
+  console.log("endDate:", formattedEndDate);
 
   const handleStartDateChange = (event, selectedDate) => {
     if (selectedDate !== undefined) {
@@ -66,17 +60,28 @@ console.log("endDate:", formattedEndDate);
   const handleValidation = () => {
     const currentDate = new Date();
     if (selectedStartDate.getTime() < currentDate.getTime()) {
-      console.log("La date de début ne peut pas être antérieure à la date du jour");
+      setError(
+        "La date de début ne peut pas être antérieure ou égale à la date du jour"
+      );
       return;
     }
     if (selectedStartDate.getTime() < selectedEndDate.getTime()) {
       setShowModal(true);
       console.log("Form submitted!");
     } else {
-      console.log("La date de début doit être antérieure à la date de fin");
+      setError("La date de début doit être antérieure à la date de fin");
     }
+    setError("");
   };
-
+  useEffect(() => {
+    // setStartDate(selectedStartDate);
+    setData({
+      ...data,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+    });
+    console.log("mon nouvel objet data: " + data);
+  }, [selectedStartDate, selectedEndDate]);
 
   return (
     <View style={styles.container}>
@@ -103,6 +108,7 @@ console.log("endDate:", formattedEndDate);
         >
           L’instant plaisant
         </Text>
+
         <View style={styles.title}>
           <Text
             style={{
@@ -115,34 +121,47 @@ console.log("endDate:", formattedEndDate);
           >
             Dites-nous quand vous avez besoin d’un plant-sitter
           </Text>
+
           <Image source={images.calandar} style={styles.icons} />
         </View>
+        {error ? (
+          <Text
+            style={{
+              color: "red",
+              fontSize: 16,
+              textAlign: "center",
+              marginTop: 10,
+            }}
+          >
+            {error}
+          </Text>
+        ) : null}
         <View style={styles.form}>
-        <Text style={styles.inputLabel}>Date de début</Text>
+          <Text style={styles.inputLabel}>Date de début</Text>
           <View>
-          <DateTimePicker
-            value={selectedStartDate}
-            mode="date"
-            display="default"
-            onChange={handleStartDateChange}
-            locale="fr"
-            style={styles.datePicker}
-            accentColor={COLORS.white || undefined}
-          />
+            <DateTimePicker
+              value={selectedStartDate}
+              mode="date"
+              display="default"
+              onChange={handleStartDateChange}
+              locale="fr"
+              style={styles.datePicker}
+              accentColor={COLORS.white || undefined}
+            />
           </View>
         </View>
         <View style={styles.form}>
           <Text style={styles.inputLabel}>Date de fin</Text>
           <View>
-          <DateTimePicker
-            value={selectedEndDate}
-            mode="date"
-            display="default"
-            onChange={handleEndDateChange}
-            locale="fr"
-            style={styles.datePicker}
-            accentColor={COLORS.primary || undefined}
-          />
+            <DateTimePicker
+              value={selectedEndDate}
+              mode="date"
+              display="default"
+              onChange={handleEndDateChange}
+              locale="fr"
+              style={styles.datePicker}
+              accentColor={COLORS.primary || undefined}
+            />
           </View>
         </View>
         <BaseButton
@@ -179,27 +198,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    position: 'relative',
-    top: -20
+    position: "relative",
+    top: -20,
   },
   form: {
     width: "90%",
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     backgroundColor: COLORS.white,
     borderRadius: 5,
   },
   datePicker: {
-    width: '100%',
+    width: "100%",
   },
   inputLabel: {
     zIndex: 1,
     fontSize: 16,
     fontFamily: "Roboto-Medium",
     color: COLORS.primary,
-    marginLeft: 30
+    marginLeft: 30,
   },
 });
 
