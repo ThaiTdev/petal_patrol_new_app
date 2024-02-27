@@ -74,13 +74,13 @@ const FirstConnexion = ({ navigation }) => {
             <TouchableOpacity onPress={goToConfidential}>
               <Text
                 style={{
-                  fontSize: 10,
+                  fontSize: 15,
                   color: COLORS.secondary,
                   marginLeft: 10,
                   marginTop: 20,
                 }}
               >
-                Nos politique de confidentialité
+                CGU
               </Text>
             </TouchableOpacity>
           </View>

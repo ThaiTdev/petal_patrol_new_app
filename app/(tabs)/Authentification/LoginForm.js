@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { userLogin } from "../../../context/LoginProvider";
 import { accountService } from "../../_services/accountService";
@@ -16,6 +16,7 @@ import FormContainer from "./formulaire/formContainer";
 import FormInput from "./formulaire/formInput";
 import FormSubmitButton from "./formulaire/formSubmitButton";
 import images from "../../../constants/images";
+import icons from "../../../constants/icons";
 
 const LoginForm = ({ navigation }) => {
   const { setIsLoggedIn, setProfile } = userLogin();
@@ -29,6 +30,7 @@ const LoginForm = ({ navigation }) => {
 
   //checkbox
   const [checked, setChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const toggleCheckbox = () => setChecked(!checked);
 
   const handleOnChangeText = (value, fieldName) => {
@@ -41,6 +43,10 @@ const LoginForm = ({ navigation }) => {
   };
   const goToLostPassword = () => {
     navigation.navigate("Authentification", { screen: "LostPassword" });
+  };
+  const handleshowPassword = () => {
+    setShowPassword(!showPassword);
+    console.log(showPassword);
   };
 
   //gestion des erreurs pour formulaire
@@ -61,6 +67,7 @@ const LoginForm = ({ navigation }) => {
           .signin({ ...userInfo })
           .then((res) => {
             console.log("premier " + res.data.user.name);
+            setError(res.data.message);
             setProfile({
               userId: res.data.user.id,
               name: res.data.user.name,
@@ -76,7 +83,8 @@ const LoginForm = ({ navigation }) => {
             // navigation.navigate("Ads", { screen: "Ads_List" });
           })
           .catch((error) => {
-            setMessage(error.response.data.message);
+            setError(error.response.data.message);
+            console.log(error);
           });
       } catch (error) {}
     }
@@ -101,15 +109,27 @@ const LoginForm = ({ navigation }) => {
               autoCapitalize="none"
               color={COLORS.white}
             />
-            <FormInput
-              value={password}
-              onChangeText={(value) => handleOnChangeText(value, "password")}
-              label="*Mot de passe"
-              placeholder="********"
-              autoCapitalize="none"
-              secureTextEntry
-              color={COLORS.white}
-            />
+            <View style={styles.containerShowPassWord}>
+              <FormInput
+                value={password}
+                onChangeText={(value) => handleOnChangeText(value, "password")}
+                label="*Mot de passe"
+                placeholder="********"
+                autoCapitalize="none"
+                secureTextEntry={!showPassword}
+                color={COLORS.white}
+              />
+              <TouchableOpacity
+                style={styles.eyeIconContainer}
+                onPress={handleshowPassword}
+              >
+                {showPassword ? (
+                  <Image style={styles.ImageEye} source={icons.eye} />
+                ) : (
+                  <Image style={styles.ImageEye} source={icons.crossEye} />
+                )}
+              </TouchableOpacity>
+            </View>
             <View
               style={{
                 justifyContent: "center",
@@ -135,8 +155,8 @@ const LoginForm = ({ navigation }) => {
                     marginLeft: -18,
                   }}
                 >
-                  {/* <CheckBox checked={checked} onPress={toggleCheckbox} />
-                  <Text style={styles.text1}>Se souvenir de moi</Text> */}
+                  <CheckBox checked={checked} onPress={toggleCheckbox} />
+                  <Text style={styles.text1}>Se souvenir de moi</Text>
                 </View>
                 <TouchableOpacity onPress={goToLostPassword}>
                   <Text style={styles.text2}>Mot de pass oublié?</Text>
@@ -207,6 +227,17 @@ const styles = StyleSheet.create({
   },
   containerForm: {
     marginTop: "5%",
+  },
+  containerShowPassWord: {
+    position: "relative",
+  },
+  ImageEye: {
+    position: "absolute",
+    width: 30,
+    height: 30,
+    right: 30,
+    bottom: 18,
+    zIndex: 2000,
   },
   forgotPassWord: {
     width: "90%",

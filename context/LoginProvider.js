@@ -9,6 +9,9 @@ const LoginProvider = ({ children }) => {
   const [imagesPlant, setImagesPlant] = useState([]);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const updateFormData = (formData) => {
+    setData(formData);
+  };
 
   return (
     <LoginContext.Provider
@@ -18,7 +21,7 @@ const LoginProvider = ({ children }) => {
         profile,
         setProfile,
         data,
-        setData,
+        setData: updateFormData,
         imagesPlant,
         setImagesPlant,
         startDate,

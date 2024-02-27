@@ -39,6 +39,8 @@ const FormInput2 = (props) => {
           {...props}
           placeholder={placeholder}
           multiline={true} // Ajout de la propriété multiline
+          keyboardType="numeric"
+          maxLength={5}
           style={[
             styles.input,
             {

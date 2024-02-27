@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Image,
 } from "react-native";
 import { accountService } from "../../_services/accountService";
 import { Formik } from "formik";
@@ -18,6 +19,7 @@ import { COLORS } from "../../../constants/themes";
 import FormSubmitButton from "./formulaire/formSubmitButton";
 import { updateError } from "../../../utils/methods";
 import ModalSendMail from "../../../components/modalMailSend";
+import icons from "../../../constants/icons";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -39,6 +41,8 @@ const SignupForm = ({ navigation }) => {
   const [error, setError] = useState("");
   const [valideMessage, setValideMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const handleOnChangeText = (value, fieldName, setFieldValue) => {
     setFieldValue(fieldName, value);
   };
@@ -46,7 +50,14 @@ const SignupForm = ({ navigation }) => {
   const goToLogin = () => {
     navigation.navigate("Authentification", { screen: "Login" });
   };
-
+  const handleshowPassword = () => {
+    setShowPassword(!showPassword);
+    console.log(showPassword);
+  };
+  const handleshowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+    console.log(showConfirmPassword);
+  };
   const signUp = async (values, formikActions) => {
     try {
       const res = await accountService.signup(values);
@@ -127,36 +138,68 @@ const SignupForm = ({ navigation }) => {
                       placeholder="example@email.com"
                       color={COLORS.white}
                     />
-                    <FormInput
-                      value={values.password}
-                      error={touched.password && errors.password}
-                      onChangeText={(value) =>
-                        handleOnChangeText(value, "password", setFieldValue)
-                      }
-                      onBlur={handleBlur("password")}
-                      autoCapitalize="none"
-                      secureTextEntry
-                      label="*Mot de passe"
-                      placeholder="********"
-                      color={COLORS.white}
-                    />
-                    <FormInput
-                      value={values.confirmPassword}
-                      error={touched.confirmPassword && errors.confirmPassword}
-                      onChangeText={(value) =>
-                        handleOnChangeText(
-                          value,
-                          "confirmPassword",
-                          setFieldValue
-                        )
-                      }
-                      onBlur={handleBlur("confirmPassword")}
-                      autoCapitalize="none"
-                      secureTextEntry
-                      label="*Confirme mot de passe"
-                      placeholder="********"
-                      color={COLORS.white}
-                    />
+                    <View style={styles.containerShowPassWord}>
+                      <FormInput
+                        value={values.password}
+                        error={touched.password && errors.password}
+                        onChangeText={(value) =>
+                          handleOnChangeText(value, "password", setFieldValue)
+                        }
+                        onBlur={handleBlur("password")}
+                        autoCapitalize="none"
+                        secureTextEntry={!showPassword}
+                        label="*Mot de passe"
+                        placeholder="********"
+                        color={COLORS.white}
+                      />
+                      <TouchableOpacity
+                        style={styles.eyeIconContainer}
+                        onPress={handleshowPassword}
+                      >
+                        {showPassword ? (
+                          <Image style={styles.ImageEye} source={icons.eye} />
+                        ) : (
+                          <Image
+                            style={styles.ImageEye}
+                            source={icons.crossEye}
+                          />
+                        )}
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.containerShowPassWord}>
+                      <FormInput
+                        value={values.confirmPassword}
+                        error={
+                          touched.confirmPassword && errors.confirmPassword
+                        }
+                        onChangeText={(value) =>
+                          handleOnChangeText(
+                            value,
+                            "confirmPassword",
+                            setFieldValue
+                          )
+                        }
+                        onBlur={handleBlur("confirmPassword")}
+                        autoCapitalize="none"
+                        secureTextEntry={!showConfirmPassword}
+                        label="*Confirme mot de passe"
+                        placeholder="********"
+                        color={COLORS.white}
+                      />
+                      <TouchableOpacity
+                        style={styles.eyeIconContainer}
+                        onPress={handleshowConfirmPassword}
+                      >
+                        {showConfirmPassword ? (
+                          <Image style={styles.ImageEye} source={icons.eye} />
+                        ) : (
+                          <Image
+                            style={styles.ImageEye}
+                            source={icons.crossEye}
+                          />
+                        )}
+                      </TouchableOpacity>
+                    </View>
                     <FormSubmitButton
                       submitting={isSubmitting}
                       onPress={handleSubmit}
@@ -212,6 +255,17 @@ const styles = StyleSheet.create({
   },
   containerForm: {
     marginTop: "5%",
+  },
+  containerShowPassWord: {
+    position: "relative",
+  },
+  ImageEye: {
+    position: "absolute",
+    width: 30,
+    height: 30,
+    right: 30,
+    bottom: 18,
+    zIndex: 2000,
   },
   forgotPassWord: {
     width: "90%",
