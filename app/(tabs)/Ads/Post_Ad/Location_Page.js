@@ -48,12 +48,8 @@ const Location_Page = ({ navigation }) => {
       );
 
       // Mettre à jour le contexte avec les données du formulaire
-
-      console.log("data:" + data);
       const { number, street, ...restValues } = trimmedValues;
-      console.log(number);
-      console.log(street);
-      console.log(number + " " + street);
+
       addressString = number + " " + street;
       console.log("mon adresse: " + addressString);
 
