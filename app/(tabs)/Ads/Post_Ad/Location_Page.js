@@ -59,7 +59,7 @@ const Location_Page = ({ navigation }) => {
         address: addressString,
         coordinates: "",
         allow_advices: "",
-        plantId: null,
+        // plantId: null,
       });
       // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
       navigation.navigate("PostAd", { screen: "Dates_Page" });

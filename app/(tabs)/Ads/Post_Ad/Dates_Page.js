@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, Image, View, Text } from "react-native";
+import { accountService } from "../../../_services/accountService";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
 import { ProgressContext } from "../../navigators/ProgressContext";
 import { userLogin } from "../../../../context/LoginProvider";
@@ -15,6 +16,7 @@ const Dates_Page = () => {
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
+  const [valideMessage, setValideMessage] = useState("");
 
   const { handleNextStep } = useContext(ProgressContext);
 
@@ -57,22 +59,6 @@ const Dates_Page = () => {
     }
   };
 
-  const handleValidation = () => {
-    const currentDate = new Date();
-    if (selectedStartDate.getTime() < currentDate.getTime()) {
-      setError(
-        "La date de début ne peut pas être antérieure ou égale à la date du jour"
-      );
-      return;
-    }
-    if (selectedStartDate.getTime() < selectedEndDate.getTime()) {
-      setShowModal(true);
-      console.log("Form submitted!");
-    } else {
-      setError("La date de début doit être antérieure à la date de fin");
-    }
-    setError("");
-  };
   useEffect(() => {
     const modifiedData = {
       ...data,
@@ -81,13 +67,60 @@ const Dates_Page = () => {
     };
 
     setData(modifiedData);
-    console.log("mon nouvel objet data: " + data);
+    console.log("mon nouvel objet data: ", data);
     //data to créate an ads
     const { name } = data;
     //dataplant to créate a plant
     setDataPlant({ image: imagesPlant, name: name, type: "" });
     console.log(dataPlant);
   }, [selectedStartDate, selectedEndDate]);
+
+  const handleValidation = async () => {
+    console.log(dataPlant);
+    console.log(data);
+    const currentDate = new Date();
+    if (selectedStartDate.getTime() < currentDate.getTime()) {
+      setError(
+        "La date de début ne peut pas être antérieure ou égale à la date du jour"
+      );
+      return;
+    }
+    if (selectedStartDate.getTime() < selectedEndDate.getTime()) {
+      try {
+        //create plant
+        const resDataPlant = await accountService.createPlant(dataPlant, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setValideMessage(resDataPlant.data.message);
+        console.log(valideMessage);
+        console.log(resDataPlant.data.plant);
+
+        useEffect(() => {
+          setData({
+            ...data,
+            plantId: resDataPlant.data.user.plantId,
+          });
+        }, [plantId]);
+
+        console.log("my new data", data);
+
+        //create ads
+        const resData = await accountService.createOffers(data);
+        setValideMessage(resData.data.message);
+        console.log(valideMessage);
+        setShowModal(true);
+        console.log("Form submitted!");
+      } catch (error) {
+        console.error("Error while creating plant:", error);
+        setError("Une erreur s'est produite lors de la création de la plante");
+      }
+    } else {
+      setError("La date de début doit être antérieure à la date de fin");
+    }
+    setError("");
+  };
 
   return (
     <View style={styles.container}>
