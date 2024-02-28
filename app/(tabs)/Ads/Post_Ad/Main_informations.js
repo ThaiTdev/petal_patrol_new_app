@@ -55,7 +55,7 @@ const Main_informations = () => {
   };
 
   useEffect(() => {
-    setData({ plantName: valueText.trim(), description: valueText2.trim() });
+    setData({ name: valueText.trim(), description: valueText2.trim() });
     console.log("hello" + valueText);
     console.log("hello" + valueText2);
   }, [valueText, valueText2]);
