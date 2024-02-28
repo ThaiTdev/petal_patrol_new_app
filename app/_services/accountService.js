@@ -64,6 +64,10 @@ let UpdateProfilBotanist = (data, id) => {
 //plants//
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+let createPlant = (dataPlant) => {
+  return Axios.post(`/plant`, dataPlant);
+};
+
 let showAllPlants = () => {
   return Axios.get(`/plant/my`);
 };
@@ -78,6 +82,9 @@ let UpdateDetailsPlant = (data, id) => {
 //offers//
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+let createOffers = (data) => {
+  return Axios.post(`/offer/`, data);
+};
 let showAllOffers = () => {
   return Axios.get(`/offer/`);
 };
@@ -100,9 +107,11 @@ export const accountService = {
   showProfileBotanist,
   UpdateProfilBotanist,
   //Plants//
+  createPlant,
   showAllPlants,
   showDetailsPlant,
   UpdateDetailsPlant,
   //offer//
+  createOffers,
   showAllOffers,
 };
