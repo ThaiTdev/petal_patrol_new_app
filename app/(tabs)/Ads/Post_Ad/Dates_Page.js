@@ -9,7 +9,7 @@ import images from "../../../../constants/images";
 import ModalSendMail from "../../../../components/modalMailSend";
 
 const Dates_Page = () => {
-  const { data, setData } = userLogin();
+  const { data, setData, imagesPlant, dataPlant, setDataPlant } = userLogin();
   const [completed, setCompleted] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
@@ -23,15 +23,15 @@ const Dates_Page = () => {
     setCompleted(true);
   }, [completed]);
 
-  // useEffect(() => {
-  //   setEndDate(selectedEndDate);
-  // }, [selectedEndDate]);
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  const formattedStartDate = selectedStartDate.toLocaleDateString(
+    "fr-FR",
+    options
+  );
+  const formattedEndDate = selectedEndDate.toLocaleDateString("fr-FR", options);
 
-  const formattedStartDate = selectedStartDate.toLocaleString("fr-FR");
-  const formattedEndDate = selectedEndDate.toLocaleString("fr-FR");
-
-  console.log("startDate:", formattedStartDate);
-  console.log("endDate:", formattedEndDate);
+  console.log("from_date:", formattedStartDate);
+  console.log("to_date:", formattedEndDate);
 
   const handleStartDateChange = (event, selectedDate) => {
     if (selectedDate !== undefined) {
@@ -74,13 +74,19 @@ const Dates_Page = () => {
     setError("");
   };
   useEffect(() => {
-    // setStartDate(selectedStartDate);
-    setData({
+    const modifiedData = {
       ...data,
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-    });
+      date_from: formattedStartDate.replace(/\//g, "-"),
+      date_to: formattedEndDate.replace(/\//g, "-"),
+    };
+
+    setData(modifiedData);
     console.log("mon nouvel objet data: " + data);
+    //data to créate an ads
+    const { name } = data;
+    //dataplant to créate a plant
+    setDataPlant({ image: imagesPlant, name: name, type: "" });
+    console.log(dataPlant);
   }, [selectedStartDate, selectedEndDate]);
 
   return (
