@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS.primary,
     height: "100%",
-    borderTopLeftRadius: "50%",
+    borderTopLeftRadius: 50,
     alignItems: "center",
   },
 

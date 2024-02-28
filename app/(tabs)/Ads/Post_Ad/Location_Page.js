@@ -18,11 +18,11 @@ const validationSchema = Yup.object({
     .max(9999, "Number must be at most 9999.")
     .required("Number is required!"),
   street: Yup.string().required("Street is required!"),
-  postal: Yup.string()
+  zip: Yup.string()
     .trim()
     .min(5, "Postal code must be at least 5 characters long.")
     .required("Postal code is required!"),
-  Town: Yup.string().required("Town is required!"),
+  city: Yup.string().required("city is required!"),
 });
 
 const Location_Page = ({ navigation }) => {
@@ -30,6 +30,7 @@ const Location_Page = ({ navigation }) => {
   const [error, setError] = useState("");
   const [completed, setCompleted] = useState(false);
   const { handleNextStep } = useContext(ProgressContext);
+  let addressString = "";
 
   useEffect(() => {
     handleNextStep();
@@ -47,8 +48,23 @@ const Location_Page = ({ navigation }) => {
       );
 
       // Mettre à jour le contexte avec les données du formulaire
-      setData({ ...data, ...trimmedValues });
-      console.log(data);
+
+      console.log("data:" + data);
+      const { number, street, ...restValues } = trimmedValues;
+      console.log(number);
+      console.log(street);
+      console.log(number + " " + street);
+      addressString = number + " " + street;
+      console.log("mon adresse: " + addressString);
+
+      setData({
+        ...data,
+        ...restValues,
+        address: addressString,
+        coordinates: "",
+        allow_advices: "",
+        plantId: null,
+      });
       // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
       navigation.navigate("PostAd", { screen: "Dates_Page" });
     } catch (error) {
@@ -116,8 +132,8 @@ const Location_Page = ({ navigation }) => {
               initialValues={{
                 number: "",
                 street: "",
-                postal: "",
-                Town: "",
+                zip: "",
+                city: "",
               }}
               validationSchema={validationSchema}
               onSubmit={(values) => goToDatesPage(values)}
@@ -164,16 +180,16 @@ const Location_Page = ({ navigation }) => {
                     />
 
                     <FormInput2
-                      value={values.postal}
+                      value={values.zip}
                       error={
-                        touched.postal && (
+                        touched.zip && (
                           <Text style={{ color: "red", fontSize: 10 }}>
-                            {errors.postal}
+                            {errors.zip}
                           </Text>
                         )
                       }
                       onChangeText={(value) =>
-                        handleOnChangeText(value, "postal", setFieldValue)
+                        handleOnChangeText(value, "zip", setFieldValue)
                       }
                       label="*Code postal"
                       placeholder="34430"
@@ -181,7 +197,7 @@ const Location_Page = ({ navigation }) => {
                       color={COLORS.primary}
                       width="100%"
                       height={45}
-                      onBlur={handleBlur("postal")}
+                      onBlur={handleBlur("zip")}
                     />
                   </View>
                   <View>
@@ -206,22 +222,22 @@ const Location_Page = ({ navigation }) => {
                   </View>
                   <View>
                     <FormInput
-                      value={values.Town}
+                      value={values.city}
                       error={
-                        touched.Town && (
+                        touched.city && (
                           <Text style={{ color: "red", fontSize: 10 }}>
-                            {errors.Town}
+                            {errors.city}
                           </Text>
                         )
                       }
                       onChangeText={(value) =>
-                        handleOnChangeText(value, "Town", setFieldValue)
+                        handleOnChangeText(value, "city", setFieldValue)
                       }
                       label="*Ville"
-                      placeholder="25"
+                      placeholder="Montpellier"
                       autoCapitalize="none"
                       color={COLORS.primary}
-                      onBlur={handleBlur("Town")}
+                      onBlur={handleBlur("city")}
                     />
                   </View>
                   <FormSubmitButton

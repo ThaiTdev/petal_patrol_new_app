@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   subPage: {
     backgroundColor: COLORS.primary,
     height: "100%",
-    borderTopLeftRadius: "50%",
+    borderTopLeftRadius: 50,
     alignItems: "center",
   },
   containerForm: {
