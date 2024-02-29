@@ -19,6 +19,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 const TemplateScreen = () => {
   const navigation = useNavigation();
+  const [searchText, setSearchText] = useState("");
   return (
     <View style={styles.page}>
       <View style={styles.headerContainer}>
@@ -27,8 +28,9 @@ const TemplateScreen = () => {
             <Image source={logo.logo} style={styles.logo}></Image>
             <TextInput
               style={styles.input}
-              value={text}
+              value={searchText}
               placeholder="Rechercher sur petal Patrol"
+              onChangeText={(text) => setSearchText(text)}
             />
             <View style={styles.semiContainer}>
               <Text style={styles.txtSolo}>
@@ -44,7 +46,7 @@ const TemplateScreen = () => {
       </View>
 
       <ScrollView style={styles.subPage}>
-        <PlantNeedSit />
+        <PlantNeedSit searchText={searchText} />
       </ScrollView>
     </View>
   );
@@ -108,7 +110,8 @@ const styles = StyleSheet.create({
     width: "40%",
     height: "35%",
     resizeMode: "contain",
-    marginBottom: "15%",
+    marginBottom: 70,
+    marginRight: 15,
   },
   subPage: {
     backgroundColor: COLORS.tertiary,
