@@ -84,6 +84,12 @@ const Dates_Page = () => {
     console.log(dataPlant);
     console.log(data);
     const currentDate = new Date();
+    if (!data.date_from || !data.date_to) {
+      setError(
+        "Vous devez renseigner la date de début et de fin de votre offre."
+      );
+      return;
+    }
     if (selectedStartDate.getTime() < currentDate.getTime()) {
       setError(
         "La date de début ne peut pas être antérieure ou égale à la date du jour"
