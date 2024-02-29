@@ -7,6 +7,7 @@ import LoginForm from "../Authentification/LoginForm";
 import SignupForm from "../Authentification/SignupForm";
 import LostPassword from "../Authentification/Lost_Password";
 import Confidentials from "../Authentification/confidentials";
+
 // import Ads_List from "../Ads/Ads_List";
 
 const Stack = createNativeStackNavigator();
