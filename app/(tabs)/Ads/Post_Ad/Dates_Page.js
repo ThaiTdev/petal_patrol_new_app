@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, Image, View, Text } from "react-native";
+import { StyleSheet, Image, View, Text, Pressable } from "react-native";
 import { accountService } from "../../../_services/accountService";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
 import { ProgressContext } from "../../navigators/ProgressContext";
@@ -17,6 +17,9 @@ const Dates_Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
   const [valideMessage, setValideMessage] = useState("");
+  const [dateOpen1, setDateOpen1] = useState(false);
+  const [dateOpen2, setDateOpen2] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const { handleNextStep } = useContext(ProgressContext);
 
@@ -42,6 +45,7 @@ const Dates_Page = () => {
       const formattedDate = parsedDate.toLocaleDateString("fr-FR", options);
       console.log(`Date de début sélectionnée: ${formattedDate}`);
       setSelectedStartDate(parsedDate);
+      setDateOpen1(false);
     } else {
       console.log("Sélection de la date de début annulée");
     }
@@ -54,6 +58,7 @@ const Dates_Page = () => {
       const formattedDate = parsedDate.toLocaleDateString("fr-FR", options);
       console.log(`Date de fin sélectionnée: ${formattedDate}`);
       setSelectedEndDate(parsedDate);
+      setDateOpen2(false);
     } else {
       console.log("Sélection de la date de fin annulée");
     }
@@ -79,10 +84,17 @@ const Dates_Page = () => {
     console.log(dataPlant);
     console.log(data);
     const currentDate = new Date();
+    if (!data.date_from || !data.date_to) {
+      setError(
+        "Vous devez renseigner la date de début et de fin de votre offre."
+      );
+      return;
+    }
     if (selectedStartDate.getTime() < currentDate.getTime()) {
       setError(
         "La date de début ne peut pas être antérieure ou égale à la date du jour"
       );
+
       return;
     }
     if (selectedStartDate.getTime() < selectedEndDate.getTime()) {
@@ -100,7 +112,9 @@ const Dates_Page = () => {
       // Append other fields to FormData
       formData.append("name", dataPlant.name);
       formData.append("type", dataPlant.type);
+      if (isSending) return;
       try {
+        setIsSending(true);
         //create plant
         const resDataPlant = await accountService.createPlant(formData, {
           headers: {
@@ -129,6 +143,9 @@ const Dates_Page = () => {
       } catch (error) {
         console.error("Error while creating plant:", error);
         setError("Une erreur s'est produite lors de la création de la plante");
+      } finally {
+        console.log("send is finish");
+        setIsSending(false);
       }
     } else {
       setError("La date de début doit être antérieure à la date de fin");
@@ -190,32 +207,50 @@ const Dates_Page = () => {
           </Text>
         ) : null}
         <View style={styles.form}>
-          <Text style={styles.inputLabel}>Date de début</Text>
-          <View>
-            <DateTimePicker
-              value={selectedStartDate}
-              mode="date"
-              display="default"
-              onChange={handleStartDateChange}
-              locale="fr"
-              style={styles.datePicker}
-              accentColor={COLORS.white || undefined}
-            />
-          </View>
+          <Pressable onPress={() => setDateOpen1(true)}>
+            <Text style={styles.inputLabel}>
+              {selectedStartDate
+                ? selectedStartDate.toISOString().slice(0, 10)
+                : "Date de début"}
+            </Text>
+          </Pressable>
+
+          {dateOpen1 && (
+            <View>
+              <DateTimePicker
+                value={selectedStartDate}
+                mode="date"
+                display="default"
+                onChange={handleStartDateChange}
+                locale="fr"
+                style={styles.datePicker}
+                accentColor={COLORS.white || undefined}
+              />
+            </View>
+          )}
         </View>
         <View style={styles.form}>
-          <Text style={styles.inputLabel}>Date de fin</Text>
-          <View>
-            <DateTimePicker
-              value={selectedEndDate}
-              mode="date"
-              display="default"
-              onChange={handleEndDateChange}
-              locale="fr"
-              style={styles.datePicker}
-              accentColor={COLORS.primary || undefined}
-            />
-          </View>
+          <Pressable onPress={() => setDateOpen2(true)}>
+            <Text style={styles.inputLabel}>
+              {selectedEndDate
+                ? selectedEndDate.toISOString().slice(0, 10)
+                : "Date de fin"}
+            </Text>
+          </Pressable>
+
+          {dateOpen2 && (
+            <View>
+              <DateTimePicker
+                value={selectedEndDate}
+                mode="date"
+                display="default"
+                onChange={handleEndDateChange}
+                locale="fr"
+                style={styles.datePicker}
+                accentColor={COLORS.primary || undefined}
+              />
+            </View>
+          )}
         </View>
         <BaseButton
           title="Valider"
