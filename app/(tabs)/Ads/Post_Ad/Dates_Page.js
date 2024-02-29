@@ -86,9 +86,23 @@ const Dates_Page = () => {
       return;
     }
     if (selectedStartDate.getTime() < selectedEndDate.getTime()) {
+      const formData = new FormData();
+
+      // Append images to FormData
+      dataPlant.image.forEach((image, index) => {
+        formData.append(`image`, {
+          uri: image,
+          type: "image/jpeg", // You may need to adjust the type based on your image format
+          name: `image_${index + 1}.jpg`,
+        });
+      });
+
+      // Append other fields to FormData
+      formData.append("name", dataPlant.name);
+      formData.append("type", dataPlant.type);
       try {
         //create plant
-        const resDataPlant = await accountService.createPlant(dataPlant, {
+        const resDataPlant = await accountService.createPlant(formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -97,17 +111,17 @@ const Dates_Page = () => {
         console.log(valideMessage);
         console.log(resDataPlant.data.plant);
 
-        useEffect(() => {
-          setData({
-            ...data,
-            plantId: resDataPlant.data.user.plantId,
-          });
-        }, [plantId]);
+        const offer = {
+          ...data,
+          plantId: resDataPlant.data.plant.id,
+        };
 
-        console.log("my new data", data);
+        // setData();
+
+        console.log("my new data", offer);
 
         //create ads
-        const resData = await accountService.createOffers(data);
+        const resData = await accountService.createOffers(offer);
         setValideMessage(resData.data.message);
         console.log(valideMessage);
         setShowModal(true);

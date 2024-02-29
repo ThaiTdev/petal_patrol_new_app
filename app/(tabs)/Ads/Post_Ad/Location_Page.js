@@ -57,9 +57,8 @@ const Location_Page = ({ navigation }) => {
         ...data,
         ...restValues,
         address: addressString,
-        coordinates: "",
-        allow_advices: "",
-        // plantId: null,
+        coordinates: "{lat: 34.23, lng: 32.36}",
+        allow_advices: false,
       });
       // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
       navigation.navigate("PostAd", { screen: "Dates_Page" });
