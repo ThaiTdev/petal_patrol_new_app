@@ -1,8 +1,18 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Card, Image, Text } from "react-native-elements";
 
-const DisplayNeedSitting = ({ PlantNeedSitting, imagePlant }) => {
+const DisplayNeedSitting = ({
+  PlantNeedSitting,
+  imagePlant,
+  displayMap,
+  setDisplayMap,
+}) => {
+  // const [displayMap, setDisplayMap] = useState(false);
+
+  // const showMap = () => {
+  //   setDisplayMap(!displayMap);
+  // };
   if (PlantNeedSitting) {
     const textDates = `du ${formatDate(
       PlantNeedSitting.date_from
@@ -18,7 +28,9 @@ const DisplayNeedSitting = ({ PlantNeedSitting, imagePlant }) => {
               }}
               style={styles.cardImage}
             />
-            <Text style={styles.seeToCart}>voir sur la carte</Text>
+            <TouchableOpacity onPress={() => setDisplayMap(true)}>
+              <Text style={styles.seeToCart}>voir sur la carte</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.title}>{PlantNeedSitting.plant.name}</Text>

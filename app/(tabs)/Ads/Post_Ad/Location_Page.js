@@ -57,6 +57,12 @@ const Location_Page = ({ navigation }) => {
         ...data,
         ...restValues,
         address: addressString,
+        //saint jean de vedas
+        coordinates: { lat: 43.572458, lng: 3.833149 },
+
+        //Palavas
+        // coordinates: { lat: 43.527814, lng: 3.931535 },
+
         coordinates: '{"lat": 34.23, "lng": 32.36}',
         allow_advices: false,
       });

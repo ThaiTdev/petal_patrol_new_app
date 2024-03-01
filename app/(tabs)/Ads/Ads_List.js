@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  SafeAreaView,
+  TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS, SIZES, FONT } from "../../../constants/themes";
@@ -14,7 +16,6 @@ import { Input } from "react-native-elements";
 import logo from "../../../constants/images";
 import DisplayNeedSitting from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/DisplayNeedSitting";
 import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/MappingNeedSitting";
-import { SafeAreaView, TextInput, text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 const TemplateScreen = () => {
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   page: {
     height: "100%",
     width: "100%",
-    backgroundColor: COLORS.tertiary,
+    backgroundColor: COLORS.primary,
   },
   headerContainer: {
     backgroundColor: COLORS.tertiary,

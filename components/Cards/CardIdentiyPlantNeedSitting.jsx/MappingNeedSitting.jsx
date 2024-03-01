@@ -1,6 +1,6 @@
-import { View } from "react-native-web";
 import DisplayNeedSitting from "./DisplayNeedSitting";
 import { PlantNeedSitting } from "./CardNeedSitting";
+import ShowMap from "../../Map/ShowMap";
 import React, { useContext, useEffect, useState } from "react";
 import { accountService } from "../../../app/_services/accountService";
 
@@ -10,6 +10,7 @@ import { accountService } from "../../../app/_services/accountService";
 const PlantNeedSit = ({ searchText }) => {
   const [needSitting, setNeedSitting] = useState([]);
   const [imagesRoutes, setImagesRoutes] = useState("");
+  const [displayMap, setDisplayMap] = useState(false);
 
   useEffect(() => {
     console.log("coucou");
@@ -25,13 +26,24 @@ const PlantNeedSit = ({ searchText }) => {
   const filteredData = needSitting.filter((plant) =>
     plant.plant.name.toLowerCase().includes(searchText.toLowerCase())
   );
-  return filteredData.map((needSit, index) => (
-    <DisplayNeedSitting
-      key={index}
-      PlantNeedSitting={needSit}
-      imagePlant={imagesRoutes}
-    />
-  ));
+
+  return (
+    <>
+      {displayMap ? (
+        <ShowMap offers={needSitting} setDisplayMap={setDisplayMap} />
+      ) : (
+        needSitting.map((needSit, index) => (
+          <DisplayNeedSitting
+            key={index}
+            PlantNeedSitting={needSit}
+            imagePlant={imagesRoutes}
+            displayMap={displayMap}
+            setDisplayMap={setDisplayMap}
+          />
+        ))
+      )}
+    </>
+  );
 };
 
 // fontion qui ira chercher en BDD les tables nécessaires à la boucle pour affiché les messages
