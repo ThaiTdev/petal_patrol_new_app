@@ -62,6 +62,8 @@ const Location_Page = ({ navigation }) => {
 
         //Palavas
         // coordinates: { lat: 43.527814, lng: 3.931535 },
+
+        coordinates: '{"lat": 34.23, "lng": 32.36}',
         allow_advices: false,
       });
       // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
