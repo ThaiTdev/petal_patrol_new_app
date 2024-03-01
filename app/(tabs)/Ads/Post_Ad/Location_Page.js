@@ -71,7 +71,7 @@ const Location_Page = ({ navigation }) => {
           `La latitude enregistrée: ${latitude}, La Longitude enregistrée: ${longitude}`
         );
       } else {
-        console.log("Adresse non trouvée");
+        throw new Error("Adresse non trouvée");
       }
 
       setAllData({
