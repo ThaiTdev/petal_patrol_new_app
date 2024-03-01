@@ -30,8 +30,6 @@ const Location_Page = ({ navigation }) => {
   const { handleNextStep } = useContext(ProgressContext);
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState("");
-  let latitude = null;
-  let longitude = null;
   let addressString = "";
 
   useEffect(() => {
@@ -54,20 +52,20 @@ const Location_Page = ({ navigation }) => {
       const { number, street, ...restValues } = trimmedValues;
 
       addressString = number + " " + street;
-      console.log("Mon adresse: " + addressString);
+      addressStringComplet = `${addressString} ${restValues.zip} ${restValues.city}`;
+      console.log("Mon adresse: " + addressStringComplet);
 
       //j'ai encodez l'adresse pour inclure dans l'URL
-      const encodedAddress = encodeURIComponent(addressString);
+      const encodedAddress = encodeURIComponent(addressStringComplet);
 
       // URL de l'API Nominatim
       const apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodedAddress}&format=json`;
 
       const response = await fetch(apiUrl);
       const data = await response.json();
-
+      console.log(data);
       if (data && data.length > 0) {
-        latitude = data[0].lat;
-        longitude = data[0].lon;
+        const { lat: latitude, lon: longitude } = data[0];
         setCompleted(true);
         console.log(
           `La latitude enregistrée: ${latitude}, La Longitude enregistrée: ${longitude}`
@@ -80,7 +78,10 @@ const Location_Page = ({ navigation }) => {
         ...allData,
         ...restValues,
         address: addressString,
-        coordinates: { lat: latitude, lng: longitude },
+        coordinates: {
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+        },
         allow_advices: false,
       });
 

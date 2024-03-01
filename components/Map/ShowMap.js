@@ -5,7 +5,6 @@ import { COLORS } from "../../constants/themes";
 import { StyleSheet, Button, Text } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import FormSubmitButton from "../../app/(tabs)/Authentification/formulaire/formSubmitButton";
-// import { Text } from "react-native-elements";
 
 const ShowMap = ({ offers, setDisplayMap }) => {
   const navigation = useNavigation();
@@ -22,18 +21,10 @@ const ShowMap = ({ offers, setDisplayMap }) => {
         }}
       >
         {offers.map((o) => {
-          console.log(
-            "Marker coordinates:",
-            o.coordinates.lat,
-            o.coordinates.lng
-          );
           return (
             <Marker
               key={o.id}
-              coordinate={{
-                latitude: o.coordinates.lat,
-                longitude: o.coordinates.lng,
-              }}
+              coordinate={o.coordinates}
               title={o.description}
               description={o.address}
             />
