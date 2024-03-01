@@ -19,8 +19,8 @@ const FirstConnexion = ({ navigation }) => {
     console.log("Navigating to Signup");
   };
   const goToConfidential = () => {
-    navigation.navigate("Authentification", { screen: "Confidentials" });
-    console.log("Navigating to Confidentials");
+    navigation.navigate("Authentification", { screen: "CGUComponent" });
+    console.log("Navigating to CGUComponent");
   };
   return (
     <View style={styles.container}>
