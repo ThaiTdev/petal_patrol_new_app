@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
@@ -19,24 +19,30 @@ import PostAdNavigator from "./navigators/PostAdNavigator";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-    const [currentRoute, setCurrentRoute] = useState(null);
-    const [fontsLoaded] = useFonts({
-      "Roboto-Light": require("../../assets/fonts/Roboto-Light.ttf"),
-      "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
-      "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
-      "Roboto-Bold": require("../../assets/fonts/Roboto-Bold.ttf"),
-      "Merriweather-Light": require("../../assets/fonts/Merriweather-Light.ttf"),
-      "Merriweather-Regular": require("../../assets/fonts/Merriweather-Regular.ttf"),
-      "Merriweather-Bold": require("../../assets/fonts/Merriweather-Bold.ttf"),
-    });
+  const [currentRoute, setCurrentRoute] = useState(null);
+  const [fontsLoaded] = useFonts({
+    "Roboto-Light": require("../../assets/fonts/Roboto-Light.ttf"),
+    "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Bold": require("../../assets/fonts/Roboto-Bold.ttf"),
+    "Merriweather-Light": require("../../assets/fonts/Merriweather-Light.ttf"),
+    "Merriweather-Regular": require("../../assets/fonts/Merriweather-Regular.ttf"),
+    "Merriweather-Bold": require("../../assets/fonts/Merriweather-Bold.ttf"),
+  });
 
   const updateCurrentRoute = (route) => {
     setCurrentRoute(route);
   };
-  console.log("CURRENT ROUTE",currentRoute);
+  console.log("CURRENT ROUTE", currentRoute);
 
   const shouldDisplayMenuContainer = () => {
-    const excludedComponents = ["Welcome", "Authentification", "PlantSittingTracking", "PostAd"];
+    const excludedComponents = [
+      "Welcome",
+      "Authentification",
+      "PlantSittingTracking",
+      "PostAd",
+      "Ads",
+    ];
     return currentRoute && !excludedComponents.includes(currentRoute);
   };
   return (
@@ -45,10 +51,17 @@ const App = () => {
         {shouldDisplayMenuContainer() && <MenuContainer />}
         <Stack.Navigator headerMode="none">
           <Stack.Screen name="Welcome" options={{ headerShown: false }}>
-            {(props) => <WelcomeNavigator {...props} updateRoute={updateCurrentRoute} />}
+            {(props) => (
+              <WelcomeNavigator {...props} updateRoute={updateCurrentRoute} />
+            )}
           </Stack.Screen>
-          <Stack.Screen name="Authentification" options={{ headerShown: false }}>
-            {(props) => <AuthNavigator {...props} updateRoute={updateCurrentRoute} />}
+          <Stack.Screen
+            name="Authentification"
+            options={{ headerShown: false }}
+          >
+            {(props) => (
+              <AuthNavigator {...props} updateRoute={updateCurrentRoute} />
+            )}
           </Stack.Screen>
           <Stack.Screen
             name="Users"
@@ -60,16 +73,26 @@ const App = () => {
             component={MenuNavigator}
             options={{ headerShown: false }}
           />
-          <Stack.Screen 
-          name="PostAd"
-          component={PostAdNavigator} 
-          options={{ headerShown: false }}
+          <Stack.Screen
+            name="PostAd"
+            component={PostAdNavigator}
+            options={{ headerShown: false }}
           />
           <Stack.Screen name="Ads" options={{ headerShown: false }}>
-            {(props) => <AdsNavigator {...props} updateRoute={updateCurrentRoute} />}
+            {(props) => (
+              <AdsNavigator {...props} updateRoute={updateCurrentRoute} />
+            )}
           </Stack.Screen>
-          <Stack.Screen name="PlantSittingTracking" options={{ headerShown: false }}>
-            {(props) => <PlantSittingTrackingNavigator {...props} updateRoute={updateCurrentRoute} />}
+          <Stack.Screen
+            name="PlantSittingTracking"
+            options={{ headerShown: false }}
+          >
+            {(props) => (
+              <PlantSittingTrackingNavigator
+                {...props}
+                updateRoute={updateCurrentRoute}
+              />
+            )}
           </Stack.Screen>
           <Stack.Screen
             name="Chat"

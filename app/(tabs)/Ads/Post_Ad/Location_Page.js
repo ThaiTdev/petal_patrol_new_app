@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
 });
 
 const Location_Page = ({ navigation }) => {
-  const { data, setData } = userLogin();
+  const { allData, setAllData } = userLogin();
   const { handleNextStep } = useContext(ProgressContext);
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState("");
@@ -38,12 +38,6 @@ const Location_Page = ({ navigation }) => {
     handleNextStep();
     setCompleted(true);
   }, [completed]);
-
-  useEffect(() => {
-    if (latitude !== null && longitude !== null) {
-      console.log(`Ma Latitude: ${latitude}, Ma Longitude: ${longitude}`);
-    }
-  }, [latitude, longitude]);
 
   const handleOnChangeText = (value, fieldName, setFieldValue) => {
     setFieldValue(fieldName, value);
@@ -82,8 +76,8 @@ const Location_Page = ({ navigation }) => {
         console.log("Adresse non trouvée");
       }
 
-      setData({
-        ...data,
+      setAllData({
+        ...allData,
         ...restValues,
         address: addressString,
         coordinates: { lat: latitude, lng: longitude },

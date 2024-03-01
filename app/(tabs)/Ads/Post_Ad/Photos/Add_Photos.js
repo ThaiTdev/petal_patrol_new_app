@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-// import { useNavigation } from "@react-navigation/native";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import Swiper from "react-native-swiper";
 import * as ImagePicker from "expo-image-picker";
-import { SIZES, COLORS } from "../../../../../constants/themes";
+import { COLORS } from "../../../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
 import { ProgressContext } from "../../../navigators/ProgressContext";
 import { AntDesign } from "@expo/vector-icons";
@@ -14,12 +13,12 @@ import imagesApp from "../../../../../constants/images";
 import { userLogin } from "../../../../../context/LoginProvider";
 
 const Add_Photos = ({ navigation }) => {
-  // const navigation = useNavigation();
   const [error, setError] = useState("");
-  const { data, setImagesPlant, imagesPlant } = userLogin();
-  console.log(data.description);
-  console.log(data.plantName);
-  console.log(data);
+  const { setImagesPlant, imagesPlant } = userLogin();
+  const { handleNextStep } = useContext(ProgressContext);
+  const [completed, setCompleted] = useState(false);
+  const [images, setImages] = useState([]);
+
   const goToValidatePhotos = () => {
     console.log("go to validate photos");
     navigation.navigate("PostAd", { screen: "Validate_Photos" });
@@ -33,10 +32,6 @@ const Add_Photos = ({ navigation }) => {
       navigation.navigate("PostAd", { screen: "Location_Page" });
     }
   };
-
-  const { handleNextStep } = useContext(ProgressContext);
-  const [completed, setCompleted] = useState(false);
-  const [images, setImages] = useState([]);
 
   useEffect(() => {
     AsyncStorage.getItem("Add_Photos_Completed").then((value) => {

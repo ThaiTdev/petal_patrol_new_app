@@ -9,7 +9,7 @@ import BaseButton from "../../../../components/Buttons/Base";
 import { userLogin } from "../../../../context/LoginProvider";
 
 const Main_informations = () => {
-  const { setData } = userLogin();
+  const { setAllData } = userLogin();
   const [charCount, setCharCount] = useState(0);
   const [charCount2, setCharCount2] = useState(0);
   const [messageError, setMessageError] = useState("");
@@ -41,12 +41,12 @@ const Main_informations = () => {
       setMessageError(
         "Désolé vous devez entrer un nom de plante de plus de trois lettres"
       );
-      setMessageError2(""); // Effacer le message d'erreur pour le deuxième TextInput
+      setMessageError2("");
     } else if (charCount2 <= 5 || isWhiteSpaceOnly) {
       setMessageError2(
         "Désolé vous devez entrer une petite description de plus de cinq lettres"
       );
-      setMessageError(""); // Effacer le message d'erreur pour le premier TextInput
+      setMessageError("");
     } else {
       setMessageError("");
       setMessageError2("");
@@ -55,7 +55,7 @@ const Main_informations = () => {
   };
 
   useEffect(() => {
-    setData({ name: valueText.trim(), description: valueText2.trim() });
+    setAllData({ name: valueText.trim(), description: valueText2.trim() });
     console.log("hello" + valueText);
     console.log("hello" + valueText2);
   }, [valueText, valueText2]);
