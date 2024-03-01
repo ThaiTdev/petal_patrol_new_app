@@ -3,6 +3,7 @@ import { StyleSheet, Image, View, Text, Pressable } from "react-native";
 import { accountService } from "../../../_services/accountService";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
 import { ProgressContext } from "../../navigators/ProgressContext";
+import { Platform } from "react-native";
 import { userLogin } from "../../../../context/LoginProvider";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import BaseButton from "../../../../components/Buttons/Base";
@@ -17,13 +18,17 @@ const Dates_Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
   const [valideMessage, setValideMessage] = useState("");
-  const [dateOpen1, setDateOpen1] = useState(false);
-  const [dateOpen2, setDateOpen2] = useState(false);
+  const [dateOpen1, setDateOpen1] = useState(true);
+  const [dateOpen2, setDateOpen2] = useState(true);
   const [isSending, setIsSending] = useState(false);
 
   const { handleNextStep } = useContext(ProgressContext);
 
   useEffect(() => {
+    if (Platform.OS === "android") {
+      setDateOpen1(false);
+      setDateOpen2(false);
+    }
     handleNextStep();
     setCompleted(true);
   }, [completed]);
@@ -45,7 +50,9 @@ const Dates_Page = () => {
       const formattedDate = parsedDate.toLocaleDateString("fr-FR", options);
       console.log(`Date de début sélectionnée: ${formattedDate}`);
       setSelectedStartDate(parsedDate);
-      setDateOpen1(false);
+      if (Platform.OS === "android") {
+        setDateOpen1(false);
+      }
     } else {
       console.log("Sélection de la date de début annulée");
     }
@@ -58,7 +65,9 @@ const Dates_Page = () => {
       const formattedDate = parsedDate.toLocaleDateString("fr-FR", options);
       console.log(`Date de fin sélectionnée: ${formattedDate}`);
       setSelectedEndDate(parsedDate);
-      setDateOpen2(false);
+      if (Platform.OS === "android") {
+        setDateOpen2(false);
+      }
     } else {
       console.log("Sélection de la date de fin annulée");
     }
@@ -67,8 +76,8 @@ const Dates_Page = () => {
   useEffect(() => {
     const modifiedData = {
       ...data,
-      date_from: formattedStartDate.replace(/\//g, "-"),
-      date_to: formattedEndDate.replace(/\//g, "-"),
+      date_from: selectedStartDate,
+      date_to: selectedEndDate,
     };
 
     setData(modifiedData);
@@ -207,7 +216,9 @@ const Dates_Page = () => {
           </Text>
         ) : null}
         <View style={styles.form}>
-          <Pressable onPress={() => setDateOpen1(true)}>
+          <Pressable
+            onPress={() => Platform.OS === "android" && setDateOpen1(true)}
+          >
             <Text style={styles.inputLabel}>
               {selectedStartDate
                 ? selectedStartDate.toISOString().slice(0, 10)
@@ -230,7 +241,9 @@ const Dates_Page = () => {
           )}
         </View>
         <View style={styles.form}>
-          <Pressable onPress={() => setDateOpen2(true)}>
+          <Pressable
+            onPress={() => Platform.OS === "android" && setDateOpen2(true)}
+          >
             <Text style={styles.inputLabel}>
               {selectedEndDate
                 ? selectedEndDate.toISOString().slice(0, 10)
