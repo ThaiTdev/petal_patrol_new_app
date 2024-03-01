@@ -5,11 +5,11 @@ const LoginContext = createContext();
 const LoginProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profile, setProfile] = useState({});
-  const [data, setData] = useState({});
+  const [allData, setAllData] = useState({});
   const [imagesPlant, setImagesPlant] = useState([]);
   const [dataPlant, setDataPlant] = useState({});
   const updateFormData = (formData) => {
-    setData(formData);
+    setAllData(formData);
   };
 
   return (
@@ -19,8 +19,8 @@ const LoginProvider = ({ children }) => {
         setIsLoggedIn,
         profile,
         setProfile,
-        data,
-        setData: updateFormData,
+        allData,
+        setAllData: updateFormData,
         imagesPlant,
         setImagesPlant,
         dataPlant,

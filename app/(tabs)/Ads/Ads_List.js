@@ -3,23 +3,19 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
   Image,
   ScrollView,
   SafeAreaView,
   TextInput,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { COLORS, SIZES, FONT } from "../../../constants/themes";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Input } from "react-native-elements";
-import logo from "../../../constants/images";
-import DisplayNeedSitting from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/DisplayNeedSitting";
-import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/MappingNeedSitting";
-import { AntDesign } from "@expo/vector-icons";
 
-const TemplateScreen = () => {
-  const navigation = useNavigation();
+import { COLORS } from "../../../constants/themes";
+
+import logo from "../../../constants/images";
+
+import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/MappingNeedSitting";
+
+const TemplateScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
   return (
     <View style={styles.page}>

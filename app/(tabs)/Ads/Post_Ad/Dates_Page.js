@@ -11,7 +11,9 @@ import images from "../../../../constants/images";
 import ModalSendMail from "../../../../components/modalMailSend";
 
 const Dates_Page = () => {
-  const { data, setData, imagesPlant, dataPlant, setDataPlant } = userLogin();
+  const { allData, setAllData, imagesPlant, dataPlant, setDataPlant } =
+    userLogin();
+
   const [completed, setCompleted] = useState(false);
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
@@ -39,9 +41,6 @@ const Dates_Page = () => {
     options
   );
   const formattedEndDate = selectedEndDate.toLocaleDateString("fr-FR", options);
-
-  console.log("from_date:", formattedStartDate);
-  console.log("to_date:", formattedEndDate);
 
   const handleStartDateChange = (event, selectedDate) => {
     if (selectedDate !== undefined) {
@@ -75,25 +74,21 @@ const Dates_Page = () => {
 
   useEffect(() => {
     const modifiedData = {
-      ...data,
+      ...allData,
       date_from: selectedStartDate,
       date_to: selectedEndDate,
     };
 
-    setData(modifiedData);
-    console.log("mon nouvel objet data: ", data);
-    //data to créate an ads
-    const { name } = data;
-    //dataplant to créate a plant
+    setAllData(modifiedData);
+
+    const { name } = allData;
+
     setDataPlant({ image: imagesPlant, name: name, type: "" });
-    console.log(dataPlant);
   }, [selectedStartDate, selectedEndDate]);
 
   const handleValidation = async () => {
-    console.log(dataPlant);
-    console.log(data);
     const currentDate = new Date();
-    if (!data.date_from || !data.date_to) {
+    if (!allData.date_from || !allData.date_to) {
       setError(
         "Vous devez renseigner la date de début et de fin de votre offre."
       );
@@ -113,7 +108,7 @@ const Dates_Page = () => {
       dataPlant.image.forEach((image, index) => {
         formData.append(`image`, {
           uri: image,
-          type: "image/jpeg", // You may need to adjust the type based on your image format
+          type: "image/jpeg",
           name: `image_${index + 1}.jpg`,
         });
       });
@@ -135,14 +130,9 @@ const Dates_Page = () => {
         console.log(resDataPlant.data.plant);
 
         const offer = {
-          ...data,
+          ...allData,
           plantId: resDataPlant.data.plant.id,
         };
-
-        // setData();
-
-        console.log("my new data", offer);
-
         //create ads
         const resData = await accountService.createOffers(offer);
         // setValideMessage(resData.data.message);

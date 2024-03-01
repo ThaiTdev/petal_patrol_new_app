@@ -32,7 +32,7 @@ const PlantNeedSit = ({ searchText }) => {
       {displayMap ? (
         <ShowMap offers={needSitting} setDisplayMap={setDisplayMap} />
       ) : (
-        needSitting.map((needSit, index) => (
+        filteredData.map((needSit, index) => (
           <DisplayNeedSitting
             key={index}
             PlantNeedSitting={needSit}
