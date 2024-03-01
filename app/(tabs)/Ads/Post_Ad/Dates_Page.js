@@ -130,7 +130,7 @@ const Dates_Page = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        setValideMessage(resDataPlant.data.message);
+        // setValideMessage(resDataPlant.data.message);
         console.log(valideMessage);
         console.log(resDataPlant.data.plant);
 
@@ -145,7 +145,7 @@ const Dates_Page = () => {
 
         //create ads
         const resData = await accountService.createOffers(offer);
-        setValideMessage(resData.data.message);
+        // setValideMessage(resData.data.message);
         console.log(valideMessage);
         setShowModal(true);
         console.log("Form submitted!");
@@ -154,7 +154,7 @@ const Dates_Page = () => {
         setError("Une erreur s'est produite lors de la création de la plante");
       } finally {
         console.log("send is finish");
-        setIsSending(false);
+        setTimeout(() => setIsSending(false), 1000);
       }
     } else {
       setError("La date de début doit être antérieure à la date de fin");
