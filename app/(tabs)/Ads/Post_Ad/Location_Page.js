@@ -22,14 +22,16 @@ const validationSchema = Yup.object({
     .trim()
     .min(5, "Postal code must be at least 5 characters long.")
     .required("Postal code is required!"),
-  city: Yup.string().required("city is required!"),
+  city: Yup.string().required("City is required!"),
 });
 
 const Location_Page = ({ navigation }) => {
   const { data, setData } = userLogin();
-  const [error, setError] = useState("");
-  const [completed, setCompleted] = useState(false);
   const { handleNextStep } = useContext(ProgressContext);
+  const [completed, setCompleted] = useState(false);
+  const [error, setError] = useState("");
+  let latitude = null;
+  let longitude = null;
   let addressString = "";
 
   useEffect(() => {
@@ -37,10 +39,17 @@ const Location_Page = ({ navigation }) => {
     setCompleted(true);
   }, [completed]);
 
+  useEffect(() => {
+    if (latitude !== null && longitude !== null) {
+      console.log(`Ma Latitude: ${latitude}, Ma Longitude: ${longitude}`);
+    }
+  }, [latitude, longitude]);
+
   const handleOnChangeText = (value, fieldName, setFieldValue) => {
     setFieldValue(fieldName, value);
   };
-  const goToDatesPage = (values) => {
+
+  const goToDatesPage = async (values) => {
     try {
       // Enlever les espaces au début et à la fin de chaque valeur
       const trimmedValues = Object.fromEntries(
@@ -51,26 +60,41 @@ const Location_Page = ({ navigation }) => {
       const { number, street, ...restValues } = trimmedValues;
 
       addressString = number + " " + street;
-      console.log("mon adresse: " + addressString);
+      console.log("Mon adresse: " + addressString);
+
+      //j'ai encodez l'adresse pour inclure dans l'URL
+      const encodedAddress = encodeURIComponent(addressString);
+
+      // URL de l'API Nominatim
+      const apiUrl = `https://nominatim.openstreetmap.org/search?q=${encodedAddress}&format=json`;
+
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        latitude = data[0].lat;
+        longitude = data[0].lon;
+        setCompleted(true);
+        console.log(
+          `La latitude enregistrée: ${latitude}, La Longitude enregistrée: ${longitude}`
+        );
+      } else {
+        console.log("Adresse non trouvée");
+      }
 
       setData({
         ...data,
         ...restValues,
         address: addressString,
-        //saint jean de vedas
-        coordinates: { lat: 43.572458, lng: 3.833149 },
-
-        //Palavas
-        // coordinates: { lat: 43.527814, lng: 3.931535 },
-
-        coordinates: '{"lat": 34.23, "lng": 32.36}',
+        coordinates: { lat: latitude, lng: longitude },
         allow_advices: false,
       });
+
       // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
       navigation.navigate("PostAd", { screen: "Dates_Page" });
     } catch (error) {
-      console.log();
-      "Error navigating to Dates_Page:", error;
+      setError(`Error navigating to Dates_Page: ${error.message}`);
+      console.error(error);
       // Gérez les erreurs si nécessaire
     }
   };
