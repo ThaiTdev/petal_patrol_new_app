@@ -6,11 +6,13 @@ import Notifications from "../Profil/Notifications";
 import ProfilMenu from "../Profil/Profil_Menu";
 import ProfilPublic from "../Profil/Public_Profil";
 import UpdatePassword from "../Profil/update_Password";
+import MenuContainer from "../../../components/Menu/MenuContainer";
 
 const Stack = createNativeStackNavigator();
 
 const UserNavigators = ({ navigation }) => {
   return (
+    <>
     <Stack.Navigator>
       <Stack.Screen
         name="ProfilMenu"
@@ -43,6 +45,8 @@ const UserNavigators = ({ navigation }) => {
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
+    <MenuContainer showMenu={true}/>
+    </>
   );
 };
 

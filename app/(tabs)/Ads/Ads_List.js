@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigationState } from "@react-navigation/native";
 import {
   View,
   StyleSheet,
@@ -14,10 +15,13 @@ import { COLORS } from "../../../constants/themes";
 import logo from "../../../constants/images";
 
 import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/MappingNeedSitting";
+import MenuContainer from "../../../components/Menu/MenuContainer";
 
 const TemplateScreen = ({ navigation }) => {
+  
   const [searchText, setSearchText] = useState("");
   return (
+    <>
     <View style={styles.page}>
       <View style={styles.headerContainer}>
         <View style={styles.titleContainer}>
@@ -43,9 +47,10 @@ const TemplateScreen = ({ navigation }) => {
       </View>
 
       <ScrollView style={styles.subPage}>
-        <PlantNeedSit searchText={searchText} />
+        <PlantNeedSit searchText={searchText}/>
       </ScrollView>
     </View>
+    </>
   );
 };
 const styles = StyleSheet.create({

@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useRouteContext } from "../../app/(tabs)/RouteContext";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useNavigationState } from "@react-navigation/native";
 import { View } from "react-native";
 import { COLORS } from "../../constants/themes";
 import { StyleSheet, Button, Text } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import FormSubmitButton from "../../app/(tabs)/Authentification/formulaire/formSubmitButton";
+import { BaseButton } from "react-native-gesture-handler";
+
+const Stack = createNativeStackNavigator();
 
 const ShowMap = ({ offers, setDisplayMap }) => {
-  const navigation = useNavigation();
+  const { updateCurrentRoute, currentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("Map");
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -55,11 +65,18 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
+    zIndex: 1
   },
   button: {
     position: "absolute",
     left: "6%",
     top: "2%",
+  },
+  buttonContainer: {
+    position: "absolute",
+    top: 20, // Positionnez-le où vous le souhaitez par rapport au haut de la carte
+    left: 20, // Positionnez-le où vous le souhaitez par rapport à la gauche de la carte
+    zIndex: 5, // Assurez-vous qu'il est au-dessus de la carte
   },
 });
 

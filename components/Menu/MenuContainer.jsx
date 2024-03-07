@@ -3,7 +3,7 @@ import Menu from "./Menu";
 import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const MenuContainer = () => {
+const MenuContainer = ({ showMenu }) => {
   const navigation = useNavigation();
   const [selectedItem, setSelectedItem] = useState(3);
 
@@ -52,17 +52,21 @@ const MenuContainer = () => {
   };
 
   return (
-    <View style={styles.menuContainer}>
-      <View
-        style={[styles.beforeCircle, { right: rightValues[selectedItem] }]}
-      ></View>
-      <Menu
-        menuItems={MenuItems}
-        onPress={handleMenuItemPress}
-        onItemSelect={handleSelectedItem}
-        selectedItem={selectedItem}
-      />
-    </View>
+    <>
+    {showMenu && (
+      <View style={styles.menuContainer}>
+        <View
+          style={[styles.beforeCircle, { right: rightValues[selectedItem] }]}
+        ></View>
+        <Menu
+          menuItems={MenuItems}
+          onPress={handleMenuItemPress}
+          onItemSelect={handleSelectedItem}
+          selectedItem={selectedItem}
+        />
+      </View>
+    )}
+    </>
   );
 };
 
