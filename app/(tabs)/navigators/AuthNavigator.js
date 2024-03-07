@@ -2,24 +2,32 @@
 import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigationState } from "@react-navigation/native";
+import { useRouteContext } from "../RouteContext";
 import FirstConnexion from "../Authentification/FirstConnexion";
 import LoginForm from "../Authentification/LoginForm";
 import SignupForm from "../Authentification/SignupForm";
 import LostPassword from "../Authentification/Lost_Password";
 import CGUComponent from "../Authentification/CGUComponent";
+import MenuContainer from "../../../components/Menu/MenuContainer";
 
 // import Ads_List from "../Ads/Ads_List";
 
 const Stack = createNativeStackNavigator();
 
 const AuthNavigators = ({ navigation, updateRoute }) => {
-  const state = useNavigationState((state) => state);
-  const currentScreen = state?.routes[state.index]?.name;
+  // const state = useNavigationState((state) => state);
+  // const currentScreen = state?.routes[state.index]?.name;
+
+  // useEffect(() => {
+  //   updateRoute(currentScreen);
+  // }, [currentScreen]);
+  const { updateCurrentRoute } = useRouteContext();
 
   useEffect(() => {
-    updateRoute(currentScreen);
-  }, [currentScreen]);
+    updateCurrentRoute("Authentification");
+  }, []);
   return (
+    <>
     <Stack.Navigator>
       <Stack.Screen
         name="FirstCo"
@@ -47,6 +55,8 @@ const AuthNavigators = ({ navigation, updateRoute }) => {
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
+    <MenuContainer showMenu={false}/>
+    </>
   );
 };
 

@@ -1,37 +1,34 @@
-import React, {useEffect} from "react";
+// AdsNavigator.js
+
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useNavigationState } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { useRouteContext } from "../RouteContext";
 import Ads_List from "../Ads/Ads_List";
-import AdsDetails from "../Ads/Ad_Details"
-import Research from "../Ads/Research"
+import ShowMap from "../../../components/Map/ShowMap";
+import MenuContainer from "../../../components/Menu/MenuContainer";
 
 const Stack = createNativeStackNavigator();
 
-const AdsNavigator = ({ navigation, updateRoute }) => {
-  const state = useNavigationState((state) => state);
-  const currentScreen = state?.routes[state.index]?.name;
+const AdsNavigator = () => {
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
 
   useEffect(() => {
-    updateRoute(currentScreen);
-  }, [currentScreen]);
+    updateCurrentRoute("Ads");
+  }, []);
+
   return (
+    <>
     <Stack.Navigator>
       <Stack.Screen
         name="Ads_List"
         component={Ads_List}
         options={{ headerShown: false }}
       />
-      {/* <Stack.Screen
-        name="AdsDetails"
-        component={AdsDetails}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Research"
-        component={Research}
-        options={{ headerShown: false }}
-      /> */}
     </Stack.Navigator>
+    <MenuContainer showMenu={currentRoute !== "Map"} />
+    </>
   );
 };
 

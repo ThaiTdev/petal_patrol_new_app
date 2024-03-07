@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import LoginProvider from "../../context/LoginProvider";
+import { RouteProvider, useRouteContext } from "./RouteContext";
 import WelcomeNavigator from "./navigators/WelcomeNavigators";
 import AuthNavigator from "./navigators/AuthNavigator";
 import MenuNavigator from "./navigators/MenuNavigator";
@@ -19,7 +20,10 @@ import PostAdNavigator from "./navigators/PostAdNavigator";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [currentRoute, setCurrentRoute] = useState(null);
+  // console.log("CURRENT ROUTE FROM CONTEXT APP", currentRoute);
+  // const currentRoute = "Default";
+  // const { currentRoute, updateCurrentRoute } = useRouteContext();
+  // console.log("CURRENT ROUTE FROM CONTEXT APP", currentRoute);
   const [fontsLoaded] = useFonts({
     "Roboto-Light": require("../../assets/fonts/Roboto-Light.ttf"),
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
@@ -30,29 +34,30 @@ const App = () => {
     "Merriweather-Bold": require("../../assets/fonts/Merriweather-Bold.ttf"),
   });
 
-  const updateCurrentRoute = (route) => {
-    setCurrentRoute(route);
-  };
-  console.log("CURRENT ROUTE", currentRoute);
+  
+  // const updateCurrentRoute = (route) => {
+  //   setCurrentRoute(route);
+  // };
+  // console.log("CURRENT ROUTE", currentRoute);
 
-  const shouldDisplayMenuContainer = () => {
-    const excludedComponents = [
-      "Welcome",
-      "Authentification",
-      "PlantSittingTracking",
-      "PostAd",
-      "Ads",
-    ];
-    return currentRoute && !excludedComponents.includes(currentRoute);
-  };
+  // const shouldDisplayMenuContainer = () => {
+  //   const excludedComponents = [
+  //     "Welcome",
+  //     "Authentification",
+  //     "PlantSittingTracking",
+  //     "PostAd",
+  //     "Map",
+  //   ];
+  //   return currentRoute && !excludedComponents.includes(currentRoute);
+  // };
   return (
     <LoginProvider>
+      <RouteProvider>
       <NavigationContainer independent={true}>
-        {shouldDisplayMenuContainer() && <MenuContainer />}
         <Stack.Navigator headerMode="none">
           <Stack.Screen name="Welcome" options={{ headerShown: false }}>
             {(props) => (
-              <WelcomeNavigator {...props} updateRoute={updateCurrentRoute} />
+              <WelcomeNavigator {...props}/>
             )}
           </Stack.Screen>
           <Stack.Screen
@@ -60,7 +65,7 @@ const App = () => {
             options={{ headerShown: false }}
           >
             {(props) => (
-              <AuthNavigator {...props} updateRoute={updateCurrentRoute} />
+              <AuthNavigator {...props}/>
             )}
           </Stack.Screen>
           <Stack.Screen
@@ -80,7 +85,17 @@ const App = () => {
           />
           <Stack.Screen name="Ads" options={{ headerShown: false }}>
             {(props) => (
-              <AdsNavigator {...props} updateRoute={updateCurrentRoute} />
+              <AdsNavigator {...props}/>
+            )}
+          </Stack.Screen>
+          <Stack.Screen
+            name="Map"
+            options={{ headerShown: false }}
+          >
+            {(props) => (
+              <MapNavigator
+                {...props}
+              />
             )}
           </Stack.Screen>
           <Stack.Screen
@@ -90,7 +105,6 @@ const App = () => {
             {(props) => (
               <PlantSittingTrackingNavigator
                 {...props}
-                updateRoute={updateCurrentRoute}
               />
             )}
           </Stack.Screen>
@@ -111,6 +125,7 @@ const App = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </RouteProvider>
     </LoginProvider>
   );
 };
