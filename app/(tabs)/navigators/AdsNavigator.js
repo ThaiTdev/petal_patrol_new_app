@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { useRouteContext } from "../RouteContext";
 import Ads_List from "../Ads/Ads_List";
+import Ad_Details from "../Ads/Ad_Details";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,11 @@ const AdsNavigator = () => {
       <Stack.Screen
         name="Ads_List"
         component={Ads_List}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Ad_Details"
+        component={Ad_Details}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
