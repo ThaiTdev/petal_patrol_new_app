@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { View, StyleSheet, Animated, Text } from "react-native";
+import { useRouteContext } from "../app/(tabs)/RouteContext";
 import { useNavigation } from "@react-navigation/native";
 import { SIZES, COLORS } from "../constants/themes";
 import ButtonClose from "../components/Buttons/ButtonClose";
@@ -7,10 +8,11 @@ import ButtonClose from "../components/Buttons/ButtonClose";
 const ProgressBar = ({
   progress
 }) => {
-
+    const { updateCurrentRoute } = useRouteContext();
     const navigation = useNavigation();
     const goToAdsList = () => {
         navigation.navigate("Ads", { screen: "Ads_List" });
+        updateCurrentRoute("Ads_List");
     };
 
     const progressStep = () => {
