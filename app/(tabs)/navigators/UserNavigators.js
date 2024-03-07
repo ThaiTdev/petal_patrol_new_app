@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useRouteContext } from "../RouteContext";
 import EditProfil from "../Profil/Edit_Profil";
 import MyAds from "../Profil/My_Ads";
 import Notifications from "../Profil/Notifications";
@@ -11,6 +12,13 @@ import MenuContainer from "../../../components/Menu/MenuContainer";
 const Stack = createNativeStackNavigator();
 
 const UserNavigators = ({ navigation }) => {
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("User");
+  }, []);
+
   return (
     <>
     <Stack.Navigator>

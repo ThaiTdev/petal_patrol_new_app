@@ -15,6 +15,7 @@ export const RouteProvider = ({ children }) => {
     setCurrentRoute(route);
   };
 
+  console.log("CURRENT ROUTE FROM CONTEXT", currentRoute);
   // const shouldDisplayMenuContainer = () => {
   //   const excludedComponents = [
   //     "Welcome",
