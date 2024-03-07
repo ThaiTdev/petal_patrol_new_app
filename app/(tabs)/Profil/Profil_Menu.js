@@ -5,6 +5,7 @@ import { userLogin } from "../../../context/LoginProvider";
 import Icons from "../../../constants/icons";
 import logo from "../../../constants/images";
 import UserAvatar from "react-native-user-avatar";
+import MenuContainer from "../../../components/Menu/MenuContainer";
 
 const ProfilMenu = ({ navigation }) => {
   const { profile } = userLogin();
@@ -37,6 +38,7 @@ const ProfilMenu = ({ navigation }) => {
   };
 
   return (
+    <>
     <View style={styles.page}>
       <View style={styles.headerContainer}>
         <View style={styles.titleContainer}>
@@ -96,6 +98,8 @@ const ProfilMenu = ({ navigation }) => {
         </View>
       </View>
     </View>
+    <MenuContainer showMenu={true}/>
+    </>
   );
 };
 const styles = StyleSheet.create({
