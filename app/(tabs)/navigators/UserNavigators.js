@@ -53,7 +53,6 @@ const UserNavigators = ({ navigation }) => {
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
-    <MenuContainer showMenu={true}/>
     </>
   );
 };

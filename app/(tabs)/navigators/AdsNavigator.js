@@ -27,7 +27,6 @@ const AdsNavigator = () => {
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
-    <MenuContainer showMenu={currentRoute !== "Map"} />
     </>
   );
 };

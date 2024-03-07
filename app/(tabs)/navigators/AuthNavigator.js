@@ -55,7 +55,6 @@ const AuthNavigators = ({ navigation, updateRoute }) => {
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
-    <MenuContainer showMenu={false}/>
     </>
   );
 };

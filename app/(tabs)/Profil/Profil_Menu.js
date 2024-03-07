@@ -98,7 +98,6 @@ const ProfilMenu = ({ navigation }) => {
         </View>
       </View>
     </View>
-    <MenuContainer showMenu={true}/>
     </>
   );
 };

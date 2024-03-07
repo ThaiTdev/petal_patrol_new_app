@@ -4,6 +4,7 @@ import Swiper from "react-native-swiper";
 import * as ImagePicker from "expo-image-picker";
 import { COLORS } from "../../../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
+import { useRouteContext } from "../../../RouteContext";
 import { ProgressContext } from "../../../navigators/ProgressContext";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -18,6 +19,13 @@ const Add_Photos = ({ navigation }) => {
   const { handleNextStep } = useContext(ProgressContext);
   const [completed, setCompleted] = useState(false);
   const [images, setImages] = useState([]);
+
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("PostAd");
+  }, []);
 
   const goToValidatePhotos = () => {
     console.log("go to validate photos");

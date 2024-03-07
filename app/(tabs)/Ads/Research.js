@@ -11,7 +11,6 @@ const Research = () => {
         <View style={styles.container}>
             <Text>Coucou c'est la recherche de plant'sitting</Text>
         </View>
-        <MenuContainer showMenu={true} />
       </>
     );
 };

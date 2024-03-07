@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Choose_Ad_Type from "../Ads/Post_Ad/Choose_Ad_Type";
 import Main_informations from "../Ads/Post_Ad/Main_informations";
+import { useRouteContext } from "../RouteContext";
 import Main_informations_Advice from "../Ads/Post_Ad/Main_informations_Advice";
 import Add_Photos from "../Ads/Post_Ad/Photos/Add_Photos";
 import Validate_Photos from "../Ads/Post_Ad/Photos/Validate_Photos";
@@ -14,6 +15,13 @@ import { ProgressContext } from "./ProgressContext";
 const Stack = createNativeStackNavigator();
 
 const PostAdNavigator = ({ navigation }) => {
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("PostAd");
+  }, []);
+  
     const [currentStep, setCurrentStep] = useState(0);
 
     const handleNextStep = () => {

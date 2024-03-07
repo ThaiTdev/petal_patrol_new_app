@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { View, Text } from "react-native";
+import { useRouteContext } from "../../RouteContext";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
 import { StyleSheet } from "react-native";
 import { ProgressContext } from "../../navigators/ProgressContext";
@@ -31,6 +32,13 @@ const Location_Page = ({ navigation }) => {
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState("");
   let addressString = "";
+
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("PostAd");
+  }, []);
 
   useEffect(() => {
     handleNextStep();

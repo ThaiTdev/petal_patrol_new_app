@@ -11,7 +11,6 @@ const Messages_List = () => {
         <View style={styles.container}>
             <Text>Coucou c'est la liste des Messages</Text>
         </View>
-        <MenuContainer showMenu={true}/>
       </>
     );
 };
