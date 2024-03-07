@@ -8,7 +8,6 @@ import LoginForm from "../Authentification/LoginForm";
 import SignupForm from "../Authentification/SignupForm";
 import LostPassword from "../Authentification/Lost_Password";
 import CGUComponent from "../Authentification/CGUComponent";
-import MenuContainer from "../../../components/Menu/MenuContainer";
 
 // import Ads_List from "../Ads/Ads_List";
 

@@ -2,7 +2,6 @@ import React, {useCallback} from "react";
 import { View, Text } from 'react-native';
 import { SIZES, COLORS } from "../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
-import MenuContainer from "../../../components/Menu/MenuContainer";
 
 const Messages_List = () => {
 
