@@ -36,7 +36,7 @@ const MenuNavigator = ({ navigation }) => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Choose_Ad_Type"
+        name="PostAd"
         component={Choose_Ad_Type}
         options={{ headerShown: false }}
       />
@@ -46,7 +46,7 @@ const MenuNavigator = ({ navigation }) => {
         options={{ headerShown: false }}
         />
       <Stack.Screen
-        name="Profile"
+        name="User"
         component={Profil_Menu}
         options={{ headerShown: false }}
         />

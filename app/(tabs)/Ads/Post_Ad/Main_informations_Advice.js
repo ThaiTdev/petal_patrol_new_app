@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text } from "react-native";
+import { useRouteContext } from "../../RouteContext";
 import { SIZES, COLORS } from "../../../../constants/themes";
 import { StyleSheet, Image } from "react-native";
 import { ProgressContext } from "../../navigators/ProgressContext";
@@ -12,6 +13,12 @@ const Main_informations = () => {
     navigation.navigate("PostAd", { screen: "Add_Photos" });
   };
 
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("PostAd");
+  }, []);
   // const { handleNextStep } = useContext(ProgressContext);
 
   // useEffect(() => {

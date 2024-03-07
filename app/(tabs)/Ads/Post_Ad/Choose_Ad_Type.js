@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import images from "../../../../constants/images";
 import { View, Text, Animated } from "react-native";
+import { useRouteContext } from "../../RouteContext";
 import { SIZES, COLORS } from "../../../../constants/themes";
 import BaseButton from "../../../../components/Buttons/Base";
 import { StyleSheet, Image } from "react-native";
@@ -10,6 +11,13 @@ import { ProgressContext } from "../../navigators/ProgressContext";
 import ProgressBar from "../../../../components/ProgressBar";
 
 const Choose_Ad_Type = () => {
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("PostAd");
+  }, []);
+
   const navigation = useNavigation();
   const goToMainInformations = () => {
     console.log("go to main");

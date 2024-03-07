@@ -5,8 +5,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { useRouteContext } from "../RouteContext";
 import Ads_List from "../Ads/Ads_List";
-import ShowMap from "../../../components/Map/ShowMap";
-import MenuContainer from "../../../components/Menu/MenuContainer";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +25,6 @@ const AdsNavigator = () => {
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
-    <MenuContainer showMenu={currentRoute !== "Map"} />
     </>
   );
 };

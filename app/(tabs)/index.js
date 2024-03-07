@@ -1,29 +1,13 @@
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet } from "react-native";
+import React from "react";
+import { StatusBar } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
+import Navigation from "./Navigation";
 import LoginProvider from "../../context/LoginProvider";
-import { RouteProvider, useRouteContext } from "./RouteContext";
-import WelcomeNavigator from "./navigators/WelcomeNavigators";
-import AuthNavigator from "./navigators/AuthNavigator";
-import MenuNavigator from "./navigators/MenuNavigator";
-import MenuContainer from "../../components/Menu/MenuContainer";
-import UserNavigators from "./navigators/UserNavigators";
-import AdsNavigator from "./navigators/AdsNavigator";
-import ChatNavigators from "./navigators/ChatNavigators";
-import PhotosNavigator from "./navigators/PhotosNavigator";
-import ContactSupportNavigation from "./navigators/ContactSupportNavigator";
-import PlantSittingTrackingNavigator from "./navigators/PlantSittingTrackingNavigator";
-import PostAdNavigator from "./navigators/PostAdNavigator";
+import { RouteProvider } from "./RouteContext";
 
-const Stack = createNativeStackNavigator();
 
 const App = () => {
-  // console.log("CURRENT ROUTE FROM CONTEXT APP", currentRoute);
-  // const currentRoute = "Default";
-  // const { currentRoute, updateCurrentRoute } = useRouteContext();
-  // console.log("CURRENT ROUTE FROM CONTEXT APP", currentRoute);
   const [fontsLoaded] = useFonts({
     "Roboto-Light": require("../../assets/fonts/Roboto-Light.ttf"),
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
@@ -34,99 +18,17 @@ const App = () => {
     "Merriweather-Bold": require("../../assets/fonts/Merriweather-Bold.ttf"),
   });
 
-  
-  // const updateCurrentRoute = (route) => {
-  //   setCurrentRoute(route);
-  // };
-  // console.log("CURRENT ROUTE", currentRoute);
-
-  // const shouldDisplayMenuContainer = () => {
-  //   const excludedComponents = [
-  //     "Welcome",
-  //     "Authentification",
-  //     "PlantSittingTracking",
-  //     "PostAd",
-  //     "Map",
-  //   ];
-  //   return currentRoute && !excludedComponents.includes(currentRoute);
-  // };
   return (
+    <>
     <LoginProvider>
       <RouteProvider>
-      <NavigationContainer independent={true}>
-        <Stack.Navigator headerMode="none">
-          <Stack.Screen name="Welcome" options={{ headerShown: false }}>
-            {(props) => (
-              <WelcomeNavigator {...props}/>
-            )}
-          </Stack.Screen>
-          <Stack.Screen
-            name="Authentification"
-            options={{ headerShown: false }}
-          >
-            {(props) => (
-              <AuthNavigator {...props}/>
-            )}
-          </Stack.Screen>
-          <Stack.Screen
-            name="Users"
-            component={UserNavigators}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Menu"
-            component={MenuNavigator}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="PostAd"
-            component={PostAdNavigator}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Ads" options={{ headerShown: false }}>
-            {(props) => (
-              <AdsNavigator {...props}/>
-            )}
-          </Stack.Screen>
-          <Stack.Screen
-            name="Map"
-            options={{ headerShown: false }}
-          >
-            {(props) => (
-              <MapNavigator
-                {...props}
-              />
-            )}
-          </Stack.Screen>
-          <Stack.Screen
-            name="PlantSittingTracking"
-            options={{ headerShown: false }}
-          >
-            {(props) => (
-              <PlantSittingTrackingNavigator
-                {...props}
-              />
-            )}
-          </Stack.Screen>
-          <Stack.Screen
-            name="Chat"
-            component={ChatNavigators}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Photos"
-            component={PhotosNavigator}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ContactSupport"
-            component={ContactSupportNavigation}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+        <SafeAreaProvider>
+          <StatusBar barStyle="dark-content" />
+          <Navigation />
+        </SafeAreaProvider>
       </RouteProvider>
     </LoginProvider>
+    </>
   );
 };
 

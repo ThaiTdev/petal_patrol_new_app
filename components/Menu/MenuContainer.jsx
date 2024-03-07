@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
 import { StyleSheet, View } from "react-native";
+import { useRouteContext } from "../../app/(tabs)/RouteContext";
 import { useNavigation } from "@react-navigation/native";
 
 const MenuContainer = ({ showMenu }) => {
   const navigation = useNavigation();
+  const { updateCurrentRoute } = useRouteContext();
   const [selectedItem, setSelectedItem] = useState(3);
 
   const handleSelectedItem = (item) => {
@@ -13,6 +15,7 @@ const MenuContainer = ({ showMenu }) => {
 
   const handleMenuItemPress = (item) => {
     navigation.navigate("Menu", { screen: item.label });
+    updateCurrentRoute(item.label);
   };
 
     const MenuItems = [
@@ -28,7 +31,7 @@ const MenuContainer = ({ showMenu }) => {
         },
         {
             id: 3,
-            label: 'Choose_Ad_Type',
+            label: 'PostAd',
             imageUrl: require('../../assets/images/icons/Plante1.png'),
         },
         {
@@ -38,7 +41,7 @@ const MenuContainer = ({ showMenu }) => {
         },
         {
             id: 5,
-            label: 'Profile',
+            label: 'User',
             imageUrl: require('../../assets/images/icons/botanist.png'),
         },
     ];

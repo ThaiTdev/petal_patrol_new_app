@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, Image, View, Text, Pressable } from "react-native";
 import { accountService } from "../../../_services/accountService";
 import { SIZES, COLORS, FONT } from "../../../../constants/themes";
+import { useRouteContext } from "../../RouteContext";
 import { ProgressContext } from "../../navigators/ProgressContext";
 import { Platform } from "react-native";
 import { userLogin } from "../../../../context/LoginProvider";
@@ -23,6 +24,13 @@ const Dates_Page = () => {
   const [dateOpen1, setDateOpen1] = useState(true);
   const [dateOpen2, setDateOpen2] = useState(true);
   const [isSending, setIsSending] = useState(false);
+
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("PostAd");
+  }, []);
 
   const { handleNextStep } = useContext(ProgressContext);
 

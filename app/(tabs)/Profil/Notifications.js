@@ -11,7 +11,6 @@ const Notifications = () => {
         <View style={styles.container}>
             <Text>Coucou c'est la liste des Notifications</Text>
         </View>
-        <MenuContainer showMenu={true} />
         </>
     );
 };

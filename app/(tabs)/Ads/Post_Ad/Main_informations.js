@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
+import { useRouteContext } from "../../RouteContext";
 import images from "../../../../constants/images";
 import { View, Text, TextInput } from "react-native";
 import { SIZES, COLORS } from "../../../../constants/themes";
@@ -16,6 +17,13 @@ const Main_informations = () => {
   const [messageError2, setMessageError2] = useState("");
   const [valueText, setValueText] = useState("");
   const [valueText2, setValueText2] = useState("");
+
+  const { currentRoute } = useRouteContext();
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("PostAd");
+  }, []);
 
   const handleTextChange = (text) => {
     const trimmedText = text.trim();

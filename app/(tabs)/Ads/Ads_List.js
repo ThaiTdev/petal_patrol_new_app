@@ -15,7 +15,6 @@ import { COLORS } from "../../../constants/themes";
 import logo from "../../../constants/images";
 
 import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/MappingNeedSitting";
-import MenuContainer from "../../../components/Menu/MenuContainer";
 
 const TemplateScreen = ({ navigation }) => {
   
