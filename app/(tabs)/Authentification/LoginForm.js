@@ -76,9 +76,8 @@ const LoginForm = ({ navigation }) => {
             });
             setIsLoggedIn(true);
             const userId = res.data.user.id;
-            navigation.navigate("Users", {
-              screen: "ProfilMenu",
-              params: { userId },
+            navigation.navigate("Ads", {
+              screen: "Ads_List",
             });
             // navigation.navigate("Ads", { screen: "Ads_List" });
           })

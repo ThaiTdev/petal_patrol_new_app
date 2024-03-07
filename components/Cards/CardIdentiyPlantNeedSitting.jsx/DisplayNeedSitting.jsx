@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { View, StyleSheet, TouchableOpacity, Pressable } from "react-native";
 import { Card, Image, Text } from "react-native-elements";
 
 const DisplayNeedSitting = ({
@@ -8,11 +9,16 @@ const DisplayNeedSitting = ({
   displayMap,
   setDisplayMap,
 }) => {
-  // const [displayMap, setDisplayMap] = useState(false);
 
-  // const showMap = () => {
-  //   setDisplayMap(!displayMap);
-  // };
+  const navigateToDetails = () => {
+    navigation.navigate("Ads", { screen: "Ad_Details" });
+  };
+
+  const navigation = useNavigation();
+
+  const showMap = () => {
+    setDisplayMap(true);
+  };
   if (PlantNeedSitting) {
     const textDates = `du ${formatDate(
       PlantNeedSitting.date_from
@@ -28,12 +34,14 @@ const DisplayNeedSitting = ({
               }}
               style={styles.cardImage}
             />
-            <TouchableOpacity onPress={() => setDisplayMap(true)}>
+            <TouchableOpacity onPress={() => showMap()}>
               <Text style={styles.seeToCart}>voir sur la carte</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.title}>{PlantNeedSitting.plant.name}</Text>
+          <Pressable onPress={navigateToDetails}>
+              <Text style={styles.title}>{PlantNeedSitting.plant.name}</Text>
+            </Pressable>
             <Text style={styles.subtitle}>{PlantNeedSitting.description}</Text>
             <Text style={styles.textDates}>{textDates}</Text>
             <Text style={styles.textToPublish}>
