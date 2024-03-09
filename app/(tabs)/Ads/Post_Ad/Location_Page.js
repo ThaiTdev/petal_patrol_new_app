@@ -67,23 +67,22 @@ const Location_Page = ({ navigation }) => {
       if (data && data.length > 0) {
         const { lat: latitude, lon: longitude } = data[0];
         setCompleted(true);
+        setAllData({
+          ...allData,
+          ...restValues,
+          address: addressString,
+          coordinates: {
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+          },
+          allow_advices: false,
+        });
         console.log(
           `La latitude enregistrée: ${latitude}, La Longitude enregistrée: ${longitude}`
         );
       } else {
         throw new Error("Adresse non trouvée");
       }
-
-      setAllData({
-        ...allData,
-        ...restValues,
-        address: addressString,
-        coordinates: {
-          latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude),
-        },
-        allow_advices: false,
-      });
 
       // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
       navigation.navigate("PostAd", { screen: "Dates_Page" });
