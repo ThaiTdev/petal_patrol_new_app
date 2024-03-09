@@ -13,19 +13,20 @@ import ProgressBar from "../../../../components/ProgressBar";
 const Choose_Ad_Type = () => {
   const { currentRoute } = useRouteContext();
   const { updateCurrentRoute } = useRouteContext();
+  const navigation = useNavigation();
 
   useEffect(() => {
     updateCurrentRoute("PostAd");
   }, []);
 
-  const navigation = useNavigation();
+
   const goToMainInformations = () => {
     console.log("go to main");
-    navigation.navigate("PostAd", { screen: "Main_informations" });
+    navigation.navigate("Post_Ad", { screen: "Main_informations" });
   };
   const goToMainInformationsAdvice = () => {
     console.log("go to advice");
-    navigation.navigate("PostAd", { screen: "Main_informations_Advice" });
+    navigation.navigate("Post_Ad", { screen: "Main_informations_Advice" });
   };
   const { currentStep, handleNextStep, resetStep } =
     useContext(ProgressContext);

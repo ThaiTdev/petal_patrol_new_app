@@ -49,8 +49,8 @@ const Navigation = () => {
           component={MenuNavigator}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="PostAd"
+       <Stack.Screen
+          name="Post_Ad"
           component={PostAdNavigator}
           options={{ headerShown: false }}
         />
