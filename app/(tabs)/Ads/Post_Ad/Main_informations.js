@@ -58,7 +58,7 @@ const Main_informations = () => {
     } else {
       setMessageError("");
       setMessageError2("");
-      navigation.navigate("PostAd", { screen: "Add_Photos" });
+      navigation.navigate("Post_Ad", { screen: "Add_Photos" });
     }
   };
 

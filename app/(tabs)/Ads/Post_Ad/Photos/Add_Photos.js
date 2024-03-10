@@ -37,7 +37,7 @@ const Add_Photos = ({ navigation }) => {
     } else {
       console.log("go to location page");
       setError("");
-      navigation.navigate("PostAd", { screen: "Location_Page" });
+      navigation.navigate("Post_Ad", { screen: "Location_Page" });
     }
   };
 

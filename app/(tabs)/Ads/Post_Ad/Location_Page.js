@@ -93,7 +93,7 @@ const Location_Page = ({ navigation }) => {
       }
 
       // Naviguez vers la page suivante ou effectuez d'autres actions nécessaires
-      navigation.navigate("PostAd", { screen: "Dates_Page" });
+      navigation.navigate("Post_Ad", { screen: "Dates_Page" });
     } catch (error) {
       setError(`Error navigating to Dates_Page: ${error.message}`);
       console.error(error);
