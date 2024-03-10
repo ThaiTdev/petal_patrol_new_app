@@ -16,6 +16,7 @@ const PlantNeedSit = ({ searchText, navigation }) => {
   const [needSitting, setNeedSitting] = useState([]);
   const [imagesRoutes, setImagesRoutes] = useState("");
   const [displayMap, setDisplayMap] = useState(false);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const { currentRoute } = useRouteContext();
   const { updateCurrentRoute } = useRouteContext();
 
@@ -29,8 +30,14 @@ const PlantNeedSit = ({ searchText, navigation }) => {
       setImagesRoutes(datas.imageRoute);
     }
     getData();
-  }, []);
-  console.log(needSitting);
+  }, [currentRoute]);
+
+  const handleClick = (index) => {
+    setSelectedItemIndex(index);
+    setDisplayMap(true);
+  };
+
+  console.log("NEED SITTING",needSitting);
   const filteredData = needSitting.filter((plant) =>
     plant.plant.name.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -39,12 +46,13 @@ const PlantNeedSit = ({ searchText, navigation }) => {
     setDisplayMap(false);
     updateCurrentRoute("Ads");
   };
+  console.log('DISPLAYMAP', displayMap);
 
   return (
     <>
       {displayMap ? (
        <View style={styles.mapContainer}>
-          <ShowMap offers={needSitting} setDisplayMap={setDisplayMap} />
+          <ShowMap offers={needSitting} setDisplayMap={setDisplayMap} selectedItemIndex={selectedItemIndex}/>
           <View style={styles.buttonContainer}>
             <Button style={styles.button}
               title="Fermer la carte"
@@ -60,6 +68,7 @@ const PlantNeedSit = ({ searchText, navigation }) => {
             imagePlant={imagesRoutes}
             displayMap={displayMap}
             setDisplayMap={setDisplayMap}
+            onClick={() => handleClick(index)}
           />
         ))
       )}

@@ -12,34 +12,54 @@ import { BaseButton } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 
-const ShowMap = ({ offers, setDisplayMap }) => {
+const ShowMap = ({ offers, setDisplayMap, selectedItemIndex }) => {
   const { updateCurrentRoute, currentRoute } = useRouteContext();
+
+console.log("OFFERS IN SHOWMAP", offers);
+console.log("SELECTED INDEX", selectedItemIndex);
 
   useEffect(() => {
     updateCurrentRoute("Map");
   }, []);
 
+  const coordinatesItem = offers[selectedItemIndex].coordinates;
+  console.log('COORDINATES ITEM', coordinatesItem);
+
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
+        // region={{
+        //   latitude: 43.62505,
+        //   longitude: 3.862038,
+        //   latitudeDelta: 0.0922,
+        //   longitudeDelta: 0.0421,
+        // }}
         region={{
-          latitude: 43.62505,
-          longitude: 3.862038,
+          latitude: offers[selectedItemIndex].coordinates.latitude,
+          longitude : offers[selectedItemIndex].coordinates.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
-        {offers.map((o) => {
-          return (
-            <Marker
-              key={o.id}
-              coordinate={o.coordinates}
-              title={o.description}
-              description={o.address}
-            />
-          );
-        })}
+      <Marker
+        key={offers[selectedItemIndex].id}
+        coordinate={offers[selectedItemIndex].coordinates}
+        title={offers[selectedItemIndex].plant.name}
+        description={offers[selectedItemIndex].address}
+      />
+      
+      {/* Afficher toutes les annonces sur la carte
+      {offers.map((o) => {
+        return (
+          <Marker
+            key={o.id}
+            coordinate={o.coordinates}
+            title={o.description}
+            description={o.address}
+          />
+        );
+      })} */}
       </MapView>
 
       <View style={styles.button}>

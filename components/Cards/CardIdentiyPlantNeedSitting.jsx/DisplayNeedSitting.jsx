@@ -8,6 +8,7 @@ const DisplayNeedSitting = ({
   imagePlant,
   displayMap,
   setDisplayMap,
+  onClick
 }) => {
 
   const navigateToDetails = () => {
@@ -18,6 +19,7 @@ const DisplayNeedSitting = ({
 
   const showMap = () => {
     setDisplayMap(true);
+    onClick();
   };
   if (PlantNeedSitting) {
     const textDates = `du ${formatDate(

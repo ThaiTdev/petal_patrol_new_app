@@ -146,6 +146,7 @@ const Dates_Page = () => {
         // setValideMessage(resData.data.message);
         console.log(valideMessage);
         setShowModal(true);
+        updateCurrentRoute("Ads");
         console.log("Form submitted!");
       } catch (error) {
         console.error("Error while creating plant:", error);
