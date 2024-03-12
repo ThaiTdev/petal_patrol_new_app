@@ -42,6 +42,7 @@ console.log("SELECTED INDEX", selectedItemIndex);
           longitudeDelta: 0.0421,
         }}
       >
+      {/* Afficher uniquement le marker de la carte sélectionnée */}
       <Marker
         key={offers[selectedItemIndex].id}
         coordinate={offers[selectedItemIndex].coordinates}
@@ -49,26 +50,26 @@ console.log("SELECTED INDEX", selectedItemIndex);
         description={offers[selectedItemIndex].address}
       />
       
-      {/* Afficher toutes les annonces sur la carte
-      {offers.map((o) => {
+      {/* Afficher toutes les annonces sur la carte */}
+      {/* {offers.map((o) => {
         return (
           <Marker
             key={o.id}
             coordinate={o.coordinates}
-            title={o.description}
+            title={o.plant.name}
             description={o.address}
           />
         );
       })} */}
       </MapView>
 
-      <View style={styles.button}>
+      {/* <View style={styles.button}>
         <FormSubmitButton
           onPress={() => setDisplayMap(false)}
           title=" X "
           color={COLORS.primary}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

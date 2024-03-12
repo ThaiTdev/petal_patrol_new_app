@@ -12,10 +12,10 @@ import { BaseButton } from "react-native-gesture-handler";
 // Bouclage sur les données reçues pour affichage
 
 // map sur les données pour les afficher
-const PlantNeedSit = ({ searchText, navigation }) => {
+const PlantNeedSit = ({ searchText, navigation, displayMap, setDisplayMap }) => {
   const [needSitting, setNeedSitting] = useState([]);
   const [imagesRoutes, setImagesRoutes] = useState("");
-  const [displayMap, setDisplayMap] = useState(false);
+ 
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const { currentRoute } = useRouteContext();
   const { updateCurrentRoute } = useRouteContext();
@@ -52,12 +52,14 @@ const PlantNeedSit = ({ searchText, navigation }) => {
     <>
       {displayMap ? (
        <View style={styles.mapContainer}>
-          <ShowMap offers={needSitting} setDisplayMap={setDisplayMap} selectedItemIndex={selectedItemIndex}/>
           <View style={styles.buttonContainer}>
             <Button style={styles.button}
               title="Fermer la carte"
               onPress={() => closeMapAndNavigateToAds()}
             />
+          </View>
+          <View>
+            <ShowMap offers={needSitting} setDisplayMap={setDisplayMap} selectedItemIndex={selectedItemIndex}/>
           </View>
         </View>
       ) : (
@@ -81,13 +83,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mapContainer: {
-    position: "relative",
+    position: "absolute",
+    top: -40,
+    left: 0,
+    width: "100%",
     flex: 1,
   },
   buttonContainer: {
-    position: "absolute",
-    top: 10,
-    right: 20,
+    position: "fixed",
+    top: 90,
+    left: 170,
+    width: 200,
     zIndex: 1,
     backgroundColor: "#F2FFF2",
     borderRadius: 10,

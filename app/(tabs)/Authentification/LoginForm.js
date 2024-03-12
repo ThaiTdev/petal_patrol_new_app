@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { useRouteContext } from "../RouteContext";
 import { CheckBox } from "react-native-elements";
 import { userLogin } from "../../../context/LoginProvider";
 import { accountService } from "../../_services/accountService";
@@ -27,6 +28,11 @@ const LoginForm = ({ navigation }) => {
   const { email, password } = userInfo;
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const { updateCurrentRoute } = useRouteContext();
+
+  useEffect(() => {
+    updateCurrentRoute("Authentification");
+  }, []);
 
   //checkbox
   const [checked, setChecked] = useState(false);
