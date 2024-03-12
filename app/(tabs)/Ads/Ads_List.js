@@ -19,9 +19,12 @@ import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.
 const TemplateScreen = ({ navigation }) => {
   
   const [searchText, setSearchText] = useState("");
+  const [displayMap, setDisplayMap] = useState(false);
+
   return (
     <>
     <View style={styles.page}>
+    {!displayMap ? (
       <View style={styles.headerContainer}>
         <View style={styles.titleContainer}>
           <SafeAreaView style={styles.elementHeaderDirection}>
@@ -44,9 +47,9 @@ const TemplateScreen = ({ navigation }) => {
           </SafeAreaView>
         </View>
       </View>
-
-      <ScrollView style={styles.subPage}>
-        <PlantNeedSit searchText={searchText}/>
+) : null }
+      <ScrollView style={[styles.subPage, displayMap && { borderTopLeftRadius: 0 }]}>
+        <PlantNeedSit searchText={searchText} displayMap={displayMap} setDisplayMap={setDisplayMap}/>
       </ScrollView>
     </View>
     </>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, TouchableOpacity, Pressable } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Pressable} from "react-native";
 import { Card, Image, Text } from "react-native-elements";
 
 const DisplayNeedSitting = ({
@@ -17,9 +17,11 @@ const DisplayNeedSitting = ({
 
   const navigation = useNavigation();
 
+  const [loading, setLoading] = useState(true);
+
   const showMap = () => {
     setDisplayMap(true);
-    onClick();
+    onClick()
   };
   if (PlantNeedSitting) {
     const textDates = `du ${formatDate(
@@ -30,12 +32,14 @@ const DisplayNeedSitting = ({
       <Card containerStyle={styles.cardContainer}>
         <View style={styles.cardContent}>
           <View style={styles.imageBlock}>
-            <Image
-              source={{
-                uri: `${process.env.EXPO_PUBLIC_IMAGE_URL}${imagePlant}/${PlantNeedSitting.plant.images[0]}`,
-              }}
-              style={styles.cardImage}
-            />
+            
+<Image
+  
+  source={{
+    uri: `${process.env.EXPO_PUBLIC_IMAGE_URL}${imagePlant}/${PlantNeedSitting.plant.images[0]}`,
+  }}
+  style={styles.cardImage}
+/>
             <TouchableOpacity onPress={() => showMap()}>
               <Text style={styles.seeToCart}>voir sur la carte</Text>
             </TouchableOpacity>
