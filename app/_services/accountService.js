@@ -16,6 +16,9 @@ let signup = (data) => {
 let signout = () => {
   return Axios.get(`/auth/signout/`);
 };
+let isAuthenticated = () => {
+  return Axios.get(`/auth/is-authenticated/`);
+};
 
 let forgotPassword = (data) => {
   return Axios.post("/user/reset-password", data);
@@ -96,6 +99,7 @@ export const accountService = {
   signout,
   forgotPassword,
   resetPassword,
+  isAuthenticated,
   //Users//
   showAllUsers,
   showProfileUser,

@@ -3,12 +3,32 @@ import logo from "../../constants/images";
 import background from "../../constants/background";
 import { SIZES, COLORS } from "../../constants/themes";
 import icon from "../../constants/icons";
+import { accountService } from "../_services/accountService";
 import { View } from "react-native";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
+import { userLogin } from "../../context/LoginProvider";
 
 export default function HomeScreen({ navigation }) {
-  const goToFirstSlide = () => {
-    navigation.navigate("Welcome", { screen: "Carousel" }); // Assurez-vous de remplacer "Carousel" par le nom de votre écran de destination
+  const { setIsLoggedIn, setProfile } = userLogin();
+  const goToFirstSlide = async () => {
+    await accountService.isAuthenticated().then((res) => {
+      if (res.data) {
+        console.log("je suis connecté " + res.data.message);
+        // setProfile({
+        //   userId: res.data.user.id,
+        //   name: res.data.user.name,
+        //   email: res.data.user.email,
+        //   avatar: res.data.user.avatar,
+        // });
+        setIsLoggedIn(true);
+        navigation.navigate("Ads", {
+          screen: "Ads_List",
+        });
+      } else {
+        console.log("je ne pas suis connecté " + res);
+        navigation.navigate("Welcome", { screen: "Carousel" }); // Assurez-vous de remplacer "Carousel" par le nom de votre écran de destination
+      }
+    });
   };
 
   return (
