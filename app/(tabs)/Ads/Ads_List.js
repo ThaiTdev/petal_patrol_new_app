@@ -17,41 +17,46 @@ import logo from "../../../constants/images";
 import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/MappingNeedSitting";
 
 const TemplateScreen = ({ navigation }) => {
-  
   const [searchText, setSearchText] = useState("");
   const [displayMap, setDisplayMap] = useState(false);
 
   return (
     <>
-    <View style={styles.page}>
-    {!displayMap ? (
-      <View style={styles.headerContainer}>
-        <View style={styles.titleContainer}>
-          <SafeAreaView style={styles.elementHeaderDirection}>
-            <Image source={logo.logo} style={styles.logo}></Image>
-            <TextInput
-              style={styles.input}
-              value={searchText}
-              placeholder="Rechercher sur petal Patrol"
-              onChangeText={(text) => setSearchText(text)}
-            />
-            <View style={styles.semiContainer}>
-              <Text style={styles.txtSolo}>
-                Elles attendent d'être bichonnées...
-              </Text>
-              <Image
-                source={require("../../../assets/images/logo/icone_fleur.png")}
-                style={styles.iconFleur}
-              />
+      <View style={styles.page}>
+        {!displayMap ? (
+          <View style={styles.headerContainer}>
+            <View style={styles.titleContainer}>
+              <SafeAreaView style={styles.elementHeaderDirection}>
+                <Image source={logo.logo} style={styles.logo}></Image>
+                <TextInput
+                  style={styles.input}
+                  value={searchText}
+                  placeholder="Rechercher sur petal Patrol"
+                  onChangeText={(text) => setSearchText(text)}
+                />
+                <View style={styles.semiContainer}>
+                  <Text style={styles.txtSolo}>
+                    Elles attendent d'être bichonnées...
+                  </Text>
+                  <Image
+                    source={require("../../../assets/images/logo/icone_fleur.png")}
+                    style={styles.iconFleur}
+                  />
+                </View>
+              </SafeAreaView>
             </View>
-          </SafeAreaView>
-        </View>
+          </View>
+        ) : null}
+        <ScrollView
+          style={[styles.subPage, displayMap && { borderTopLeftRadius: 0 }]}
+        >
+          <PlantNeedSit
+            searchText={searchText}
+            displayMap={displayMap}
+            setDisplayMap={setDisplayMap}
+          />
+        </ScrollView>
       </View>
-) : null }
-      <ScrollView style={[styles.subPage, displayMap && { borderTopLeftRadius: 0 }]}>
-        <PlantNeedSit searchText={searchText} displayMap={displayMap} setDisplayMap={setDisplayMap}/>
-      </ScrollView>
-    </View>
     </>
   );
 };

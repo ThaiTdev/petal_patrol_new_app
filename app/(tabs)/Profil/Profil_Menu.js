@@ -6,6 +6,7 @@ import Icons from "../../../constants/icons";
 import logo from "../../../constants/images";
 import UserAvatar from "react-native-user-avatar";
 import MenuContainer from "../../../components/Menu/MenuContainer";
+import { accountService } from "../../_services/accountService";
 
 const ProfilMenu = ({ navigation }) => {
   const { profile } = userLogin();
@@ -36,68 +37,79 @@ const ProfilMenu = ({ navigation }) => {
   const handleGoBack = () => {
     navigation.goBack();
   };
+  const userSignout = async () => {
+    await accountService.signout().then((res) => {
+      console.log(res.data.message);
+      navigation.navigate("Authentification", { screen: "FirstCo" });
+    });
+  };
 
   return (
     <>
-    <View style={styles.page}>
-      <View style={styles.headerContainer}>
-        <View style={styles.titleContainer}>
-          <View style={styles.LinksContainer}>
-            <TouchableOpacity onPress={handleGoBack}>
+      <View style={styles.page}>
+        <View style={styles.headerContainer}>
+          <View style={styles.titleContainer}>
+            <View style={styles.LinksContainer}>
+              <TouchableOpacity onPress={handleGoBack}>
+                <Image
+                  source={Icons.arrowBack}
+                  style={{ ...styles.icons, marginLeft: 10 }}
+                />
+              </TouchableOpacity>
               <Image
-                source={Icons.arrowBack}
-                style={{ ...styles.icons, marginLeft: 10 }}
+                source={Icons.closeButton}
+                style={{ ...styles.icons, marginRight: 10 }}
               />
-            </TouchableOpacity>
-            <Image
-              source={Icons.closeButton}
-              style={{ ...styles.icons, marginRight: 10 }}
-            />
+            </View>
+          </View>
+        </View>
+        <View style={styles.boxAvatar}>
+          <UserAvatar
+            size={100}
+            name={allName}
+            source={Avatar ? Avatar : logo.logo2}
+            style={styles.Avatar}
+          />
+          <Text style={styles.Name}>{allName ? allName : "Grainou"}</Text>
+        </View>
+        <View style={styles.BodyContainer}>
+          <View style={styles.subPage}>
+            <View style={styles.containerLinks}>
+              <Text style={styles.title1}>Mon profil</Text>
+              <TouchableOpacity onPress={goToParamSettings}>
+                <View style={styles.boxLink}>
+                  <Image source={Icons.settings} style={styles.icons} />
+                  <Text style={styles.text}>Paramètre du compte</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity s onPress={goToMyAds}>
+                <View style={styles.boxLink}>
+                  <Image source={Icons.ads} style={styles.icons} />
+                  <Text style={styles.text}>Mes annonces</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={goToMyPlants}>
+                <View style={styles.boxLink}>
+                  <Image source={Icons.plantLogo} style={styles.icons} />
+                  <Text style={styles.text}>Mes plantes</Text>
+                </View>
+              </TouchableOpacity>
+              <Text style={styles.title2}>Support</Text>
+              <TouchableOpacity onPress={goToSupport}>
+                <View style={styles.boxLink}>
+                  <Image source={Icons.contact} style={styles.icons} />
+                  <Text style={styles.text}>Nous contacter</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={userSignout}>
+                <View style={styles.boxLink}>
+                  <Text style={styles.text}>Déconexion</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
-      <View style={styles.boxAvatar}>
-        <UserAvatar
-          size={100}
-          name={allName}
-          source={Avatar ? Avatar : logo.logo2}
-          style={styles.Avatar}
-        />
-        <Text style={styles.Name}>{allName ? allName : "Grainou"}</Text>
-      </View>
-      <View style={styles.BodyContainer}>
-        <View style={styles.subPage}>
-          <View style={styles.containerLinks}>
-            <Text style={styles.title1}>Mon profil</Text>
-            <TouchableOpacity onPress={goToParamSettings}>
-              <View style={styles.boxLink}>
-                <Image source={Icons.settings} style={styles.icons} />
-                <Text style={styles.text}>Paramètre du compte</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity s onPress={goToMyAds}>
-              <View style={styles.boxLink}>
-                <Image source={Icons.ads} style={styles.icons} />
-                <Text style={styles.text}>Mes annonces</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={goToMyPlants}>
-              <View style={styles.boxLink}>
-                <Image source={Icons.plantLogo} style={styles.icons} />
-                <Text style={styles.text}>Mes plantes</Text>
-              </View>
-            </TouchableOpacity>
-            <Text style={styles.title2}>Support</Text>
-            <TouchableOpacity onPress={goToSupport}>
-              <View style={styles.boxLink}>
-                <Image source={Icons.contact} style={styles.icons} />
-                <Text style={styles.text}>Nous contacter</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </View>
     </>
   );
 };

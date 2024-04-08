@@ -15,15 +15,15 @@ const Stack = createNativeStackNavigator();
 const ShowMap = ({ offers, setDisplayMap, selectedItemIndex }) => {
   const { updateCurrentRoute, currentRoute } = useRouteContext();
 
-console.log("OFFERS IN SHOWMAP", offers);
-console.log("SELECTED INDEX", selectedItemIndex);
+  console.log("OFFERS IN SHOWMAP", offers);
+  console.log("SELECTED INDEX", selectedItemIndex);
 
   useEffect(() => {
     updateCurrentRoute("Map");
   }, []);
 
   const coordinatesItem = offers[selectedItemIndex].coordinates;
-  console.log('COORDINATES ITEM', coordinatesItem);
+  console.log("COORDINATES ITEM", coordinatesItem);
 
   return (
     <View style={styles.container}>
@@ -37,21 +37,21 @@ console.log("SELECTED INDEX", selectedItemIndex);
         // }}
         region={{
           latitude: offers[selectedItemIndex].coordinates.latitude,
-          longitude : offers[selectedItemIndex].coordinates.longitude,
+          longitude: offers[selectedItemIndex].coordinates.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
-      {/* Afficher uniquement le marker de la carte sélectionnée */}
-      <Marker
-        key={offers[selectedItemIndex].id}
-        coordinate={offers[selectedItemIndex].coordinates}
-        title={offers[selectedItemIndex].plant.name}
-        description={offers[selectedItemIndex].address}
-      />
-      
-      {/* Afficher toutes les annonces sur la carte */}
-      {/* {offers.map((o) => {
+        {/* Afficher uniquement le marker de la carte sélectionnée */}
+        <Marker
+          key={offers[selectedItemIndex].id}
+          coordinate={offers[selectedItemIndex].coordinates}
+          title={offers[selectedItemIndex].plant.name}
+          description={offers[selectedItemIndex].description}
+        />
+
+        {/* Afficher toutes les annonces sur la carte */}
+        {/* {offers.map((o) => {
         return (
           <Marker
             key={o.id}
@@ -62,14 +62,6 @@ console.log("SELECTED INDEX", selectedItemIndex);
         );
       })} */}
       </MapView>
-
-      {/* <View style={styles.button}>
-        <FormSubmitButton
-          onPress={() => setDisplayMap(false)}
-          title=" X "
-          color={COLORS.primary}
-        />
-      </View> */}
     </View>
   );
 };
@@ -86,7 +78,7 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
-    zIndex: 1
+    zIndex: 1,
   },
   button: {
     position: "absolute",
