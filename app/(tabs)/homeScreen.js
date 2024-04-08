@@ -12,8 +12,8 @@ export default function HomeScreen({ navigation }) {
   const { setIsLoggedIn, setProfile } = userLogin();
   const goToFirstSlide = async () => {
     await accountService.isAuthenticated().then((res) => {
-      if (res.data) {
-        console.log("je suis connecté " + res.data.message);
+      if (res.data.alreadyLogged) {
+        console.log("je suis connecté ", res.data.alreadyLogged);
         // setProfile({
         //   userId: res.data.user.id,
         //   name: res.data.user.name,
@@ -25,7 +25,7 @@ export default function HomeScreen({ navigation }) {
           screen: "Ads_List",
         });
       } else {
-        console.log("je ne pas suis connecté " + res);
+        console.log("je ne suis pas  connecté ", res.data.alreadyLogged);
         navigation.navigate("Welcome", { screen: "Carousel" }); // Assurez-vous de remplacer "Carousel" par le nom de votre écran de destination
       }
     });
