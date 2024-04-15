@@ -2,22 +2,17 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, StyleSheet, TouchableOpacity, Pressable } from "react-native";
 import { Card, Image, Text } from "react-native-elements";
-import LoadingGifComponent from "../../Gif/LoadingGif";
 
 const DisplayNeedSitting = ({
   PlantNeedSitting,
   imagePlant,
-  displayMap,
   setDisplayMap,
   onClick,
 }) => {
   const navigateToDetails = () => {
     navigation.navigate("Ads", { screen: "Ad_Details" });
   };
-
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
-
   const showMap = () => {
     setDisplayMap(true);
     onClick();
@@ -26,33 +21,16 @@ const DisplayNeedSitting = ({
     const textDates = `du ${formatDate(
       PlantNeedSitting.date_from
     )} au ${formatDate(PlantNeedSitting.date_to)}`;
-    console.log(PlantNeedSitting.plant.images[0]);
     return (
       <Card containerStyle={styles.cardContainer}>
         <View style={styles.cardContent}>
           <View style={styles.imageBlock}>
-            <>
-              {!loading ? (
-                <Image
-                  source={{
-                    uri: `${process.env.EXPO_PUBLIC_IMAGE_URL}${imagePlant}/${PlantNeedSitting.plant.images[0]}`,
-                  }}
-                  style={styles.cardImage}
-                  onLoadStart={() => {
-                    setLoading(true); // Le chargement de l'image commence, afficher le composant de chargement
-                  }}
-                  onLoadEnd={() => {
-                    setLoading(false); // Le chargement de l'image est terminé, masquer le composant de chargement
-                  }}
-                  onError={(error) => {
-                    setLoading(false); // En cas d'erreur, masquer le composant de chargement
-                    console.error("Erreur de chargement de l'image:", error);
-                  }}
-                />
-              ) : (
-                <LoadingGifComponent />
-              )}
-            </>
+            <Image
+              style={styles.cardImage}
+              source={{
+                uri: `${process.env.EXPO_PUBLIC_IMAGE_URL}${imagePlant}/${PlantNeedSitting.plant.images[0]}`,
+              }}
+            />
             <TouchableOpacity onPress={() => showMap()}>
               <Text style={styles.seeToCart}>voir sur la carte</Text>
             </TouchableOpacity>

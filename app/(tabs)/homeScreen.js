@@ -13,20 +13,18 @@ export default function HomeScreen({ navigation }) {
   const goToFirstSlide = async () => {
     await accountService.isAuthenticated().then((res) => {
       if (res.data.alreadyLogged) {
-        console.log("je suis connecté ", res.data.alreadyLogged);
-        // setProfile({
-        //   userId: res.data.user.id,
-        //   name: res.data.user.name,
-        //   email: res.data.user.email,
-        //   avatar: res.data.user.avatar,
-        // });
+        setProfile({
+          userId: res.data.user.id,
+          name: res.data.user.name,
+          email: res.data.user.email,
+          avatar: res.data.user.avatar,
+        });
         setIsLoggedIn(true);
         navigation.navigate("Ads", {
           screen: "Ads_List",
         });
       } else {
-        console.log("je ne suis pas  connecté ", res.data.alreadyLogged);
-        navigation.navigate("Welcome", { screen: "Carousel" }); // Assurez-vous de remplacer "Carousel" par le nom de votre écran de destination
+        navigation.navigate("Welcome", { screen: "Carousel" });
       }
     });
   };

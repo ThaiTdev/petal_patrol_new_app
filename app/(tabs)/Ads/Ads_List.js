@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigationState } from "@react-navigation/native";
+import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/MappingNeedSitting";
+import LoadingGifComponent from "../../../components/Gif/LoadingGif";
 import {
   View,
   StyleSheet,
@@ -13,8 +15,6 @@ import {
 import { COLORS } from "../../../constants/themes";
 
 import logo from "../../../constants/images";
-
-import PlantNeedSit from "../../../components/Cards/CardIdentiyPlantNeedSitting.jsx/MappingNeedSitting";
 
 const TemplateScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState("");
@@ -50,11 +50,19 @@ const TemplateScreen = ({ navigation }) => {
         <ScrollView
           style={[styles.subPage, displayMap && { borderTopLeftRadius: 0 }]}
         >
-          <PlantNeedSit
-            searchText={searchText}
+          {<PlantNeedSit
+            searchText={searchText ? searchText : ""}
             displayMap={displayMap}
             setDisplayMap={setDisplayMap}
-          />
+          /> ? (
+            <PlantNeedSit
+              searchText={searchText}
+              displayMap={displayMap}
+              setDisplayMap={setDisplayMap}
+            />
+          ) : (
+            <LoadingGifComponent />
+          )}
         </ScrollView>
       </View>
     </>
