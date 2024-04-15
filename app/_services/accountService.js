@@ -70,7 +70,6 @@ let UpdateProfilBotanist = (data, id) => {
 let createPlant = (dataPlant, option) => {
   return Axios.post(`/plant`, dataPlant, option);
 };
-
 let showAllPlants = () => {
   return Axios.get(`/plant/my`);
 };
