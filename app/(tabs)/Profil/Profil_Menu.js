@@ -34,6 +34,11 @@ const ProfilMenu = ({ navigation }) => {
       screen: "ContactSupportForm",
     });
   };
+  const goToChat = () => {
+    navigation.navigate("Chat", { screen: "ChatWindow" });
+    console.log("Navigating to Chat");
+  };
+
   const handleGoBack = () => {
     navigation.goBack();
   };
@@ -104,6 +109,12 @@ const ProfilMenu = ({ navigation }) => {
               <TouchableOpacity onPress={userSignout}>
                 <View style={styles.boxLink}>
                   <Text style={styles.text}>Déconexion</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={goToChat}>
+                <View style={styles.boxLink}>
+                  <Image source={Icons.contact} style={styles.icons} />
+                  <Text style={styles.text}>Discution</Text>
                 </View>
               </TouchableOpacity>
             </View>

@@ -1,30 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable import/export */
-/* eslint-disable @typescript-eslint/ban-types */
-declare module "expo-router" {
-  import type { LinkProps as OriginalLinkProps } from 'expo-router/build/link/Link';
-  import type { Router as OriginalRouter } from 'expo-router/src/types';
-  export * from 'expo-router/build';
+/* eslint-disable */
+import type { ReactNode } from 'react';
+import type { TextProps, GestureResponderEvent } from 'react-native';
 
-  // prettier-ignore
-  type StaticRoutes = `/` | `/(tabs)/.DS_Store` | `/.DS_Store` | `/(tabs)/Ads/Ads_List` | `/Ads/Ads_List` | `/(tabs)/Ads/Ad_Details` | `/Ads/Ad_Details` | `/(tabs)/Ads/Plant_Sitting_Tracking/Plant_Sitting_Tracking` | `/Ads/Plant_Sitting_Tracking/Plant_Sitting_Tracking` | `/(tabs)/Ads/Post_Ad/Choose_Ad_Type` | `/Ads/Post_Ad/Choose_Ad_Type` | `/(tabs)/Ads/Post_Ad/Dates_Page` | `/Ads/Post_Ad/Dates_Page` | `/(tabs)/Ads/Post_Ad/Location_Page` | `/Ads/Post_Ad/Location_Page` | `/(tabs)/Ads/Post_Ad/Main_informations` | `/Ads/Post_Ad/Main_informations` | `/(tabs)/Ads/Post_Ad/Main_informations_Advice` | `/Ads/Post_Ad/Main_informations_Advice` | `/(tabs)/Ads/Post_Ad/Photos/Add_Photos` | `/Ads/Post_Ad/Photos/Add_Photos` | `/(tabs)/Ads/Post_Ad/Photos/Validate_Photos` | `/Ads/Post_Ad/Photos/Validate_Photos` | `/(tabs)/Ads/Research` | `/Ads/Research` | `/(tabs)/Authentification/CGUComponent` | `/Authentification/CGUComponent` | `/(tabs)/Authentification/FirstConnexion` | `/Authentification/FirstConnexion` | `/(tabs)/Authentification/formulaire/formContainer` | `/Authentification/formulaire/formContainer` | `/(tabs)/Authentification/formulaire/formInput` | `/Authentification/formulaire/formInput` | `/(tabs)/Authentification/formulaire/formInput2` | `/Authentification/formulaire/formInput2` | `/(tabs)/Authentification/formulaire/formSubmitButton` | `/Authentification/formulaire/formSubmitButton` | `/(tabs)/Authentification/formulaire/socialButton` | `/Authentification/formulaire/socialButton` | `/(tabs)/Authentification/LoginForm` | `/Authentification/LoginForm` | `/(tabs)/Authentification/Lost_Password` | `/Authentification/Lost_Password` | `/(tabs)/Authentification/Registration` | `/Authentification/Registration` | `/(tabs)/Authentification/SignupForm` | `/Authentification/SignupForm` | `/(tabs)/Chat_Screens/Chat_Window` | `/Chat_Screens/Chat_Window` | `/(tabs)/Chat_Screens/Messages_List` | `/Chat_Screens/Messages_List` | `/(tabs)/componants/Header` | `/componants/Header` | `/(tabs)/componants/modalMailSend` | `/componants/modalMailSend` | `/(tabs)/componants/Separator` | `/componants/Separator` | `/(tabs)/componants/TemplateScreen` | `/componants/TemplateScreen` | `/(tabs)/Contact_Support` | `/Contact_Support` | `/(tabs)/homeScreen` | `/homeScreen` | `/(tabs)/` | `/(tabs)` | `/(tabs)/Navigation` | `/Navigation` | `/(tabs)/navigators/AdsNavigator` | `/navigators/AdsNavigator` | `/(tabs)/navigators/AuthNavigator` | `/navigators/AuthNavigator` | `/(tabs)/navigators/ChatNavigators` | `/navigators/ChatNavigators` | `/(tabs)/navigators/ContactSupportNavigator` | `/navigators/ContactSupportNavigator` | `/(tabs)/navigators/MenuNavigator` | `/navigators/MenuNavigator` | `/(tabs)/navigators/PhotosNavigator` | `/navigators/PhotosNavigator` | `/(tabs)/navigators/PlantSittingTrackingNavigator` | `/navigators/PlantSittingTrackingNavigator` | `/(tabs)/navigators/PostAdNavigator` | `/navigators/PostAdNavigator` | `/(tabs)/navigators/ProgressContext` | `/navigators/ProgressContext` | `/(tabs)/navigators/UserNavigators` | `/navigators/UserNavigators` | `/(tabs)/navigators/WelcomeNavigators` | `/navigators/WelcomeNavigators` | `/(tabs)/Profil/Edit_Profil` | `/Profil/Edit_Profil` | `/(tabs)/Profil/My_Ads` | `/Profil/My_Ads` | `/(tabs)/Profil/Notifications` | `/Profil/Notifications` | `/(tabs)/Profil/Profil_Menu` | `/Profil/Profil_Menu` | `/(tabs)/Profil/Public_Profil` | `/Profil/Public_Profil` | `/(tabs)/Profil/update_Password` | `/Profil/update_Password` | `/(tabs)/RouteContext` | `/RouteContext` | `/(tabs)/Startup/Carousel/carouselScreen ` | `/Startup/Carousel/carouselScreen ` | `/(tabs)/Startup/Carousel/firstSlide` | `/Startup/Carousel/firstSlide` | `/(tabs)/Startup/Carousel/secondSlide` | `/Startup/Carousel/secondSlide` | `/(tabs)/Startup/Carousel/thirdSlide` | `/Startup/Carousel/thirdSlide` | `/(tabs)/Startup/Discovery` | `/Startup/Discovery` | `/+html` | `/api/axios` | `/_services/accountService`;
-  // prettier-ignore
+export namespace ExpoRouter {
+  type StaticRoutes = `/` | `/(tabs)` | `/(tabs)/Ads/Ad_Details` | `/(tabs)/Ads/Ads_List` | `/(tabs)/Ads/Plant_Sitting_Tracking/Plant_Sitting_Tracking` | `/(tabs)/Ads/Post_Ad/Choose_Ad_Type` | `/(tabs)/Ads/Post_Ad/Dates_Page` | `/(tabs)/Ads/Post_Ad/Location_Page` | `/(tabs)/Ads/Post_Ad/Main_informations` | `/(tabs)/Ads/Post_Ad/Main_informations_Advice` | `/(tabs)/Ads/Post_Ad/Photos/Add_Photos` | `/(tabs)/Ads/Post_Ad/Photos/Validate_Photos` | `/(tabs)/Ads/Research` | `/(tabs)/Authentification/CGUComponent` | `/(tabs)/Authentification/FirstConnexion` | `/(tabs)/Authentification/LoginForm` | `/(tabs)/Authentification/Lost_Password` | `/(tabs)/Authentification/Registration` | `/(tabs)/Authentification/SignupForm` | `/(tabs)/Authentification/formulaire/formContainer` | `/(tabs)/Authentification/formulaire/formInput` | `/(tabs)/Authentification/formulaire/formInput2` | `/(tabs)/Authentification/formulaire/formSubmitButton` | `/(tabs)/Authentification/formulaire/socialButton` | `/(tabs)/Chat_Screens/Chat_Window` | `/(tabs)/Chat_Screens/Messages_List` | `/(tabs)/Contact_Support` | `/(tabs)/Navigation` | `/(tabs)/Profil/Edit_Profil` | `/(tabs)/Profil/My_Ads` | `/(tabs)/Profil/Notifications` | `/(tabs)/Profil/Profil_Menu` | `/(tabs)/Profil/Public_Profil` | `/(tabs)/Profil/update_Password` | `/(tabs)/RouteContext` | `/(tabs)/Startup/Carousel/carouselScreen ` | `/(tabs)/Startup/Carousel/firstSlide` | `/(tabs)/Startup/Carousel/secondSlide` | `/(tabs)/Startup/Carousel/thirdSlide` | `/(tabs)/Startup/Discovery` | `/(tabs)/componants/Header` | `/(tabs)/componants/Separator` | `/(tabs)/componants/TemplateScreen` | `/(tabs)/componants/modalMailSend` | `/(tabs)/homeScreen` | `/(tabs)/navigators/AdsNavigator` | `/(tabs)/navigators/AuthNavigator` | `/(tabs)/navigators/ChatNavigators` | `/(tabs)/navigators/ContactSupportNavigator` | `/(tabs)/navigators/MenuNavigator` | `/(tabs)/navigators/PhotosNavigator` | `/(tabs)/navigators/PlantSittingTrackingNavigator` | `/(tabs)/navigators/PostAdNavigator` | `/(tabs)/navigators/ProgressContext` | `/(tabs)/navigators/UserNavigators` | `/(tabs)/navigators/WelcomeNavigators` | `/Ads/Ad_Details` | `/Ads/Ads_List` | `/Ads/Plant_Sitting_Tracking/Plant_Sitting_Tracking` | `/Ads/Post_Ad/Choose_Ad_Type` | `/Ads/Post_Ad/Dates_Page` | `/Ads/Post_Ad/Location_Page` | `/Ads/Post_Ad/Main_informations` | `/Ads/Post_Ad/Main_informations_Advice` | `/Ads/Post_Ad/Photos/Add_Photos` | `/Ads/Post_Ad/Photos/Validate_Photos` | `/Ads/Research` | `/Authentification/CGUComponent` | `/Authentification/FirstConnexion` | `/Authentification/LoginForm` | `/Authentification/Lost_Password` | `/Authentification/Registration` | `/Authentification/SignupForm` | `/Authentification/formulaire/formContainer` | `/Authentification/formulaire/formInput` | `/Authentification/formulaire/formInput2` | `/Authentification/formulaire/formSubmitButton` | `/Authentification/formulaire/socialButton` | `/Chat_Screens/Chat_Window` | `/Chat_Screens/Messages_List` | `/Contact_Support` | `/Navigation` | `/Profil/Edit_Profil` | `/Profil/My_Ads` | `/Profil/Notifications` | `/Profil/Profil_Menu` | `/Profil/Public_Profil` | `/Profil/update_Password` | `/RouteContext` | `/Startup/Carousel/carouselScreen ` | `/Startup/Carousel/firstSlide` | `/Startup/Carousel/secondSlide` | `/Startup/Carousel/thirdSlide` | `/Startup/Discovery` | `/_services/accountService` | `/_sitemap` | `/api/axios` | `/componants/Header` | `/componants/Separator` | `/componants/TemplateScreen` | `/componants/modalMailSend` | `/homeScreen` | `/navigators/AdsNavigator` | `/navigators/AuthNavigator` | `/navigators/ChatNavigators` | `/navigators/ContactSupportNavigator` | `/navigators/MenuNavigator` | `/navigators/PhotosNavigator` | `/navigators/PlantSittingTrackingNavigator` | `/navigators/PostAdNavigator` | `/navigators/ProgressContext` | `/navigators/UserNavigators` | `/navigators/WelcomeNavigators`;
   type DynamicRoutes<T extends string> = never;
-  // prettier-ignore
   type DynamicRouteTemplate = never;
 
-  type RelativePathString = `./${string}` | `../${string}` | '..';
-  type AbsoluteRoute = DynamicRouteTemplate | StaticRoutes;
-  type ExternalPathString = `http${string}`;
-  type ExpoRouterRoutes = DynamicRouteTemplate | StaticRoutes | RelativePathString;
-  type AllRoutes = ExpoRouterRoutes | ExternalPathString;
+  export type RelativePathString = `./${string}` | `../${string}` | '..';
+  export type AbsoluteRoute = DynamicRouteTemplate | StaticRoutes;
+  export type ExternalPathString = `${string}:${string}`;
+  export type ExpoRouterRoutes = DynamicRouteTemplate | StaticRoutes | RelativePathString;
+  export type AllRoutes = ExpoRouterRoutes | ExternalPathString;
 
   /****************
    * Route Utils  *
    ****************/
-
   type SearchOrHash = `?${string}` | `#${string}`;
-  type UnknownInputParams = Record<string, string | number | (string | number)[]>;
+  export type UnknownInputParams = Record<
+    string,
+    string | number | undefined | null | (string | number)[]
+  >;
   type UnknownOutputParams = Record<string, string | string[]>;
 
   /**
@@ -42,14 +38,14 @@ declare module "expo-router" {
   type SingleRoutePart<S extends string> = S extends `${string}/${string}`
     ? never
     : S extends `${string}${SearchOrHash}`
-    ? never
-    : S extends ''
-    ? never
-    : S extends `(${string})`
-    ? never
-    : S extends `[${string}]`
-    ? never
-    : S;
+      ? never
+      : S extends ''
+        ? never
+        : S extends `(${string})`
+          ? never
+          : S extends `[${string}]`
+            ? never
+            : S;
 
   /**
    * Return only the CatchAll router part. If the string has search parameters or a hash return never
@@ -57,14 +53,12 @@ declare module "expo-router" {
   type CatchAllRoutePart<S extends string> = S extends `${string}${SearchOrHash}`
     ? never
     : S extends ''
-    ? never
-    : S extends `${string}(${string})${string}`
-    ? never
-    : S extends `${string}[${string}]${string}`
-    ? never
-    : S;
-
-  // type OptionalCatchAllRoutePart<S extends string> = S extends `${string}${SearchOrHash}` ? never : S
+      ? never
+      : S extends `${string}(${string})${string}`
+        ? never
+        : S extends `${string}[${string}]${string}`
+          ? never
+          : S;
 
   /**
    * Return the name of a route parameter
@@ -75,7 +69,9 @@ declare module "expo-router" {
   type IsParameter<Part> = Part extends `[${infer ParamName}]` ? ParamName : never;
 
   /**
-   * Return a union of all parameter names. If there are no names return never
+   * Return a union of all raw parameter names. If there are no names return never
+   *
+   * This differs from ParameterNames as it returns the `...` for catch all parameters
    *
    * /[test]         -> 'test'
    * /[abc]/[...def] -> 'abc'|'...def'
@@ -85,7 +81,7 @@ declare module "expo-router" {
     : IsParameter<Path>;
 
   /**
-   * Returns all segements of a route.
+   * Returns all segments of a route.
    *
    * /(group)/123/abc/[id]/[...rest] -> ['(group)', '123', 'abc', '[id]', '[...rest]'
    */
@@ -94,8 +90,12 @@ declare module "expo-router" {
       ? [...RouteSegments<PartB>]
       : [PartA, ...RouteSegments<PartB>]
     : Path extends ''
-    ? []
-    : [Path];
+      ? []
+      : [Path];
+
+  type AllUngroupedRoutes<Path> = Path extends `(${infer PartA})/${infer PartB}`
+    ? `(${PartA})/${AllUngroupedRoutes<PartB>}` | AllUngroupedRoutes<PartB>
+    : Path;
 
   /**
    * Returns a Record of the routes parameters as strings and CatchAll parameters
@@ -106,7 +106,7 @@ declare module "expo-router" {
    * /[id]/[...rest] -> { id: string, rest: string[] }
    * /no-params      -> {}
    */
-  type InputRouteParams<Path> = {
+  export type InputRouteParams<Path> = {
     [Key in ParameterNames<Path> as Key extends `...${infer Name}`
       ? Name
       : Key]: Key extends `...${string}` ? (string | number)[] : string | number;
@@ -121,120 +121,237 @@ declare module "expo-router" {
   /**
    * Returns the search parameters for a route.
    */
-  export type SearchParams<T extends AllRoutes> = T extends DynamicRouteTemplate
+  export type SearchParams<T extends AllRoutes = never> = T extends DynamicRouteTemplate
     ? OutputRouteParams<T>
     : T extends StaticRoutes
-    ? never
-    : UnknownOutputParams;
-
-  /**
-   * Route is mostly used as part of Href to ensure that a valid route is provided
-   *
-   * Given a dynamic route, this will return never. This is helpful for conditional logic
-   *
-   * /test         -> /test, /test2, etc
-   * /test/[abc]   -> never
-   * /test/resolve -> /test, /test2, etc
-   *
-   * Note that if we provide a value for [abc] then the route is allowed
-   *
-   * This is named Route to prevent confusion, as users they will often see it in tooltips
-   */
-  export type Route<T> = T extends string
-    ? T extends DynamicRouteTemplate
       ? never
-      :
-          | StaticRoutes
-          | RelativePathString
-          | ExternalPathString
-          | (T extends `${infer P}${SearchOrHash}`
-              ? P extends DynamicRoutes<infer _>
-                ? T
-                : never
-              : T extends DynamicRoutes<infer _>
-              ? T
-              : never)
-    : never;
+      : UnknownOutputParams;
 
   /*********
    * Href  *
    *********/
 
-  export type Href<T> = T extends Record<'pathname', string> ? HrefObject<T> : Route<T>;
+  /**
+   * The main routing type for Expo Router. Includes all available routes with strongly typed parameters.
+   *
+   * Allows for static routes, relative paths, external paths, dynamic routes, and the dynamic route provided as a static string
+   */
+  export type Href =
+    | StringRouteToType<AllUngroupedRoutes<StaticRoutes> | RelativePathString | ExternalPathString>
+    | DynamicRouteTemplateToString<DynamicRouteTemplate>
+    | DynamicRouteObject<
+        StaticRoutes | RelativePathString | ExternalPathString | DynamicRouteTemplate
+      >;
 
-  export type HrefObject<
-    R extends Record<'pathname', string>,
-    P = R['pathname']
-  > = P extends DynamicRouteTemplate
-    ? { pathname: P; params: InputRouteParams<P> }
-    : P extends Route<P>
-    ? { pathname: Route<P> | DynamicRouteTemplate; params?: never | InputRouteParams<never> }
+  type StringRouteToType<T extends string> =
+    | T
+    | `${T}${SearchOrHash}`
+    | { pathname: T; params?: UnknownInputParams | never };
+
+  type DynamicRouteTemplateToString<Path> = Path extends `${infer PartA}/${infer PartB}`
+    ? `${PartA extends `[${string}]` ? string : PartA}/${DynamicRouteTemplateToString<PartB>}`
+    : Path extends `[${string}]`
+      ? string
+      : Path;
+
+  type DynamicRouteObject<T> = T extends DynamicRouteTemplate
+    ? {
+        pathname: T;
+        params: InputRouteParams<T>;
+      }
     : never;
+
+  type IsStaticRoute<T> =
+    | StaticRoutes
+    | RelativePathString
+    | ExternalPathString
+    | (T extends DynamicRoutes<infer _> ? T : never);
 
   /***********************
    * Expo Router Exports *
    ***********************/
 
-  export type Router = Omit<OriginalRouter, 'push' | 'replace' | 'setParams'> & {
+  export type Router = {
+    /** Go back in the history. */
+    back: () => void;
+    /** If there's history that supports invoking the `back` function. */
+    canGoBack: () => boolean;
+    /** Navigate to the provided href using a push operation if possible. */
+    push: (href: Href) => void;
     /** Navigate to the provided href. */
-    push: <T>(href: Href<T>) => void;
+    navigate: (href: Href) => void;
     /** Navigate to route without appending to the history. */
-    replace: <T>(href: Href<T>) => void;
+    replace: (href: Href) => void;
+    /** Navigate to a screen with a stack lower than the current screen. Using the provided count if possible, otherwise 1. */
+    dismiss: (count?: number) => void;
+    /** Navigate to first screen within the lowest stack. */
+    dismissAll: () => void;
+    /** If there's history that supports invoking the `dismiss` and `dismissAll` function. */
+    canDismiss: () => boolean;
     /** Update the current route query params. */
-    setParams: <T = ''>(params?: T extends '' ? Record<string, string> : InputRouteParams<T>) => void;
+    setParams: <T = ''>(
+      params?: T extends '' ? Record<string, string | undefined | null> : InputRouteParams<T>
+    ) => void;
   };
 
   /** The imperative router. */
-  export const router: Router;
+  export declare const router: Router;
 
   /************
    * <Link /> *
    ************/
-  export interface LinkProps<T> extends OriginalLinkProps {
-    href: Href<T>;
+  export interface WebAnchorProps {
+    /**
+     * **Web only:** Specifies where to open the `href`.
+     *
+     * - **_self**: the current tab.
+     * - **_blank**: opens in a new tab or window.
+     * - **_parent**: opens in the parent browsing context. If no parent, defaults to **_self**.
+     * - **_top**: opens in the highest browsing context ancestor. If no ancestors, defaults to **_self**.
+     *
+     * This property is passed to the underlying anchor (`<a>`) tag.
+     *
+     * @default '_self'
+     *
+     * @example
+     * <Link href="https://expo.dev" target="_blank">Go to Expo in new tab</Link>
+     */
+    target?: '_self' | '_blank' | '_parent' | '_top' | (string & object);
+
+    /**
+     * **Web only:** Specifies the relationship between the `href` and the current route.
+     *
+     * Common values:
+     * - **nofollow**: Indicates to search engines that they should not follow the `href`. This is often used for user-generated content or links that should not influence search engine rankings.
+     * - **noopener**: Suggests that the `href` should not have access to the opening window's `window.opener` object, which is a security measure to prevent potentially harmful behavior in cases of links that open new tabs or windows.
+     * - **noreferrer**: Requests that the browser not send the `Referer` HTTP header when navigating to the `href`. This can enhance user privacy.
+     *
+     * The `rel` property is primarily used for informational and instructive purposes, helping browsers and web
+     * crawlers make better decisions about how to handle and interpret the links on a web page. It is important
+     * to use appropriate `rel` values to ensure that links behave as intended and adhere to best practices for web
+     * development and SEO (Search Engine Optimization).
+     *
+     * This property is passed to the underlying anchor (`<a>`) tag.
+     *
+     * @example
+     * <Link href="https://expo.dev" rel="nofollow">Go to Expo</Link>
+     */
+    rel?: string;
+
+    /**
+     * **Web only:** Specifies that the `href` should be downloaded when the user clicks on the link,
+     * instead of navigating to it. It is typically used for links that point to files that the user should download,
+     * such as PDFs, images, documents, etc.
+     *
+     * The value of the `download` property, which represents the filename for the downloaded file.
+     * This property is passed to the underlying anchor (`<a>`) tag.
+     *
+     * @example
+     * <Link href="/image.jpg" download="my-image.jpg">Download image</Link>
+     */
+    download?: string;
+  }
+
+  export interface LinkProps<T = string> extends Omit<TextProps, 'href'>, WebAnchorProps {
+    /** Path to route to. */
+    href: Href;
+
+    // TODO(EvanBacon): This may need to be extracted for React Native style support.
+    /** Forward props to child component. Useful for custom buttons. */
+    asChild?: boolean;
+
+    /** Should replace the current route without adding to the history. */
+    replace?: boolean;
+    /** Should push the current route  */
+    push?: boolean;
+
+    /** On web, this sets the HTML `class` directly. On native, this can be used with CSS interop tools like Nativewind. */
+    className?: string;
+
+    onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void;
   }
 
   export interface LinkComponent {
-    <T>(props: React.PropsWithChildren<LinkProps<T>>): JSX.Element;
+    (props: React.PropsWithChildren<LinkProps>): JSX.Element;
     /** Helper method to resolve an Href object into a string. */
-    resolveHref: <T>(href: Href<T>) => string;
+    resolveHref: (href: Href) => string;
   }
 
   /**
    * Component to render link to another route using a path.
    * Uses an anchor tag on the web.
    *
-   * @param props.href Absolute path to route (e.g. `/feeds/hot`).
+   * @param props.href Absolute path to route (e.g. \`/feeds/hot\`).
    * @param props.replace Should replace the current route without adding to the history.
    * @param props.asChild Forward props to child component. Useful for custom buttons.
    * @param props.children Child elements to render the content.
+   * @param props.className On web, this sets the HTML \`class\` directly. On native, this can be used with CSS interop tools like Nativewind.
    */
-  export const Link: LinkComponent;
-  
+  export declare const Link: LinkComponent;
+
   /** Redirects to the href as soon as the component is mounted. */
-  export const Redirect: <T>(
-    props: React.PropsWithChildren<{ href: Href<T> }>
-  ) => JSX.Element;
+  export declare const Redirect: (props: React.PropsWithChildren<{ href: Href }>) => ReactNode;
+  export type Redirect = typeof Redirect;
 
-  /************
-   * Hooks *
-   ************/
-  export function useRouter(): Router;
+  /**
+   * Hooks
+   */
 
-  export function useLocalSearchParams<
-    T extends AllRoutes | UnknownOutputParams = UnknownOutputParams
+  export declare function useRouter(): Router;
+  type useRouter = typeof useRouter;
+
+  /**
+   * Returns the URL search parameters for the contextually focused route. e.g. \`/acme?foo=bar\` -> \`{ foo: "bar" }\`.
+   * This is useful for stacks where you may push a new screen that changes the query parameters.
+   *
+   * To observe updates even when the invoking route is not focused, use \`useGlobalSearchParams()\`.
+   * @see \`useGlobalSearchParams\`
+   */
+  export declare function useLocalSearchParams<
+    TParams extends AllRoutes | UnknownOutputParams = UnknownOutputParams,
+  >(): TParams extends AllRoutes ? SearchParams<TParams> : TParams;
+  type useLocalSearchParams = typeof useLocalSearchParams;
+
+  export declare function useSearchParams<
+    TParams extends AllRoutes | UnknownOutputParams = UnknownOutputParams,
+  >(): TParams extends AllRoutes ? SearchParams<TParams> : TParams;
+  type useSearchParams = typeof useSearchParams;
+
+  /**
+   * Get the globally selected query parameters, including dynamic path segments. This function will update even when the route is not focused.
+   * Useful for analytics or other background operations that don't draw to the screen.
+   *
+   * When querying search params in a stack, opt-towards using \`useLocalSearchParams\` as these will only
+   * update when the route is focused.
+   *
+   * @see \`useLocalSearchParams\`
+   */
+  export declare function useGlobalSearchParams<
+    T extends AllRoutes | UnknownOutputParams = UnknownOutputParams,
   >(): T extends AllRoutes ? SearchParams<T> : T;
+  type useGlobalSearchParams = typeof useGlobalSearchParams;
 
-  /** @deprecated renamed to `useGlobalSearchParams` */
-  export function useSearchParams<
-    T extends AllRoutes | UnknownOutputParams = UnknownOutputParams
-  >(): T extends AllRoutes ? SearchParams<T> : T;
-
-  export function useGlobalSearchParams<
-    T extends AllRoutes | UnknownOutputParams = UnknownOutputParams
-  >(): T extends AllRoutes ? SearchParams<T> : T;
-
-  export function useSegments<
-    T extends AbsoluteRoute | RouteSegments<AbsoluteRoute> | RelativePathString
+  /**
+   * Get a list of selected file segments for the currently selected route. Segments are not normalized, so they will be the same as the file path. e.g. /[id]?id=normal -> ["[id]"]
+   *
+   * \`useSegments\` can be typed using an abstract.
+   * Consider the following file structure, and strictly typed \`useSegments\` function:
+   *
+   * \`\`\`md
+   * - app
+   *   - [user]
+   *     - index.js
+   *     - followers.js
+   *   - settings.js
+   * \`\`\`
+   * This can be strictly typed using the following abstract:
+   *
+   * \`\`\`ts
+   * const [first, second] = useSegments<['settings'] | ['[user]'] | ['[user]', 'followers']>()
+   * \`\`\`
+   */
+  export declare function useSegments<
+    T extends AbsoluteRoute | RouteSegments<AbsoluteRoute> | RelativePathString,
   >(): T extends AbsoluteRoute ? RouteSegments<T> : T extends string ? string[] : T;
+  type useSegments = typeof useSegments;
 }

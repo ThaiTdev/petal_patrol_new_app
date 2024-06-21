@@ -22,6 +22,7 @@ const FirstConnexion = ({ navigation }) => {
     navigation.navigate("Authentification", { screen: "CGUComponent" });
     console.log("Navigating to CGUComponent");
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
