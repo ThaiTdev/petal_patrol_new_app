@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profil_Menu from "../Profil/Profil_Menu";
 import Choose_Ad_Type from "../Ads/Post_Ad/Choose_Ad_Type";
@@ -6,8 +6,8 @@ import Ads_List from "../Ads/Ads_List";
 import Research from "../Ads/Research";
 import Messages_List from "../Chat_Screens/Messages_List";
 import Notifications from "../Profil/Notifications";
-import { ProgressContext } from '../navigators/ProgressContext';
-
+import { ProgressContext } from "../navigators/ProgressContext";
+import ChatNavigators from "./ChatNavigators";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,42 +18,44 @@ const MenuNavigator = ({ navigation }) => {
     setCurrentStep(currentStep + 1);
   };
   const resetStep = () => {
-      setCurrentStep(0);
-    };
+    setCurrentStep(0);
+  };
 
   return (
-    <ProgressContext.Provider value={{ currentStep, handleNextStep, resetStep }}>
+    <ProgressContext.Provider
+      value={{ currentStep, handleNextStep, resetStep }}
+    >
       <>
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Research"
-        component={Research}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Notifications"
-        component={Notifications}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="PostAd"
-        component={Choose_Ad_Type}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Messages"
-        component={Messages_List}
-        options={{ headerShown: false }}
-        />
-      <Stack.Screen
-        name="User"
-        component={Profil_Menu}
-        options={{ headerShown: false }}
-        />
-    </Stack.Navigator>
-    </>
-  </ProgressContext.Provider>
-    
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Research"
+            component={Research}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Notifications"
+            component={Notifications}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PostAd"
+            component={Choose_Ad_Type}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Messages"
+            // component={Messages_List}
+            component={ChatNavigators}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="User"
+            component={Profil_Menu}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </>
+    </ProgressContext.Provider>
   );
 };
 

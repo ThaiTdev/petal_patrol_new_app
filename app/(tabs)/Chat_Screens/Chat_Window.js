@@ -15,9 +15,11 @@ import io from "socket.io-client";
 import { COLORS } from "../../../constants/themes";
 import images from "../../../constants/images";
 import Header from "../componants/Header";
+import { userLogin } from "../../../context/LoginProvider";
 
 const Chat = () => {
   // State pour stocker les messages
+  const [room, setRoom] = useState("");
   const [messages, setMessages] = useState([]);
   // State pour stocker le message actuellement en cours de saisie
   const [currentMessage, setCurrentMessage] = useState("");
@@ -25,17 +27,43 @@ const Chat = () => {
   const [socket, setSocket] = useState(null);
   const [keyboardShown, setKeyboardShown] = useState(false);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const { profile } = userLogin();
 
   useEffect(() => {
+    console.log("login:", profile);
     // Connexion au serveur Socket.IO
-    const newSocket = io("YOUR_SOCKET_SERVER_URL");
-    setSocket(newSocket);
-
-    // Écoute des nouveaux messages entrants
-    newSocket.on("message", (message) => {
-      // Mise à jour de la liste des messages avec le nouveau message
-      setMessages((prevMessages) => [...prevMessages, message]);
+    console.log("socket:", process.env.EXPO_PUBLIC_SOCKET_URL);
+    const newSocket = io(process.env.EXPO_PUBLIC_SOCKET_URL, {
+      auth: { token: process.env.EXPO_PUBLIC_SOCKET_TOKEN },
     });
+    setSocket(newSocket);
+    newSocket.emit("rooms");
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("MESS[]", messages);
+    if (socket) {
+      // Écoute des nouveaux messages entrants
+      socket.on("messageSended", (message) => {
+        // Mise à jour de la liste des messages avec le nouveau message
+        setMessages((prevMessages) => [...prevMessages, message.message]);
+      });
+
+      socket.on("roomJoined", (data) => {
+        console.log("roomJoined", data);
+        setRoom(data.room);
+        setMessages(data.messages);
+      });
+
+      socket.on("rooms", (data) => {
+        console.log("ROOMS", data);
+        socket.emit("joinRoom", data.rooms[0].name, profile.userId.toString());
+      });
+    }
 
     // Ajout des écouteurs pour détecter l'apparition et la disparition du clavier
     const keyboardWillShowListener = Keyboard.addListener(
@@ -54,16 +82,32 @@ const Chat = () => {
 
     return () => {
       // Déconnexion du socket lors du démontage du composant
-      newSocket.disconnect();
+      // newSocket.disconnect();
+      if (socket) {
+        socket.off("messageSended");
+        socket.off("rooms");
+        socket.off("roomJoined");
+      }
+
       keyboardWillShowListener.remove();
       keyboardWillHideListener.remove();
     };
-  }, []);
+  }, [socket, messages, room]);
+
   // Fonction pour envoyer un message
   const sendMessage = () => {
     if (currentMessage.trim() !== "") {
       // Émission du message vers le serveur
-      socket.emit("message", currentMessage);
+      socket.emit("sendMessage", {
+        name: room,
+        user: {
+          id: profile.userId.toString(),
+          username: profile.name,
+          avatar: profile.avatar,
+        },
+        content: currentMessage,
+      });
+
       // Réinitialisation du message actuel
       setCurrentMessage("");
     }
@@ -74,37 +118,75 @@ const Chat = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View style={styles.container}>
-        <Header Title={"Espace discution"} logo={images.feuilleMarron} />
-        {/* Liste des messages */}
-        <FlatList
-          data={messages}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <Text style={styles.message}>{item}</Text>}
-          inverted // Pour afficher le dernier message en bas
-        />
-        {/* Zone de saisie de texte et bouton d'envoi */}
-        <View style={styles.inputContainer}>
-          <TextInput
-            value={currentMessage}
-            onChangeText={setCurrentMessage}
-            placeholder="Type your message"
-            style={{
-              ...styles.input, // Conserver les styles définis dans styles.input
-              marginBottom: keyboardShown ? 0 : 100, // Ajouter la condition pour modifier le marginBottom en fonction de l'état du clavier
-            }}
-          />
-          <TouchableOpacity
-            style={{
-              ...styles.sendButton, // Conserver les styles définis dans styles.input
-              marginBottom: keyboardShown ? 0 : 100, // Ajouter la condition pour modifier le marginBottom en fonction de l'état du clavier
-            }}
-            onPress={sendMessage}
-          >
-            <Image source={images.pencil} style={styles.sendIcon} />
-          </TouchableOpacity>
+      {room && (
+        <View style={styles.container}>
+          <Header Title={room} logo={images.feuilleMarron} />
+          {/* Liste des messages */}
+          {messages.length > 0 && (
+            <FlatList
+              data={messages}
+              keyExtractor={(_, index) => index}
+              renderItem={({ item }) => (
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    fontSize: 16,
+                    alignItems:
+                      profile.userId.toString() === item.userId
+                        ? "flex-end"
+                        : "flex-start",
+                  }}
+                >
+                  <View style={styles.messageView}>
+                    <Text style={styles.username}>
+                      {item.username}, le{" "}
+                      {item.createdAt
+                        .slice(0, 10)
+                        .split("-")
+                        .reverse()
+                        .join("/")}{" "}
+                      à {item.createdAt.slice(11, 19)}
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign:
+                          profile.userId.toString() === item.userId
+                            ? "right"
+                            : "left",
+                        color: "#242424",
+                      }}
+                    >
+                      {item.content}
+                    </Text>
+                  </View>
+                </View>
+              )}
+            />
+          )}
+          {/* Zone de saisie de texte et bouton d'envoi */}
+          <View style={styles.inputContainer}>
+            <TextInput
+              value={currentMessage}
+              onChangeText={setCurrentMessage}
+              placeholder="Type your message"
+              style={{
+                ...styles.input, // Conserver les styles définis dans styles.input
+                marginBottom: keyboardShown ? 0 : 100, // Ajouter la condition pour modifier le marginBottom en fonction de l'état du clavier
+              }}
+            />
+            <TouchableOpacity
+              style={{
+                ...styles.sendButton, // Conserver les styles définis dans styles.input
+                marginBottom: keyboardShown ? 0 : 100, // Ajouter la condition pour modifier le marginBottom en fonction de l'état du clavier
+              }}
+              onPress={sendMessage}
+            >
+              <Image source={images.pencil} style={styles.sendIcon} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      )}
     </KeyboardAvoidingView>
   );
 };
@@ -116,10 +198,23 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     padding: 20,
   },
-  message: {
-    fontSize: 16,
+  messageView: {
+    maxWidth: "75%",
+    borderRadius: 40,
+    padding: 8,
     color: COLORS.white,
-    marginBottom: 10,
+    backgroundColor: "#e8e8e8",
+    marginTop: 8,
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  username: {
+    fontSize: 10,
+    color: "gray",
+  },
+  content: {
+    textAlign: "right",
+    color: "#242424",
   },
   inputContainer: {
     flexDirection: "row",
