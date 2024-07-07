@@ -20,6 +20,7 @@ import { userLogin } from "../../../context/LoginProvider";
 const Chat = () => {
   // State pour stocker les messages
   const [room, setRoom] = useState("");
+  const [rooms, setRooms] = useState([]);
   const [messages, setMessages] = useState([]);
   // State pour stocker le message actuellement en cours de saisie
   const [currentMessage, setCurrentMessage] = useState("");
@@ -60,8 +61,14 @@ const Chat = () => {
       });
 
       socket.on("rooms", (data) => {
-        console.log("ROOMS", data);
-        socket.emit("joinRoom", data.rooms[0].name, profile.userId.toString());
+        // console.log(
+        //   "ROOMS",
+        //   data.rooms.filter((r) => r.users.includes(profile.userId.toString()))
+        // );
+        setRooms(
+          data.rooms.filter((r) => r.users.includes(profile.userId.toString()))
+        );
+        // socket.emit("joinRoom", data.rooms[0].name, profile.userId.toString());
       });
     }
 
@@ -113,14 +120,30 @@ const Chat = () => {
     }
   };
 
+  const enterRoom = (room) => {
+    console.log("click on enter");
+    socket.emit("joinRoom", room, profile.userId.toString());
+  };
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      {room && (
+      {room ? (
         <View style={styles.container}>
           <Header Title={room} logo={images.feuilleMarron} />
+          <TouchableOpacity
+            style={styles.returnBtn}
+            onPress={() => setRoom("")}
+          >
+            <Image
+              source={{
+                uri: "https://icons.veryicon.com/png/o/miscellaneous/energy-system-icon/return-57.png",
+              }}
+              style={styles.return}
+            />
+          </TouchableOpacity>
           {/* Liste des messages */}
           {messages.length > 0 && (
             <FlatList
@@ -186,6 +209,24 @@ const Chat = () => {
             </TouchableOpacity>
           </View>
         </View>
+      ) : (
+        <View style={styles.container}>
+          {rooms && (
+            <FlatList
+              data={rooms}
+              keyExtractor={(_, index) => index}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={styles.room}
+                  onPress={() => enterRoom(item.name)}
+                >
+                  <Image source={images.logo} style={styles.avatar} />
+                  <Text>{item.name}</Text>
+                </TouchableOpacity>
+              )}
+            />
+          )}
+        </View>
       )}
     </KeyboardAvoidingView>
   );
@@ -217,8 +258,12 @@ const styles = StyleSheet.create({
     color: "#242424",
   },
   inputContainer: {
+    position: "absolute",
+    bottom: 20,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
   },
   input: {
     flex: 1,
@@ -236,6 +281,30 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     tintColor: COLORS.white,
+  },
+  room: {
+    backgroundColor: COLORS.white,
+    padding: 20,
+    margin: 8,
+    borderRadius: 16,
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 16,
+    marginRight: 16,
+  },
+  return: {
+    width: 30,
+    height: 30,
+  },
+  returnBtn: {
+    position: "absolute",
+    top: 24,
+    right: 30,
   },
 });
 
